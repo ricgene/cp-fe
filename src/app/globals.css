@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #008F45;
+  --color-element: #E1EFEC;
+  --color-heading: #262626;
+  --color-paragraph: #595959;
+  --color-unactive: #A8A7A7;
+  --color-stroke: #E3E3E3;
+  --color-bg: #FFFFFF;
+  --color-error: #D00000;
+  --color-success: #05C360;
+  --color-rating: #E5D200;
+  --color-link: #509CFF;
+  --color-divider: #EEEDED;
+  --color-points: #9BCFB9;
+  --gradient-button: linear-gradient(130.61deg, #0A974D 10.46%, #006260 92.17%);
+  --gradient-sidebar: linear-gradient(147.24deg, #0A974D -47.89%, #006260 94.31%);
+  --gradient-background: linear-gradient(130.61deg, #0A974D4D 10.46%, #0062604D 92.17%);
+  --gradient-landing-hero: linear-gradient(359.8deg, #FFFFFF 2.99%, rgba(255, 255, 255, 0) 99.82%);
+  --gradient-whyCp-cards: linear-gradient(346.82deg, #E8F3EF 7.56%, #FFFFFF 101.86%);
+  --animate-spin-slow: spin 1.5s linear infinite;
+}
+
+body {
+  background: white;
+  color: black;
+}
+
+/* Hide scrollbar */
+::-webkit-scrollbar {
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE and Edge */
+  display: none;               /* Chrome, Safari */
+}
+
+/* Hide number input spinners (Chrome, Safari, Edge) */
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide number input spinners (Firefox) */
+.no-spinner[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* Customize tooltip */
+.apexcharts-tooltip {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Customize tooltip */
+#bar-chart .apexcharts-tooltip {
+  margin: -20px 0 0 1.5px !important;
+  transform: translateX(-50%) !important;
+}
+
+/* Customize tooltip */
+#line-chart .apexcharts-tooltip {
+  margin: -20px 0 0 -11.5px !important;
+  transform: translateX(-50%) !important;
+}
+
+/* Landing Hero Animation */
+.device-wrapper-left {
+  animation: slideRotateLeft 1s 0.5s ease-in-out forwards;
+}
+
+.device-wrapper-right {
+  animation: slideRotateRight 1s 0.5s ease-in-out forwards;
+}
+
+@keyframes slideRotateLeft {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  100% {
+    transform: translateX(70%) rotate(15deg);
+  }
+}
+
+@keyframes slideRotateRight {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-70%) rotate(-15deg);
+  }
+}
+
+
+
+

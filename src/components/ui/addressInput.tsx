@@ -1,0 +1,182 @@
+"use client";
+
+import React, { useEffect, useState, useCallback } from "react";
+import debounce from "lodash.debounce";
+import { twMerge } from "tailwind-merge";
+import usePlacesService from "react-google-autocomplete/lib/usePlacesAutocompleteService";
+import { Typography } from "@/components/ui";
+
+interface AddressComponent {
+  long_name: string;
+  short_name: string;
+  types: string[];
+}
+
+interface GooglePlace {
+  formatted_address: string;
+  address_components: AddressComponent[];
+  geometry: {
+    location: {
+      lat: () => number;
+      lng: () => number;
+    };
+  };
+}
+
+interface Prediction {
+  place_id: string;
+  description: string;
+}
+
+interface Props {
+  label?: string;
+  error?: string;
+  value: string;
+  className?: string;
+  disabled?: boolean;
+  placeholder?: string;
+  wrapperClassName?: string;
+  onChange?: (value: string) => void;
+  onPlaceSelect?: (place: {
+    address: string;
+    latitude: number;
+    longitude: number;
+    state: string;
+    city: string;
+  }) => void;
+}
+
+const styles = {
+  wrapper: "w-full",
+  label: "block mb-1.5",
+  input:
+    "w-full bg-white border-1 border-stroke rounded-lg h-11 px-4 focus:outline-none placeholder:text-paragraph text-sm text-heading disabled:bg-stroke disabled:cursor-not-allowed disabled:opacity-50",
+  error: "text-[10px] text-red-600 mt-1",
+  predictions:
+    "absolute z-10 w-full mt-1 bg-white border-1 border-stroke rounded-lg shadow-lg",
+  predictionItem:
+    "px-4 py-2 text-sm text-paragraph hover:bg-stroke cursor-pointer",
+};
+
+const AddressInput = ({
+  label,
+  error,
+  value,
+  disabled,
+  className,
+  wrapperClassName,
+  placeholder = "Enter address",
+  onChange,
+  onPlaceSelect,
+}: Props) => {
+  const [showPredictions, setShowPredictions] = useState(false);
+
+  const {
+    placesService,
+    placePredictions,
+    getPlacePredictions,
+    isPlacePredictionsLoading,
+  } = usePlacesService({
+    apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+  });
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedGetPredictions = useCallback(
+    debounce((input: string) => {
+      if (input.length > 2) {
+        getPlacePredictions({
+          input,
+          componentRestrictions: { country: "us" },
+        });
+      } else {
+        setShowPredictions(false);
+      }
+    }, 500),
+    [getPlacePredictions]
+  );
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    onChange?.(value);
+    debouncedGetPredictions(value);
+  };
+
+  const handlePredictionClick = (prediction: Prediction) => {
+    if (!placesService) return;
+    placesService.getDetails(
+      { placeId: prediction.place_id },
+      (placeDetails: GooglePlace) => {
+        const address = placeDetails.formatted_address;
+        const lat = placeDetails.geometry?.location?.lat();
+        const lng = placeDetails.geometry?.location?.lng();
+
+        const addressComponents = placeDetails.address_components;
+        const stateComponent = addressComponents?.find((component) =>
+          component.types.includes("administrative_area_level_1")
+        );
+        const cityComponent = addressComponents?.find((component) =>
+          component.types.includes("locality")
+        );
+
+        onPlaceSelect?.({
+          address,
+          latitude: lat,
+          longitude: lng,
+          state: stateComponent?.long_name || "",
+          city: cityComponent?.long_name || "",
+        });
+        setShowPredictions(false);
+      }
+    );
+  };
+
+  useEffect(() => {
+    if (placePredictions.length) {
+      setShowPredictions(true);
+    }
+  }, [placePredictions]);
+
+  return (
+    <div className={`${styles.wrapper} ${wrapperClassName || ""}`}>
+      {label && (
+        <label className={styles.label}>
+          <Typography level="p1_bold">{label}</Typography>
+        </label>
+      )}
+      <div className="relative">
+        <input
+          type="text"
+          autoComplete="off"
+          value={value}
+          disabled={disabled}
+          placeholder={placeholder}
+          className={twMerge(styles.input, className || "")}
+          onChange={handleInputChange}
+          onFocus={() => value.length > 2 && setShowPredictions(true)}
+          onBlur={() => setTimeout(() => setShowPredictions(false), 200)}
+        />
+        {showPredictions &&
+          (placePredictions.length > 0 || isPlacePredictionsLoading) && (
+            <div className={styles.predictions}>
+              {isPlacePredictionsLoading ? (
+                <div className={styles.predictionItem}>Loading...</div>
+              ) : (
+                placePredictions?.map((prediction) => (
+                  <div
+                    key={prediction.place_id}
+                    className={styles.predictionItem}
+                    onClick={() => handlePredictionClick(prediction)}
+                  >
+                    {prediction.description}
+                  </div>
+                ))
+              )}
+            </div>
+          )}
+      </div>
+      {error && <p className={styles.error}>{error}</p>}
+    </div>
+  );
+};
+
+export default AddressInput;
