@@ -1,0 +1,35 @@
+# Cityperks-Frontend
+# Docker Compose file for cityperks-fe
+
+services:
+  # Development Service
+  cityperks-fe-dev:
+    container_name: cityperks-fe-dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    env_file:
+      - ./.env
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    profiles:
+      - dev
+
+  # Production Service
+  cityperks-fe-prod:
+    container_name: cityperks-fe-prod
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      args:
+        NEXT_PUBLIC_API_URL: "http://localhost:4000/api/"
+        NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: "add-key-here"
+    env_file:
+      - ./.env
+    ports:
+      - "3000:3000"
+    profiles:
+      - prod

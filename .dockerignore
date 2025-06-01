@@ -1,0 +1,30 @@
+# Node modules and build artifacts
+node_modules
+.next
+out
+build
+*.log
+
+# Environment and configuration files
+.env
+.env.*
+Dockerfile
+docker-compose.yml
+.dockerignore
+next.config.js
+
+# Version control
+.git
+.gitignore
+
+# IDE and OS-specific files
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Test and coverage directories
+coverage
+test-results

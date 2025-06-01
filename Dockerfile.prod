@@ -1,0 +1,39 @@
+# Cityperks-Frontend
+# Dockerfile for cityperks-fe production environment
+
+# Build Stage
+FROM node:20-alpine AS prod-builder
+
+WORKDIR /app
+
+ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=$NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+# Production Stage
+FROM node:20-alpine AS prod-runner
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY --from=prod-builder /app/.next ./.next
+COPY --from=prod-builder /app/public ./public
+
+ENV NODE_ENV=production
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start"]
