@@ -29,7 +29,7 @@ const styles = {
   devicesContainer:
     "relative flex items-start justify-center max-xl:mt-20 xl:-mt-20 max-h-[150px] sm:max-h-[200px] md:max-h-[320px] overflow-hidden",
   gradientOverlay:
-    "absolute left-0 -bottom-1 w-full h-[40%] [background:var(--gradient-landing-hero)] z-20",
+    "absolute left-0 -bottom-1 w-full h-[35%] [background:var(--gradient-landing-hero)] z-20",
   deviceWrapper:
     "relative aspect-[248/508] w-[100px] sm:w-[150px] md:w-[200px] xl:w-[228px]",
   deviceWrapperCenter: "z-10",
