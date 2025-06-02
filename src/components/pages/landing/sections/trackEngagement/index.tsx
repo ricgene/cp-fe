@@ -37,7 +37,6 @@ const TrackEngagement = () => {
           src="/assets/landing/landing-track-engagement-device.svg"
           alt="Track Engagement"
           fill
-          priority
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>

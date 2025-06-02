@@ -122,6 +122,7 @@ const HeroSection = () => {
             alt="device-1"
             fill
             priority
+            loading="eager"
             sizes="(max-width: 768px) 100vw, 33vw"
           />
         </div>
@@ -134,6 +135,7 @@ const HeroSection = () => {
             alt="device-2"
             fill
             priority
+            loading="eager"
             sizes="(max-width: 768px) 100vw, 33vw"
           />
         </div>
@@ -146,6 +148,7 @@ const HeroSection = () => {
             alt="device-3"
             fill
             priority
+            loading="eager"
             sizes="(max-width: 768px) 100vw, 33vw"
           />
         </div>
@@ -157,7 +160,7 @@ const HeroSection = () => {
               src="/assets/landing/landing-hero-trustpilot.png"
               alt="trustpilot"
               fill
-              priority
+              // priority
               sizes="(max-width: 768px) 100vw, 33vw"
             />
           </div>
