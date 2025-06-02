@@ -33,7 +33,7 @@ export const LANDING_HERO_CONTENT = {
         description: "Exclusive offers",
       },
       {
-        icon: "earnedCircle" as IconsType,
+        image: "/assets/shared/earned-icon.png",
         title: "Points Earned",
         description: "800 Points",
       },

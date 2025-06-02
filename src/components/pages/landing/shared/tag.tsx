@@ -15,7 +15,7 @@ interface Props {
 const styles = {
   tag: "scale-75 md:scale-90 lg:scale-100 w-fit px-3.5 py-2.5 rounded-xl bg-element border-[0.5px] border-unactive flex items-center justify-center gap-2",
   icon: "h-6",
-  image: "rounded-full -mx-1",
+  image: "rounded-full mr-1",
   title: "text-[9px] font-semibold",
   description: "text-[8px]",
 };
@@ -27,13 +27,13 @@ const Tag = ({ icon, image, title, description, className }: Props) => {
         <Image
           src={image || "/assets/shared/fallback-avatar.png"}
           alt={"tag_image"}
-          height={30}
-          width={30}
+          height={24}
+          width={24}
           className={styles.image}
         />
       )}
       {icon && <Icon name={icon} className={styles.icon} />}
-      <div className="">
+      <div>
         <Typography level="custom" className={styles.title}>
           {title}
         </Typography>

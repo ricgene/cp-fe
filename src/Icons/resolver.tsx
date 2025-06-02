@@ -502,23 +502,12 @@ export const ICONS_LIST = {
       />
     </svg>
   ),
-  earnedCircle: ({ className }: Props) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 30 30"
-      fill="none"
-      className={className}
-    >
-      <rect width={29.93} height={29.93} fill="#F3F9F7" rx={14.965} />
-      <path fill="#262626" d="M5.612 24.31h18.706V5.602H5.612V24.31Z" />
-    </svg>
-  ),
   alertCircle: ({ className }: Props) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 41 41"
       fill="none"
-      className={className}
+      className={className + " bg-white rounded-full"}
     >
       <rect
         width={30.07}
