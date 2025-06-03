@@ -249,3 +249,7 @@ export const DISABLED_MENU_ITEMS: IMenuItem[] = [
     href: ROUTES.OFFERS_ACTIVE.path,
   },
 ];
+
+export const PUBLIC_ROUTES = Object.values(ROUTES)
+  .filter((route) => route.isPublic)
+  .map((route) => route.path);

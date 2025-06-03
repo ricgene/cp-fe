@@ -1,4 +1,6 @@
+import { PUBLIC_ROUTES } from "@/constants";
 import { refreshToken, logout } from "@/requests";
+import { PathsType } from "@/types";
 import { handleError } from "@/utils";
 import axios, {
   AxiosRequestConfig,
@@ -48,7 +50,11 @@ api.interceptors.response.use(
   async (error: AxiosError) => {
     const originalRequest = error.config as CustomAxiosRequestConfig;
 
-    if (!originalRequest) {
+    if (
+      !originalRequest ||
+      !originalRequest.url ||
+      PUBLIC_ROUTES.includes(window.location.pathname as PathsType)
+    ) {
       return Promise.reject(error);
     }
 

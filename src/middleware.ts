@@ -57,7 +57,6 @@ const handleRedirects = async (req: NextRequest, user: IUser | null) => {
 
 // (Middleware)
 export default async function middleware(req: NextRequest) {
-  return NextResponse.next();
   console.log("\n-------- MIDDLEWARE --------");
   const user = await getServerSession(req);
   console.log("\n[MIDDLEWARE] USER", user);
