@@ -5,7 +5,7 @@ import { ACCESS_COOKIE_NAME, REFRESH_COOKIE_NAME } from "@/constants";
 import { NextRequest } from "next/server";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-const getSessionUrl = joinUrl(baseUrl!, "user/me");
+const getSessionUrl = joinUrl(baseUrl!, "user/me?filter=MINIMAL");
 const logoutSessionUrl = joinUrl(baseUrl!, "auth/web/logout");
 
 const fetchSession = async (options: RequestInit) => {
