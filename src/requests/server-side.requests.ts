@@ -4,7 +4,7 @@ import { CACHE_REVALIDATION_TIME_FOR_STATIC_DATA } from "@/constants";
 
 // ENDPOINT URLS
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-const meUrl = joinUrl(baseUrl!, "auth/merchant/me");
+const meUrl = joinUrl(baseUrl!, "auth/web/me");
 const staticDataUrl = joinUrl(baseUrl!, "static-data");
 
 // REQUESTS

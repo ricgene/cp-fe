@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
 
   // (Refresh token request)
   const backendRes = await fetch(
-    joinUrl(process.env.NEXT_PUBLIC_API_URL!, "auth/merchant/refresh-token"),
+    joinUrl(process.env.NEXT_PUBLIC_API_URL!, "auth/web/refresh-token"),
     {
       method: "GET",
       headers: {

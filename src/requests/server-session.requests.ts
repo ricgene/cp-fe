@@ -6,7 +6,7 @@ import { NextRequest } from "next/server";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 const getSessionUrl = joinUrl(baseUrl!, "user/me");
-const logoutSessionUrl = joinUrl(baseUrl!, "auth/merchant/logout");
+const logoutSessionUrl = joinUrl(baseUrl!, "auth/web/logout");
 
 const fetchSession = async (options: RequestInit) => {
   const response = await fetch(getSessionUrl, options);

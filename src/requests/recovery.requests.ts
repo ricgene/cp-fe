@@ -11,9 +11,9 @@ interface ResetPasswordRequest {
 }
 
 // ENDPOINT URLS
-const forgotPasswordUrl = "/recovery/merchant/forgot-password";
-const resetPasswordUrl = "/recovery/merchant/reset-password"; // use with /:token
-const resendPasswordResetUrl = "/recovery/merchant/resend-password-token";
+const forgotPasswordUrl = "/recovery/web/forgot-password";
+const resetPasswordUrl = "/recovery/web/reset-password"; // use with /:token
+const resendPasswordResetUrl = "/recovery/web/resend-password-token";
 
 // REQUESTS
 export const forgotPassword = (data: ForgotPasswordRequest) =>

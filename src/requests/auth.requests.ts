@@ -24,12 +24,12 @@ interface SignupRequest {
 }
 
 // ENDPOINT URLS
-const loginUrl = "/auth/merchant/login";
-const logoutUrl = "/auth/merchant/logout";
-const signupUrl = "/auth/merchant/signup";
-const refreshUrl = "/auth/merchant/refresh-token";
-const verifyUrl = "/auth/merchant/verify-email-token"; // use with /:token
-const resendUrl = "/auth/merchant/resend-email-token";
+const loginUrl = "/auth/web/login";
+const logoutUrl = "/auth/web/logout";
+const signupUrl = "/auth/web/signup";
+const refreshUrl = "/auth/web/refresh-token";
+const verifyUrl = "/auth/web/verify-email-token"; // use with /:token
+const resendUrl = "/auth/web/resend-email-token";
 // REQUESTS
 export const login = (data: LoginRequest) => api.post(loginUrl, data);
 
