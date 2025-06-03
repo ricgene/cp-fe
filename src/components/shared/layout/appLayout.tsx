@@ -7,15 +7,15 @@ import { usePathname } from "next/navigation";
 import Header from "./header";
 import Sidebar from "./sidebar";
 import { ROUTES } from "@/constants";
+import { loadUser } from "@/requests";
 import { useStaticData } from "@/store";
-import { IStaticData, IUser } from "@/types";
+import { IStaticData } from "@/types";
 import { useUserData } from "@/store/userData.atom";
 import { useMobileSidebar } from "@/store/mobileSidebar.atom";
 
 type Props = {
   children: React.ReactNode;
   staticData: IStaticData | null;
-  user: IUser | null;
 };
 
 const styles = {
@@ -26,9 +26,9 @@ const styles = {
   contentInner: "h-full w-full overflow-y-hidden",
 };
 
-const AppLayout = ({ children, staticData, user }: Props) => {
+const AppLayout = ({ children, staticData }: Props) => {
   const pathname = usePathname();
-  const { setUserData } = useUserData();
+  const { setUserData, userData } = useUserData();
   const { setStaticData } = useStaticData();
   const { closeSidebar } = useMobileSidebar();
 
@@ -39,13 +39,24 @@ const AppLayout = ({ children, staticData, user }: Props) => {
   const showLayout = currentRoute?.showSidebar;
   const isBorderedContent = currentRoute?.borderedContent !== false;
 
+  const fetchUserData = async () => {
+    try {
+      const response = await loadUser();
+      setUserData(response.data.user);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {}
+  };
+
   useEffect(() => {
-    if (user) setUserData(user);
+    if (!userData) {
+      fetchUserData();
+    }
+
     if (staticData) setStaticData(staticData);
     closeSidebar();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname, staticData, user]);
+  }, [pathname, staticData]);
 
   return (
     <React.Fragment>

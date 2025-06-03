@@ -12,6 +12,7 @@ export interface IMenuItem {
   icon: IconsType;
   href: PathsType;
   items?: { label: string; href: PathsType }[];
+  disabled?: boolean;
 }
 
 export interface IRouteConfig {

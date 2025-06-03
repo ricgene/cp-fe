@@ -9,11 +9,17 @@ import Icon from "@/Icons";
 import MenuItem from "./menuItem";
 import { logout } from "@/requests";
 import { handleError } from "@/utils";
-import { MENU_ITEMS, ROUTES } from "@/constants";
+import {
+  MERCHANT_MENU_ITEMS,
+  ADMIN_MENU_ITEMS,
+  ROUTES,
+  DISABLED_MENU_ITEMS,
+} from "@/constants";
 import { Typography, Button } from "@/components/ui";
 import ExpandableMenuItem from "./expandableMenuItem";
 import { useMobileSidebar } from "@/store/mobileSidebar.atom";
 import { useUserData } from "@/store/userData.atom";
+import { RoleEnum } from "@/enums";
 
 interface Props {
   pathname: string;
@@ -23,6 +29,7 @@ interface ProfileSectionProps {
   name: string;
   role: string;
   avatarSrc: string;
+  loading: boolean;
 }
 
 interface SearchSectionProps {
@@ -41,7 +48,7 @@ const styles = {
   sidebar: {
     base: "w-[230px] h-full [background:var(--gradient-button)] flex flex-col text-white z-10 relative",
     header: "flex items-center justify-between px-4 py-4.5",
-    nav: "flex flex-col gap-1 px-2 py-4 text-sm",
+    nav: "flex flex-col gap-1 px-2 py-4 text-[13px] overflow-y-auto",
   },
   closeButton: {
     base: "md:hidden relative z-10 !ml-auto mr-3 mt-2 h-12 w-12 !opacity-100 duration-150",
@@ -77,10 +84,23 @@ const Sidebar = ({ pathname }: Props) => {
   const { userData } = useUserData();
   const { isOpen, closeSidebar } = useMobileSidebar();
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [expandedMenu, setExpandedMenu] = useState<string | null>("Offers");
+  const [expandedMenus, setExpandedMenus] = useState<string[]>([
+    "Offers",
+    "Points",
+    "Merchants",
+  ]);
+  const MENU_ITEMS = !!userData
+    ? userData?.role === RoleEnum.MERCHANT
+      ? MERCHANT_MENU_ITEMS
+      : ADMIN_MENU_ITEMS
+    : DISABLED_MENU_ITEMS;
 
   const toggleMenu = (menu: string) => {
-    setExpandedMenu((prev) => (prev === menu ? null : menu));
+    if (expandedMenus.includes(menu)) {
+      setExpandedMenus((prev) => prev.filter((item) => item !== menu));
+    } else {
+      setExpandedMenus((prev) => [...prev, menu]);
+    }
   };
 
   const handleSearch = (query: string) => {
@@ -138,6 +158,7 @@ const Sidebar = ({ pathname }: Props) => {
           <Divider />
 
           <ProfileSection
+            loading={!userData}
             name={userData?.name || "..."}
             role={userData?.role || "..."}
             avatarSrc={
@@ -160,7 +181,7 @@ const Sidebar = ({ pathname }: Props) => {
                   label={item.label}
                   items={item.items}
                   activePath={pathname}
-                  isOpen={expandedMenu === item.label}
+                  isOpen={expandedMenus.includes(item.label)}
                   onToggle={() => toggleMenu(item.label)}
                 />
               ) : (
@@ -186,29 +207,47 @@ export default Sidebar;
 
 // ------------------------------------------------------------------------------
 // Profile Section Component
-const ProfileSection = ({ name, role, avatarSrc }: ProfileSectionProps) => (
+const ProfileSection = ({
+  name,
+  role,
+  avatarSrc,
+  loading,
+}: ProfileSectionProps) => (
   <div className={styles.profile.container}>
-    <Image
-      src={avatarSrc}
-      alt="profile"
-      width={55}
-      height={55}
-      className="rounded-full"
-    />
-    <div>
-      <Typography level="p1_bold" className={styles.profile.name}>
-        {name}
-      </Typography>
-      <Typography level="p1" className={styles.profile.role}>
-        {role}
-      </Typography>
-      <div className={styles.profile.status.container}>
-        <span className={styles.profile.status.dot} />
-        <Typography level="custom" className={styles.profile.status.text}>
-          online
-        </Typography>
-      </div>
-    </div>
+    {loading ? (
+      <React.Fragment>
+        <div className="animate-pulse bg-gradient-to-r from-stroke/50 via-stroke to-stroke/50 bg-[length:200%_100%] h-[55px] aspect-square rounded-full" />
+        <div>
+          <div className="animate-pulse bg-gradient-to-r from-stroke/50 via-stroke to-stroke/50 bg-[length:200%_100%] rounded h-3 w-16" />
+          <div className="animate-pulse bg-gradient-to-r from-stroke/50 via-stroke to-stroke/50 bg-[length:200%_100%] rounded h-4 w-24 my-2" />
+          <div className="animate-pulse bg-gradient-to-r from-stroke/50 via-stroke to-stroke/50 bg-[length:200%_100%] rounded h-2 w-12" />
+        </div>
+      </React.Fragment>
+    ) : (
+      <React.Fragment>
+        <Image
+          src={avatarSrc}
+          alt="profile"
+          width={55}
+          height={55}
+          className="rounded-full"
+        />
+        <div>
+          <Typography level="p1_bold" className={styles.profile.name}>
+            {name}
+          </Typography>
+          <Typography level="p1" className={styles.profile.role}>
+            {role}
+          </Typography>
+          <div className={styles.profile.status.container}>
+            <span className={styles.profile.status.dot} />
+            <Typography level="custom" className={styles.profile.status.text}>
+              online
+            </Typography>
+          </div>
+        </div>
+      </React.Fragment>
+    )}
   </div>
 );
 

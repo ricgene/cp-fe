@@ -26,9 +26,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={twMerge(poppins.className, "h-screen")}>
-        <AppLayout staticData={data.staticData} user={data.user}>
-          {children}
-        </AppLayout>
+        <AppLayout staticData={data.staticData}>{children}</AppLayout>
       </body>
     </html>
   );

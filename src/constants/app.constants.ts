@@ -62,7 +62,7 @@ export const ROUTES: Record<
     title: "Dashboard",
     showSidebar: true,
     isPublic: false,
-    allowedRoles: [RoleEnum.RESIDENT, RoleEnum.MERCHANT],
+    allowedRoles: [RoleEnum.ADMIN, RoleEnum.MERCHANT],
     borderedContent: false,
   },
   OFFERS_ACTIVE: {
@@ -70,50 +70,182 @@ export const ROUTES: Record<
     title: "Active Offers",
     showSidebar: true,
     isPublic: false,
-    allowedRoles: [RoleEnum.RESIDENT, RoleEnum.MERCHANT],
+    allowedRoles: [RoleEnum.ADMIN, RoleEnum.MERCHANT],
   },
   OFFERS_SCHEDULED: {
     path: PathsEnum.OFFERS_SCHEDULED,
     title: "Scheduled Offers",
     showSidebar: true,
     isPublic: false,
-    allowedRoles: [RoleEnum.RESIDENT, RoleEnum.MERCHANT],
+    allowedRoles: [RoleEnum.MERCHANT],
   },
   OFFERS_DRAFT: {
     path: PathsEnum.OFFERS_DRAFT,
     title: "Draft Offers",
     showSidebar: true,
     isPublic: false,
-    allowedRoles: [RoleEnum.RESIDENT, RoleEnum.MERCHANT],
+    allowedRoles: [RoleEnum.MERCHANT],
   },
   OFFERS_ARCHIVED: {
     path: PathsEnum.OFFERS_ARCHIVED,
     title: "Archived Offers",
     showSidebar: true,
     isPublic: false,
-    allowedRoles: [RoleEnum.RESIDENT, RoleEnum.MERCHANT],
+    allowedRoles: [RoleEnum.MERCHANT],
   },
   OFFERS_EXPIRED: {
     path: PathsEnum.OFFERS_EXPIRED,
     title: "Expired Offers",
     showSidebar: true,
     isPublic: false,
-    allowedRoles: [RoleEnum.RESIDENT, RoleEnum.MERCHANT],
+    allowedRoles: [RoleEnum.MERCHANT],
+  },
+  ALERTS: {
+    path: PathsEnum.ALERTS,
+    title: "Alerts",
+    showSidebar: true,
+    isPublic: false,
+    allowedRoles: [RoleEnum.ADMIN],
+  },
+  EVENTS: {
+    path: PathsEnum.EVENTS,
+    title: "Events",
+    showSidebar: true,
+    isPublic: false,
+    allowedRoles: [RoleEnum.ADMIN],
+  },
+  POINTS_ALLOCATE: {
+    path: PathsEnum.POINTS_ALLOCATE,
+    title: "Allocate Points",
+    showSidebar: true,
+    isPublic: false,
+    allowedRoles: [RoleEnum.ADMIN],
+  },
+  POINTS_HISTORY: {
+    path: PathsEnum.POINTS_HISTORY,
+    title: "Points History",
+    showSidebar: true,
+    isPublic: false,
+    allowedRoles: [RoleEnum.ADMIN],
+  },
+  REGISTERED_MERCHANTS: {
+    path: PathsEnum.REGISTERED_MERCHANTS,
+    title: "Registered Merchants",
+    showSidebar: true,
+    isPublic: false,
+    allowedRoles: [RoleEnum.ADMIN],
+  },
+  REQUESTED_MERCHANTS: {
+    path: PathsEnum.REQUESTED_MERCHANTS,
+    title: "Requested Merchants",
+    showSidebar: true,
+    isPublic: false,
+    allowedRoles: [RoleEnum.ADMIN],
+  },
+  REGISTERED_USERS: {
+    path: PathsEnum.REGISTERED_USERS,
+    title: "Registered Users",
+    showSidebar: true,
+    isPublic: false,
+    allowedRoles: [RoleEnum.ADMIN],
   },
 };
 
-export const MENU_ITEMS: IMenuItem[] = [
-  { label: "Dashboard", icon: "dashboard", href: PathsEnum.DASHBOARD },
+export const MERCHANT_MENU_ITEMS: IMenuItem[] = [
+  {
+    icon: "dashboard",
+    href: ROUTES.DASHBOARD.path,
+    label: ROUTES.DASHBOARD.title,
+  },
   {
     label: "Offers",
     icon: "offers",
     href: PathsEnum.EMPTY,
     items: [
-      { label: "Active Offers", href: PathsEnum.OFFERS_ACTIVE },
-      { label: "Scheduled Offers", href: PathsEnum.OFFERS_SCHEDULED },
-      { label: "Draft Offers", href: PathsEnum.OFFERS_DRAFT },
-      { label: "Archived Offers", href: PathsEnum.OFFERS_ARCHIVED },
-      { label: "Expired Offers", href: PathsEnum.OFFERS_EXPIRED },
+      { label: ROUTES.OFFERS_ACTIVE.title, href: ROUTES.OFFERS_ACTIVE.path },
+      {
+        label: ROUTES.OFFERS_SCHEDULED.title,
+        href: ROUTES.OFFERS_SCHEDULED.path,
+      },
+      { label: ROUTES.OFFERS_DRAFT.title, href: ROUTES.OFFERS_DRAFT.path },
+      {
+        label: ROUTES.OFFERS_ARCHIVED.title,
+        href: ROUTES.OFFERS_ARCHIVED.path,
+      },
+      { label: ROUTES.OFFERS_EXPIRED.title, href: ROUTES.OFFERS_EXPIRED.path },
     ],
+  },
+];
+
+export const ADMIN_MENU_ITEMS: IMenuItem[] = [
+  {
+    icon: "dashboard",
+    href: ROUTES.DASHBOARD.path,
+    label: ROUTES.DASHBOARD.title,
+  },
+  {
+    icon: "dashboard",
+    label: "Merchants",
+    href: PathsEnum.EMPTY,
+    items: [
+      {
+        label: ROUTES.REQUESTED_MERCHANTS.title,
+        href: ROUTES.REQUESTED_MERCHANTS.path,
+      },
+      {
+        label: ROUTES.REGISTERED_MERCHANTS.title,
+        href: ROUTES.REGISTERED_MERCHANTS.path,
+      },
+    ],
+  },
+  {
+    icon: "dashboard",
+    href: ROUTES.REGISTERED_USERS.path,
+    label: ROUTES.REGISTERED_USERS.title,
+  },
+  {
+    icon: "dashboard",
+    label: ROUTES.ALERTS.title,
+    href: ROUTES.ALERTS.path,
+  },
+  {
+    icon: "dashboard",
+    label: ROUTES.EVENTS.title,
+    href: ROUTES.EVENTS.path,
+  },
+  {
+    icon: "dashboard",
+    label: "Offers",
+    href: ROUTES.OFFERS_ACTIVE.path,
+  },
+  {
+    icon: "dashboard",
+    label: "Points",
+    href: PathsEnum.EMPTY,
+    items: [
+      {
+        label: ROUTES.POINTS_HISTORY.title,
+        href: ROUTES.POINTS_HISTORY.path,
+      },
+      {
+        label: ROUTES.POINTS_ALLOCATE.title,
+        href: ROUTES.POINTS_ALLOCATE.path,
+      },
+    ],
+  },
+];
+
+export const DISABLED_MENU_ITEMS: IMenuItem[] = [
+  {
+    disabled: true,
+    icon: "dashboard",
+    href: ROUTES.DASHBOARD.path,
+    label: ROUTES.DASHBOARD.title,
+  },
+  {
+    disabled: true,
+    icon: "offers",
+    label: "Offers",
+    href: ROUTES.OFFERS_ACTIVE.path,
   },
 ];

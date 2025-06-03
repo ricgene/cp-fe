@@ -316,7 +316,7 @@ export const ICONS_LIST = {
         height={7}
         x={4}
         y={4}
-        stroke="#fff"
+        stroke="inherit"
         strokeWidth={1.5}
         rx={1.5}
       />
@@ -325,7 +325,7 @@ export const ICONS_LIST = {
         height={7}
         x={4}
         y={13}
-        stroke="#fff"
+        stroke="inherit"
         strokeWidth={1.5}
         rx={1.5}
       />
@@ -334,7 +334,7 @@ export const ICONS_LIST = {
         height={7}
         x={13}
         y={4}
-        stroke="#fff"
+        stroke="inherit"
         strokeWidth={1.5}
         rx={1.5}
       />
@@ -343,7 +343,7 @@ export const ICONS_LIST = {
         height={7}
         x={13}
         y={13}
-        stroke="#fff"
+        stroke="inherit"
         strokeWidth={1.5}
         rx={1.5}
       />
@@ -357,7 +357,7 @@ export const ICONS_LIST = {
       className={className}
     >
       <path
-        stroke="#fff"
+        stroke="inherit"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={1.5}
