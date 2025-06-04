@@ -105,7 +105,7 @@ const QRCodeModal = ({ isOpen, onClose, offer }: Props) => {
           downloadLink.href = pngFile;
           downloadLink.click();
         };
-        logoImg.src = "/logo.png";
+        logoImg.src = "/shared/logo.png";
       }
     };
 
