@@ -40,7 +40,7 @@ const Broker3 = () => {
 
       {/* Device */}
       <Image
-        src="/assets/landing/landing-broker-3-hand-device.svg"
+        src="/assets/landing/landing-broker-3-hand-device.png"
         alt="broker-3-device"
         width={507}
         height={463}

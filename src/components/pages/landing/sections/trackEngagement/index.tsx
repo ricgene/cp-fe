@@ -34,10 +34,10 @@ const TrackEngagement = () => {
       {/* Image Container */}
       <div className={styles.imageContainer}>
         <Image
-          src="/assets/landing/landing-track-engagement-device.svg"
+          src="/assets/landing/landing-track-engagement-device.png"
           alt="Track Engagement"
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(min-width: 1024px) 853px, 95vw"
         />
       </div>
     </Section>

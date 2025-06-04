@@ -136,25 +136,25 @@ export const LANDING_HOW_CP_WORKS_CONTENT = {
   title: "How CityPerks Works?",
   cards: [
     {
-      image: "/assets/landing/landing-how-cp-works-card-1.svg",
+      image: "/assets/landing/landing-how-cp-works-card-1.png",
       title: "Register - Create Account",
       description:
         "Download the App and Register as a Resident, Merchant, or Admin.",
     },
     {
-      image: "/assets/landing/landing-how-cp-works-card-2.svg",
+      image: "/assets/landing/landing-how-cp-works-card-2.png",
       title: "Interact with Community",
       description:
         "Interact with your city, whether it's shopping locally or helping a neighbor.",
     },
     {
-      image: "/assets/landing/landing-how-cp-works-card-3.svg",
+      image: "/assets/landing/landing-how-cp-works-card-3.png",
       title: "Earn Rewards",
       description:
         "Collect points through approved actions and redeem perks at local outlets.",
     },
     {
-      image: "/assets/landing/landing-how-cp-works-card-4.svg",
+      image: "/assets/landing/landing-how-cp-works-card-4.png",
       title: "Redeem Points",
       description:
         "Present the QR code to the Merchant when ordering. One - time use only.",
