@@ -9,9 +9,9 @@ import { ROUTES } from "./app.constants";
 export const LANDING_HEADER_CONTENT = {
   nav: {
     items: [
-      { text: "About", link: ROUTES.LANDING.path },
-      { text: "Features", link: ROUTES.LANDING.path },
-      { text: "How it works?", link: ROUTES.LANDING.path },
+      { text: "About", link: "#about" },
+      { text: "Features", link: "#features" },
+      { text: "How it works?", link: "#how-it-works" },
     ],
   },
   button: {
@@ -72,6 +72,7 @@ export const LANDING_BROKER_1_CONTENT = {
   },
   button: {
     text: "Become a Merchant",
+    link: ROUTES.REGISTER.path,
   },
 };
 
@@ -135,25 +136,25 @@ export const LANDING_HOW_CP_WORKS_CONTENT = {
   title: "How CityPerks Works?",
   cards: [
     {
-      image: "/assets/landing/landing-how-cp-works-card-1.svg",
+      image: "/assets/landing/landing-how-cp-works-card-1.png",
       title: "Register - Create Account",
       description:
         "Download the App and Register as a Resident, Merchant, or Admin.",
     },
     {
-      image: "/assets/landing/landing-how-cp-works-card-2.svg",
+      image: "/assets/landing/landing-how-cp-works-card-2.png",
       title: "Interact with Community",
       description:
         "Interact with your city, whether it's shopping locally or helping a neighbor.",
     },
     {
-      image: "/assets/landing/landing-how-cp-works-card-3.svg",
+      image: "/assets/landing/landing-how-cp-works-card-3.png",
       title: "Earn Rewards",
       description:
         "Collect points through approved actions and redeem perks at local outlets.",
     },
     {
-      image: "/assets/landing/landing-how-cp-works-card-4.svg",
+      image: "/assets/landing/landing-how-cp-works-card-4.png",
       title: "Redeem Points",
       description:
         "Present the QR code to the Merchant when ordering. One - time use only.",
@@ -264,22 +265,22 @@ export const LANDING_FOOTER_CONTENT = {
     {
       name: "facebook",
       icon: "facebook" as IconsType,
-      link: "https://portal.cityperks.co/",
+      link: "https://www.cityperks.co/",
     },
     {
       name: "twitter",
       icon: "twitter" as IconsType,
-      link: "https://portal.cityperks.co/",
+      link: "https://www.cityperks.co/",
     },
     {
       name: "instagram",
       icon: "instagram" as IconsType,
-      link: "https://portal.cityperks.co/",
+      link: "https://www.cityperks.co/",
     },
     {
       name: "linkedin",
       icon: "linkedin" as IconsType,
-      link: "https://portal.cityperks.co/",
+      link: "https://www.cityperks.co/",
     },
   ],
 };

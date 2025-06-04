@@ -22,6 +22,10 @@
   --animate-spin-slow: spin 1.5s linear infinite;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: white;
   color: black;
@@ -67,11 +71,11 @@ body {
 
 /* Landing Hero Animation */
 .device-wrapper-left {
-  animation: slideRotateLeft 1s 0.5s ease-in-out forwards;
+  animation: slideRotateLeft 1s 1.5s ease-in-out forwards;
 }
 
 .device-wrapper-right {
-  animation: slideRotateRight 1s 0.5s ease-in-out forwards;
+  animation: slideRotateRight 1s 1.5s ease-in-out forwards;
 }
 
 @keyframes slideRotateLeft {

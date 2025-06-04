@@ -20,7 +20,7 @@ const styles = {
 
 const HowCpWorks = () => {
   return (
-    <Section className={styles.section}>
+    <Section className={styles.section} id="how-it-works">
       {/* Smart Title */}
       <Typography level="p1" className={styles.smartTitle}>
         {CONTENT.smartTitle}
