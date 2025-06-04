@@ -52,7 +52,6 @@ const HeroSection = () => {
       style={{
         backgroundImage: "url('/assets/landing/landing-hero-bg.png')",
         backgroundSize: "cover",
-        backgroundPosition: "center center",
         backgroundRepeat: "no-repeat",
       }}
     >
@@ -123,7 +122,7 @@ const HeroSection = () => {
             fill
             priority
             loading="eager"
-            sizes="(max-width: 768px) 100vw, 33vw"
+            sizes="(min-width: 1280px) 228px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px"
           />
         </div>
 
@@ -136,7 +135,7 @@ const HeroSection = () => {
             fill
             priority
             loading="eager"
-            sizes="(max-width: 768px) 100vw, 33vw"
+            sizes="(min-width: 1280px) 228px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px"
           />
         </div>
 
@@ -149,7 +148,7 @@ const HeroSection = () => {
             fill
             priority
             loading="eager"
-            sizes="(max-width: 768px) 100vw, 33vw"
+            sizes="(min-width: 1280px) 228px, (min-width: 768px) 200px, (min-width: 640px) 150px, 100px"
           />
         </div>
 
@@ -161,7 +160,7 @@ const HeroSection = () => {
               alt="trustpilot"
               fill
               // priority
-              sizes="(max-width: 768px) 100vw, 33vw"
+              sizes="(max-width: 768px) 100px, 121px"
             />
           </div>
         </div>
