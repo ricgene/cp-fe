@@ -4,6 +4,7 @@ import Section from "../../shared/section";
 import { truncateText } from "@/utils/misc.utils";
 import Typography from "@/components/ui/typography";
 import { LANDING_STORIES_CONTENT as CONTENT } from "@/constants";
+import Marquee from "react-fast-marquee";
 
 const styles = {
   section: "relative py-16 text-center",
@@ -16,9 +17,9 @@ const styles = {
   reviewCount: "font-bold underline",
   trustPilotIcon: "h-6",
   //
-  storiesContainer: "flex items-stretch gap-4 overflow-x-scroll pt-16 pb-4",
+  storiesContainer: "flex items-stretch gap-4 pt-16 pb-4",
   storyCard:
-    "bg-white rounded-2xl border border-stroke px-4 py-8 min-w-[270px] text-left ml-1 duration-300 ease-in-out hover:shadow-md cursor-default",
+    "bg-white rounded-2xl border border-stroke px-4 py-8 w-[270px] text-left ml-1 duration-300 ease-in-out hover:shadow-md cursor-default",
   storyHeader: "flex items-center justify-between",
   starsIcon: "h-4",
   dateText: "text-xs text-heading font-light",
@@ -58,31 +59,39 @@ const Stories = () => {
 
       {/* Cards */}
       <div className={styles.storiesContainer}>
-        {CONTENT.stories.map((card, index) => (
-          <div key={index + card.title} className={styles.storyCard}>
-            <div className={styles.storyHeader}>
-              <Icon name="stars" className={styles.starsIcon} />
+        <Marquee
+          gradient={false}
+          speed={40}
+          pauseOnHover={true}
+          direction="left"
+          autoFill
+        >
+          {CONTENT.stories.map((card, index) => (
+            <div key={index + card.title} className={styles.storyCard}>
+              <div className={styles.storyHeader}>
+                <Icon name="stars" className={styles.starsIcon} />
 
-              <Typography level="custom" className={styles.dateText}>
-                {card.date}
+                <Typography level="custom" className={styles.dateText}>
+                  {card.date}
+                </Typography>
+              </div>
+
+              <Typography level="h2" className={styles.storyTitle}>
+                {truncateText(card.title, 23)}
+              </Typography>
+
+              <Typography level="p1" className={styles.storyContent}>
+                {truncateText(card.content, 56)}
+              </Typography>
+
+              <div className={styles.divider} />
+
+              <Typography level="p1" className={styles.authorName}>
+                {truncateText(card.author, 56)}
               </Typography>
             </div>
-
-            <Typography level="h2" className={styles.storyTitle}>
-              {truncateText(card.title, 23)}
-            </Typography>
-
-            <Typography level="p1" className={styles.storyContent}>
-              {truncateText(card.content, 56)}
-            </Typography>
-
-            <div className={styles.divider} />
-
-            <Typography level="p1" className={styles.authorName}>
-              {truncateText(card.author, 56)}
-            </Typography>
-          </div>
-        ))}
+          ))}
+        </Marquee>
       </div>
     </Section>
   );
