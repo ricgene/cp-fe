@@ -30,9 +30,9 @@ const Header = () => {
       <div className={styles.navContainer}>
         <div className={styles.nav}>
           {CONTENT.nav.items.map((item) => (
-            <button key={item.text} className={styles.navButton}>
-              {item.text}
-            </button>
+            <Link href={item.link} key={item.text}>
+              <button className={styles.navButton}>{item.text}</button>
+            </Link>
           ))}
         </div>
       </div>

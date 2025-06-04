@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { Button, Typography } from "@/components/ui";
 import { LANDING_BROKER_1_CONTENT as CONTENT } from "@/constants";
@@ -28,6 +29,7 @@ const Broker1 = () => {
         backgroundPosition: "center center",
         backgroundRepeat: "no-repeat",
       }}
+      id="about"
     >
       {/* Backdrop */}
       <div className={styles.backdrop} />
@@ -54,9 +56,11 @@ const Broker1 = () => {
         />
 
         {/* Button */}
-        <Button variant="primary" className={styles.button}>
-          {CONTENT.button.text}
-        </Button>
+        <Link href={CONTENT.button.link}>
+          <Button variant="primary" className={styles.button}>
+            {CONTENT.button.text}
+          </Button>
+        </Link>
       </div>
     </Section>
   );

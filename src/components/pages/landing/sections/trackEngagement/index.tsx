@@ -14,7 +14,7 @@ const styles = {
 
 const TrackEngagement = () => {
   return (
-    <Section className={styles.section}>
+    <Section className={styles.section} id="features">
       {/* Smart Title */}
       <Typography level="p1" className={styles.smartTitle}>
         {CONTENT.smartTitle}

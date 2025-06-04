@@ -9,9 +9,9 @@ import { ROUTES } from "./app.constants";
 export const LANDING_HEADER_CONTENT = {
   nav: {
     items: [
-      { text: "About", link: ROUTES.LANDING.path },
-      { text: "Features", link: ROUTES.LANDING.path },
-      { text: "How it works?", link: ROUTES.LANDING.path },
+      { text: "About", link: "#about" },
+      { text: "Features", link: "#features" },
+      { text: "How it works?", link: "#how-it-works" },
     ],
   },
   button: {
@@ -72,6 +72,7 @@ export const LANDING_BROKER_1_CONTENT = {
   },
   button: {
     text: "Become a Merchant",
+    link: ROUTES.REGISTER.path,
   },
 };
 
@@ -264,22 +265,22 @@ export const LANDING_FOOTER_CONTENT = {
     {
       name: "facebook",
       icon: "facebook" as IconsType,
-      link: "https://portal.cityperks.co/",
+      link: "https://www.cityperks.co/",
     },
     {
       name: "twitter",
       icon: "twitter" as IconsType,
-      link: "https://portal.cityperks.co/",
+      link: "https://www.cityperks.co/",
     },
     {
       name: "instagram",
       icon: "instagram" as IconsType,
-      link: "https://portal.cityperks.co/",
+      link: "https://www.cityperks.co/",
     },
     {
       name: "linkedin",
       icon: "linkedin" as IconsType,
-      link: "https://portal.cityperks.co/",
+      link: "https://www.cityperks.co/",
     },
   ],
 };
