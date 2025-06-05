@@ -184,7 +184,7 @@ export const ADMIN_MENU_ITEMS: IMenuItem[] = [
     label: ROUTES.DASHBOARD.title,
   },
   {
-    icon: "dashboard",
+    icon: "merchants",
     label: "Merchants",
     href: PathsEnum.EMPTY,
     items: [
@@ -199,27 +199,27 @@ export const ADMIN_MENU_ITEMS: IMenuItem[] = [
     ],
   },
   {
-    icon: "dashboard",
+    icon: "users",
     href: ROUTES.REGISTERED_USERS.path,
     label: ROUTES.REGISTERED_USERS.title,
   },
   {
-    icon: "dashboard",
+    icon: "alerts",
     label: ROUTES.ALERTS.title,
     href: ROUTES.ALERTS.path,
   },
   {
-    icon: "dashboard",
+    icon: "events",
     label: ROUTES.EVENTS.title,
     href: ROUTES.EVENTS.path,
   },
   {
-    icon: "dashboard",
+    icon: "offers",
     label: "Offers",
     href: ROUTES.OFFERS_ACTIVE.path,
   },
   {
-    icon: "dashboard",
+    icon: "points",
     label: "Points",
     href: PathsEnum.EMPTY,
     items: [

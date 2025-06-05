@@ -3,7 +3,7 @@
 import { IChartSeries, IDashboardChartData } from "@/types";
 import { ChartTypeEnum, DashboardChartTimeRangeEnum } from "@/enums";
 import ActiveOffers from "@/components/pages/offers/activeOffers";
-import ChartCard from "@/components/pages/dashboard/shared/chatCard";
+import ChartCard from "@/components/pages/dashboard/shared/chartCard";
 import { useEffect, useState } from "react";
 import { getDashboardData } from "@/requests/dashboard.requests";
 import { handleError } from "@/utils";
