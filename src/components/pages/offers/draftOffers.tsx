@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { useOffers, useModal } from "@/hooks";
 import { IOffer, OfferActionType } from "@/types";
+import { usePaginatedList, useModal } from "@/hooks";
 import { OfferActionEnum, OfferStatusEnum } from "@/enums";
-import { changeOfferStatus, publishOffer } from "@/requests";
 import { Table, Pagination, Typography } from "@/components/ui";
 import { handleError, transformOffersToTableData } from "@/utils";
 import { ControlHeader, ConfirmationModal } from "@/components/shared";
+import { changeOfferStatus, publishOffer, getAllOffers } from "@/requests";
 import {
   OFFER_ACTIONS,
   OFFER_TABLE_COLUMNS,
@@ -27,19 +27,30 @@ const DraftOffers = () => {
     page,
     sortBy,
     isLoading,
-    filteredAndSortedOffers,
+    filteredAndSorted,
     setPage,
     setSortBy,
-    refreshOffers,
+    refresh,
     setSearchQuery,
-  } = useOffers({ status: OfferStatusEnum.DRAFT });
+  } = usePaginatedList<IOffer>({
+    fetcher: ({ page, limit, search }) =>
+      getAllOffers({
+        status: OfferStatusEnum.DRAFT,
+        page,
+        limit,
+        search,
+      }).then((response) => ({
+        data: response.data.offers,
+        meta: response.data.meta,
+      })),
+  });
 
   const actionModal = useModal<{ type: ModalType; offer: IOffer }>();
   const [isActionLoading, setIsActionLoading] = useState(false);
-  const tableData = transformOffersToTableData(filteredAndSortedOffers);
+  const tableData = transformOffersToTableData(filteredAndSorted);
 
   const handleAction = (itemId: number, action: OfferActionType) => {
-    const offer = filteredAndSortedOffers.find((o) => o.id === itemId);
+    const offer = filteredAndSorted.find((o) => o.id === itemId);
     if (!offer) return;
 
     switch (action) {
@@ -57,7 +68,7 @@ const DraftOffers = () => {
 
   const handleCreateOffer = async () => {
     try {
-      await refreshOffers();
+      await refresh();
       actionModal.close();
     } catch (error) {
       handleError(error);
@@ -82,7 +93,7 @@ const DraftOffers = () => {
           break;
       }
 
-      await refreshOffers();
+      await refresh();
     } catch (error) {
       handleError(error);
     } finally {

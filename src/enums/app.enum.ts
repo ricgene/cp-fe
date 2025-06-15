@@ -18,10 +18,11 @@ export enum PathsEnum {
   REQUESTED_MERCHANTS = "/merchant/requests",
   REGISTERED_MERCHANTS = "/merchant/registers",
   //
-  REGISTERED_USERS = "/users/registers",
+  REGISTERED_USERS = "/registered-users",
   //
   ALERTS = "/alerts",
   EVENTS = "/events",
+  OFFERS_ALL = "/all-offers",
   //
   POINTS_HISTORY = "/points/history",
   POINTS_ALLOCATE = "/points/allocate",
