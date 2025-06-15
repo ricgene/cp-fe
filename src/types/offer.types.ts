@@ -51,7 +51,7 @@ export interface IKeyLabelPair {
 }
 
 export interface ITableData {
-  id: number;
+  id: number | string;
   isPerk?: boolean;
   [key: string]: string | number | boolean | undefined;
 }

@@ -1,9 +1,22 @@
 import { api } from "@/libs";
-import { IUser } from "@/types";
-import { AxiosPromise } from "axios";
+import { IUser, RoleType, IPaginationParams, IMetaResponse } from "@/types";
+
+interface GetAllUsersParams extends IPaginationParams {
+  role?: RoleType;
+}
+
+interface IRegisteredUsersResponse {
+  users: IUser[];
+  meta: IMetaResponse;
+}
 
 // ENDPOINT URLS
 export const meUrl = "/user/me";
+export const registeredUsersUrl = "/user/all";
 
 // REQUESTS
-export const loadUser = (): AxiosPromise<{ user: IUser }> => api.get(meUrl);
+export const loadUser = () => api.get<{ user: IUser }>(meUrl);
+export const getRegisteredUsers = (params: GetAllUsersParams) =>
+  api.get<IRegisteredUsersResponse>(registeredUsersUrl, {
+    params,
+  });

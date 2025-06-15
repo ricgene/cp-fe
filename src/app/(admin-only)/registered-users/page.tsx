@@ -1,3 +1,5 @@
+import { RegisteredUsers } from "@/components/pages/registered-users";
+
 export default function RegisteredUsersPage() {
-  return <div>Registered Users</div>;
+  return <RegisteredUsers />;
 }

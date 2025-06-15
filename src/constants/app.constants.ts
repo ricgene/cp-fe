@@ -149,6 +149,13 @@ export const ROUTES: Record<
     isPublic: false,
     allowedRoles: [RoleEnum.ADMIN],
   },
+  OFFERS_ALL: {
+    path: PathsEnum.OFFERS_ALL,
+    title: "Offers",
+    showSidebar: true,
+    isPublic: false,
+    allowedRoles: [RoleEnum.ADMIN],
+  },
 };
 
 export const MERCHANT_MENU_ITEMS: IMenuItem[] = [
@@ -216,7 +223,7 @@ export const ADMIN_MENU_ITEMS: IMenuItem[] = [
   {
     icon: "offers",
     label: "Offers",
-    href: ROUTES.OFFERS_ACTIVE.path,
+    href: ROUTES.OFFERS_ALL.path,
   },
   {
     icon: "points",

@@ -1,9 +1,10 @@
 import { api } from "@/libs";
 import {
-  OfferStatusType,
   IOffer,
-  OfferDurationFilterType,
+  OfferStatusType,
+  IMetaResponse,
   OfferSpecialFilterType,
+  OfferDurationFilterType,
 } from "@/types";
 // REQUEST INTERFACES
 export interface CreateOfferRequest {
@@ -38,16 +39,9 @@ interface GetAllOffersParams {
   specialFilter?: OfferSpecialFilterType;
 }
 
-interface GetAllOffersResponse {
-  offers: {
-    data: IOffer[];
-    meta: {
-      total: number;
-      page: number;
-      limit: number;
-      totalPages: number;
-    };
-  };
+interface IAllOffersResponse {
+  offers: IOffer[];
+  meta: IMetaResponse;
 }
 
 // REQUESTS
@@ -60,7 +54,7 @@ export const createOffer = async (data: FormData) => {
 };
 
 export const getAllOffers = async (params: GetAllOffersParams) => {
-  return await api.get<GetAllOffersResponse>(getAllOffersUrl, { params });
+  return await api.get<IAllOffersResponse>(getAllOffersUrl, { params });
 };
 
 export const changeOfferStatus = (id: number, status: OfferStatusType) =>

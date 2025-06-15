@@ -50,3 +50,16 @@ export interface ITokenResponse {
     };
   };
 }
+
+export interface IMetaResponse {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+export interface IPaginationParams {
+  page?: number;
+  limit?: number;
+  search?: string;
+}

@@ -1,5 +1,4 @@
 import { OfferStatusEnum, OfferActionEnum } from "@/enums";
-import { IOffer } from "@/types";
 
 // CONSTANTS
 export const OFFER_ACTIONS: Record<
@@ -23,22 +22,3 @@ export const OFFER_ACTIONS: Record<
   EXPIRED: [{ key: OfferActionEnum.DELETE, label: "Delete Offer" }],
   ARCHIVED: [],
 } as const;
-
-// (don't change the order of the columns)
-export const OFFER_TABLE_COLUMNS: {
-  key: keyof IOffer | "type";
-  label: string;
-}[] = [
-  { key: "name", label: "Offer Name" },
-  { key: "productName", label: "Product" },
-  { key: "productCategory", label: "Category" },
-  { key: "description", label: "Description" },
-  { key: "type", label: "Type" },
-  { key: "offerType", label: "Offer Type" },
-  { key: "discountRate", label: "Discount" },
-  { key: "startDate", label: "Start Date" },
-  { key: "endDate", label: "End Date" },
-  { key: "pointsPerPurchase", label: "Points per purchase" },
-  { key: "image", label: "Image" },
-  // { key: "status", label: "Status" },
-];

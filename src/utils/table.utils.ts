@@ -1,4 +1,4 @@
-import { IOffer } from "@/types";
+import { IOffer, IUser } from "@/types";
 
 const dateOptions = {
   day: "2-digit" as const,
@@ -25,5 +25,20 @@ export const transformOffersToTableData = (offers: IOffer[]) => {
       dateOptions
     ),
     offerType: offer.offerType,
+  }));
+};
+
+export const transformRegisteredUsersToTableData = (users: IUser[]) => {
+  return users.map((user: IUser) => ({
+    id: user.publicId,
+    name: user.name,
+    publicId: user.publicId,
+    email: user.email,
+    phone: `${user.callingCode}${user.phone}`,
+    dob: user.dob
+      ? new Date(user.dob).toLocaleDateString("en-GB", dateOptions)
+      : "",
+    city: user.city,
+    state: user.state,
   }));
 };
