@@ -36,6 +36,7 @@ interface Props {
   disabled?: boolean;
   placeholder?: string;
   wrapperClassName?: string;
+  variant?: "primary" | "secondary";
   onChange?: (value: string) => void;
   onPlaceSelect?: (place: {
     address: string;
@@ -49,8 +50,11 @@ interface Props {
 const styles = {
   wrapper: "w-full",
   label: "block mb-1.5",
-  input:
-    "w-full bg-white border-1 border-stroke rounded-lg h-11 px-4 focus:outline-none placeholder:text-paragraph text-sm text-heading disabled:bg-stroke disabled:cursor-not-allowed disabled:opacity-50",
+  input: {
+    base: "w-full bg-white border-1 border-stroke rounded-lg h-11 px-4 focus:outline-none placeholder:text-paragraph text-sm text-heading disabled:bg-stroke disabled:cursor-not-allowed disabled:opacity-50",
+    secondary:
+      "h-10 bg-element border-divider text-paragraph placeholder:text-unactive",
+  },
   error: "text-[10px] text-red-600 mt-1",
   predictions:
     "absolute z-10 w-full mt-1 bg-white border-1 border-stroke rounded-lg shadow-lg",
@@ -66,6 +70,7 @@ const AddressInput = ({
   className,
   wrapperClassName,
   placeholder = "Enter address",
+  variant = "primary",
   onChange,
   onPlaceSelect,
 }: Props) => {
@@ -150,13 +155,17 @@ const AddressInput = ({
           value={value}
           disabled={disabled}
           placeholder={placeholder}
-          className={twMerge(styles.input, className || "")}
+          className={twMerge(
+            styles.input.base,
+            variant === "secondary" && styles.input.secondary,
+            className || ""
+          )}
           onChange={handleInputChange}
           onFocus={() => value.length > 2 && setShowPredictions(true)}
           onBlur={() => setTimeout(() => setShowPredictions(false), 200)}
         />
         {showPredictions &&
-          (placePredictions.length > 0 || isPlacePredictionsLoading) && (
+          (placePredictions?.length > 0 || isPlacePredictionsLoading) && (
             <div className={styles.predictions}>
               {isPlacePredictionsLoading ? (
                 <div className={styles.predictionItem}>Loading...</div>

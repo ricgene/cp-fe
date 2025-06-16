@@ -1,28 +1,23 @@
 "use client";
 
 import React, { useState } from "react";
+import { ActionEnum } from "@/enums";
+import { IEvent, ActionType } from "@/types";
 import { useModal, usePaginatedList } from "@/hooks";
-import { getAllOffers, changeOfferStatus } from "@/requests";
-import { IOffer, ActionType } from "@/types";
-import { ActionEnum, OfferStatusEnum } from "@/enums";
+import { getAllEvents, deleteEvent } from "@/requests";
+import CreateEventModal from "./shared/createEventModal";
 import { Table, Pagination, Typography } from "@/components/ui";
-import { handleError, transformOffersToTableData } from "@/utils";
+import { handleError, transformEventsToTableData } from "@/utils";
+import { EVENTS_TABLE_COLUMNS, SORT_BY_OPTIONS } from "@/constants";
 import { ControlHeader, ConfirmationModal } from "@/components/shared";
-import {
-  OFFER_ACTIONS,
-  OFFER_TABLE_COLUMNS,
-  SORT_BY_OPTIONS,
-} from "@/constants";
-import QRCodeModal from "@/components/pages/offers/shared/qrCodeModal";
-import CreateEditOfferModal from "@/components/pages/offers/shared/createEditOfferModal";
 
 const styles = {
   pageContainer: "h-full flex flex-col",
 };
 
-type ModalType = "archive" | "create" | "qrCode";
+type ModalType = "create" | "delete";
 
-const ActiveOffers = () => {
+const Events = () => {
   const {
     meta,
     page,
@@ -33,38 +28,34 @@ const ActiveOffers = () => {
     setPage,
     setSortBy,
     setSearchQuery,
-  } = usePaginatedList<IOffer>({
+  } = usePaginatedList<IEvent>({
     fetcher: ({ page, limit, search }) =>
-      getAllOffers({
-        status: OfferStatusEnum.ACTIVE,
+      getAllEvents({
         page,
         limit,
         search,
       }).then((response) => ({
-        data: response.data.offers,
+        data: response.data.events,
         meta: response.data.meta,
       })),
   });
 
-  const actionModal = useModal<{ type: ModalType; offer: IOffer }>();
-  const tableData = transformOffersToTableData(filteredAndSorted);
+  const actionModal = useModal<{ type: ModalType; event: IEvent }>();
   const [isActionLoading, setIsActionLoading] = useState(false);
+  const tableData = transformEventsToTableData(filteredAndSorted);
 
   const handleAction = (itemId: number, action: ActionType) => {
-    const offer = filteredAndSorted.find((o) => o.id === itemId);
-    if (!offer) return;
+    const event = filteredAndSorted.find((e) => e.id === itemId);
+    if (!event) return;
 
     switch (action) {
-      case ActionEnum.ARCHIVE:
-        actionModal.open({ type: "archive", offer });
-        break;
-      case ActionEnum.QR_CODE:
-        actionModal.open({ type: "qrCode", offer });
+      case ActionEnum.DELETE:
+        actionModal.open({ type: "delete", event });
         break;
     }
   };
 
-  const handleCreateOffer = async () => {
+  const handleCreateEvent = async () => {
     try {
       await refresh();
       actionModal.close();
@@ -78,10 +69,7 @@ const ActiveOffers = () => {
 
     try {
       setIsActionLoading(true);
-      await changeOfferStatus(
-        actionModal.data.offer.id,
-        OfferStatusEnum.ARCHIVED
-      );
+      await deleteEvent(actionModal.data.event.id);
       await refresh();
     } catch (error) {
       handleError(error);
@@ -92,16 +80,15 @@ const ActiveOffers = () => {
   };
 
   const getModalContent = () => {
-    if (!actionModal.data?.offer) return null;
+    if (!actionModal.data?.event) return null;
 
     switch (actionModal.data.type) {
-      case "archive":
+      case "delete":
         return (
           <Typography level="p1">
-            Are you sure you want to archive{" "}
-            <span className="font-bold">{actionModal.data.offer.name}</span>?
-            This action cannot be undone. Once archived, the offer will no
-            longer be visible to users.
+            Are you sure you want to delete{" "}
+            <span className="font-bold">{actionModal.data.event.name}</span>?
+            This action cannot be undone.
           </Typography>
         );
       default:
@@ -113,8 +100,8 @@ const ActiveOffers = () => {
     if (!actionModal.data) return "";
 
     switch (actionModal.data.type) {
-      case "archive":
-        return "Archive Offer";
+      case "delete":
+        return "Delete Event";
       default:
         return "";
     }
@@ -124,13 +111,14 @@ const ActiveOffers = () => {
     <>
       <div className={styles.pageContainer}>
         <ControlHeader
-          title="Active Offers"
+          title="Events"
+          description="List of Societies' Events"
           buttonProps={{
             size: "small",
             variant: "primary",
-            children: "Create New offers",
+            children: "Create New Event",
             onClick: () =>
-              actionModal.open({ type: "create", offer: {} as IOffer }),
+              actionModal.open({ type: "create", event: {} as IEvent }),
           }}
           searchBarProps={{
             onChangeText: setSearchQuery,
@@ -149,9 +137,14 @@ const ActiveOffers = () => {
           data={tableData}
           loading={isLoading}
           onAction={handleAction}
-          columns={OFFER_TABLE_COLUMNS}
+          columns={EVENTS_TABLE_COLUMNS}
           isEmpty={!isLoading && tableData.length === 0}
-          actions={OFFER_ACTIONS[OfferStatusEnum.ACTIVE]}
+          actions={[
+            {
+              key: ActionEnum.DELETE,
+              label: "Delete",
+            },
+          ]}
         />
 
         <Pagination
@@ -162,21 +155,15 @@ const ActiveOffers = () => {
         />
       </div>
 
-      <CreateEditOfferModal
-        onSuccess={handleCreateOffer}
+      <CreateEventModal
+        onSuccess={handleCreateEvent}
         isOpen={actionModal.isOpen && actionModal.data?.type === "create"}
         onClose={actionModal.close}
       />
 
-      <QRCodeModal
-        isOpen={actionModal.isOpen && actionModal.data?.type === "qrCode"}
-        onClose={actionModal.close}
-        offer={actionModal.data?.offer || ({} as IOffer)}
-      />
-
       <ConfirmationModal
         title={getModalTitle()}
-        isOpen={actionModal.isOpen && actionModal.data?.type === "archive"}
+        isOpen={actionModal.isOpen && actionModal.data?.type === "delete"}
         isLoading={isActionLoading}
         onCancel={actionModal.close}
         onApprove={handleConfirmAction}
@@ -186,4 +173,4 @@ const ActiveOffers = () => {
   );
 };
 
-export default ActiveOffers;
+export default Events;

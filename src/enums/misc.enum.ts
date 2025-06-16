@@ -16,3 +16,11 @@ export enum DurationFilterEnum {
   THIS_WEEK = "THIS_WEEK",
   THIS_MONTH = "THIS_MONTH",
 }
+
+export enum ActionEnum {
+  EDIT = "EDIT",
+  PUBLISH = "PUBLISH",
+  ARCHIVE = "ARCHIVE",
+  DELETE = "DELETE",
+  QR_CODE = "QR_CODE",
+}

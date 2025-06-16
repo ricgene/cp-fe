@@ -4,8 +4,8 @@ import { twMerge } from "tailwind-merge";
 import React, { useState, useRef, useCallback, useMemo, memo } from "react";
 import { useOutsideClick } from "@/hooks";
 import { TableBody, TableEmpty, TableHeader, TableSkeleton } from "./body";
-import { IAction, IKeyLabelPair, ITableData, OfferActionType } from "@/types";
-import { OfferActionEnum } from "@/enums";
+import { IAction, IKeyLabelPair, ITableData, ActionType } from "@/types";
+import { ActionEnum } from "@/enums";
 
 // Types
 
@@ -18,7 +18,7 @@ interface TableProps {
   className?: string;
   showActions?: boolean;
   wrapperClassName?: string;
-  onAction?: (itemId: number, action: OfferActionType) => void;
+  onAction?: (itemId: number, action: ActionType) => void;
 }
 
 interface DropdownPosition {
@@ -100,7 +100,7 @@ const Table = ({
   );
 
   const handleActionSelect = useCallback(
-    (action: OfferActionType, id: number) => {
+    (action: ActionType, id: number) => {
       onAction?.(id, action);
       setActiveDropdown(null);
     },
@@ -158,7 +158,7 @@ interface ActionDropdownProps {
   position: DropdownPosition;
   dropdownRef: React.RefObject<HTMLDivElement | null>;
   activeDropdown: number;
-  onActionSelect: (action: OfferActionType, id: number) => void;
+  onActionSelect: (action: ActionType, id: number) => void;
 }
 
 const ActionDropdown = memo(
@@ -192,14 +192,11 @@ const ActionDropdown = memo(
               className={twMerge(
                 styles.dropdownItem,
                 !currentRow?.isPerk &&
-                  action.key === OfferActionEnum.QR_CODE &&
+                  action.key === ActionEnum.QR_CODE &&
                   styles.dropdownItemDisabled
               )}
               onClick={() => {
-                if (
-                  !currentRow?.isPerk &&
-                  action.key === OfferActionEnum.QR_CODE
-                )
+                if (!currentRow?.isPerk && action.key === ActionEnum.QR_CODE)
                   return;
                 onActionSelect(action.key, activeDropdown);
               }}

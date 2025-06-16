@@ -16,6 +16,15 @@ export interface IState {
   cities: string[];
 }
 
+export interface IAddress {
+  id: number;
+  city: string;
+  state: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+}
+
 export interface IStaticData {
   states: IState[];
   tags: ITags;

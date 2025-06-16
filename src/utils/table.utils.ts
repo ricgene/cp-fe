@@ -1,9 +1,17 @@
-import { IOffer, IUser } from "@/types";
+import { IEvent, IOffer, IUser } from "@/types";
 
 const dateOptions = {
   day: "2-digit" as const,
   month: "short" as const,
   year: "numeric" as const,
+};
+
+const dateTimeOptions = {
+  day: "2-digit" as const,
+  month: "short" as const,
+  year: "numeric" as const,
+  hour: "2-digit" as const,
+  minute: "2-digit" as const,
 };
 
 export const transformOffersToTableData = (offers: IOffer[]) => {
@@ -40,5 +48,23 @@ export const transformRegisteredUsersToTableData = (users: IUser[]) => {
       : "",
     city: user.city,
     state: user.state,
+  }));
+};
+
+export const transformEventsToTableData = (events: IEvent[]) => {
+  return events.map((event: IEvent) => ({
+    id: event.id,
+    name: event.name,
+    image: event.image.url,
+    details: event.details,
+    startDate: new Date(event.startDate).toLocaleDateString(
+      "en-GB",
+      dateTimeOptions
+    ),
+    endDate: new Date(event.endDate).toLocaleDateString(
+      "en-GB",
+      dateTimeOptions
+    ),
+    location: event.address.address,
   }));
 };

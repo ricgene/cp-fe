@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { IOffer, OfferActionType } from "@/types";
+import { IOffer, ActionType } from "@/types";
 import { usePaginatedList, useModal } from "@/hooks";
-import { OfferActionEnum, OfferStatusEnum } from "@/enums";
+import { ActionEnum, OfferStatusEnum } from "@/enums";
 import { Table, Pagination, Typography } from "@/components/ui";
 import { handleError, transformOffersToTableData } from "@/utils";
 import { ControlHeader, ConfirmationModal } from "@/components/shared";
@@ -49,18 +49,18 @@ const DraftOffers = () => {
   const [isActionLoading, setIsActionLoading] = useState(false);
   const tableData = transformOffersToTableData(filteredAndSorted);
 
-  const handleAction = (itemId: number, action: OfferActionType) => {
+  const handleAction = (itemId: number, action: ActionType) => {
     const offer = filteredAndSorted.find((o) => o.id === itemId);
     if (!offer) return;
 
     switch (action) {
-      case OfferActionEnum.ARCHIVE:
+      case ActionEnum.ARCHIVE:
         actionModal.open({ type: "archive", offer });
         break;
-      case OfferActionEnum.PUBLISH:
+      case ActionEnum.PUBLISH:
         actionModal.open({ type: "publish", offer });
         break;
-      case OfferActionEnum.EDIT:
+      case ActionEnum.EDIT:
         actionModal.open({ type: "edit", offer });
         break;
     }

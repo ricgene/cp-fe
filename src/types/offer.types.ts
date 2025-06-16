@@ -1,9 +1,5 @@
 import { IMedia } from "./misc.types";
-import {
-  OfferActionEnum,
-  OfferStatusEnum,
-  OfferSpecialFilterEnum,
-} from "@/enums";
+import { ActionEnum, OfferStatusEnum, OfferSpecialFilterEnum } from "@/enums";
 
 // TYPES
 export type OfferStatusType =
@@ -12,8 +8,7 @@ export type OfferStatusType =
 export type OfferSpecialFilterType =
   (typeof OfferSpecialFilterEnum)[keyof typeof OfferSpecialFilterEnum];
 
-export type OfferActionType =
-  (typeof OfferActionEnum)[keyof typeof OfferActionEnum];
+export type ActionType = (typeof ActionEnum)[keyof typeof ActionEnum];
 
 // INTERFACES
 export interface IOffer {
@@ -37,7 +32,7 @@ export interface IOffer {
 }
 
 export interface IAction {
-  key: OfferActionType;
+  key: ActionType;
   label: string;
 }
 

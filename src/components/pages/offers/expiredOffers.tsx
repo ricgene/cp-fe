@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { IOffer, OfferActionType } from "@/types";
+import { IOffer, ActionType } from "@/types";
 import { usePaginatedList, useModal } from "@/hooks";
 import { deleteOffer, getAllOffers } from "@/requests";
-import { OfferActionEnum, OfferStatusEnum } from "@/enums";
+import { ActionEnum, OfferStatusEnum } from "@/enums";
 import { Table, Pagination, Typography } from "@/components/ui";
 import { handleError, transformOffersToTableData } from "@/utils";
 import { ControlHeader, ConfirmationModal } from "@/components/shared";
@@ -46,12 +46,12 @@ const ExpiredOffers = () => {
   const [isActionLoading, setIsActionLoading] = useState(false);
   const tableData = transformOffersToTableData(filteredAndSorted);
 
-  const handleAction = (itemId: number, action: OfferActionType) => {
+  const handleAction = (itemId: number, action: ActionType) => {
     const offer = filteredAndSorted.find((o) => o.id === itemId);
     if (!offer) return;
 
     switch (action) {
-      case OfferActionEnum.DELETE:
+      case ActionEnum.DELETE:
         deleteModal.open(offer);
         break;
     }

@@ -8,14 +8,6 @@ export enum OfferStatusEnum {
   DELETED = "DELETED",
 }
 
-export enum OfferActionEnum {
-  EDIT = "EDIT",
-  PUBLISH = "PUBLISH",
-  ARCHIVE = "ARCHIVE",
-  DELETE = "DELETE",
-  QR_CODE = "QR_CODE",
-}
-
 export enum OfferSpecialFilterEnum {
   ALL = "ALL",
   EXCLUSIVELY_FOR_YOU = "EXCLUSIVELY_FOR_YOU",
