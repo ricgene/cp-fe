@@ -4,6 +4,7 @@ import { z } from "zod";
 // Event Create Form Schema
 export const eventCreateSchema = z.object({
   name: z.string().min(1, "Name is required"),
+  type: z.string().min(1, "Type is required"),
   details: z.string().min(1, "Details are required"),
   startDate: z.string().min(1, "Start date is required"),
   endDate: z.string().min(1, "End date is required"),

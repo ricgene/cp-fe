@@ -65,6 +65,6 @@ export const transformEventsToTableData = (events: IEvent[]) => {
       "en-GB",
       dateTimeOptions
     ),
-    location: event.address.address,
+    address: event.address.address,
   }));
 };

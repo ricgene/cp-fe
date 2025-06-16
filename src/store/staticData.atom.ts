@@ -8,6 +8,7 @@ const staticDataAtom = atomWithStorage<IStaticData>("staticData", {
     PRODUCT: [],
     OFFER: [],
     BUSINESS: [],
+    EVENT: [],
   },
 });
 

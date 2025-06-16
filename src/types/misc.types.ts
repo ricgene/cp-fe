@@ -34,6 +34,7 @@ export interface ITags {
   PRODUCT: string[];
   OFFER: string[];
   BUSINESS: string[];
+  EVENT: string[];
 }
 
 export interface IChartSeries {

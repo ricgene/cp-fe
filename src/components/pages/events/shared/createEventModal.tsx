@@ -3,12 +3,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { handleError } from "@/utils";
+import { createKeyLabelPair, handleError } from "@/utils";
 import { ACCEPTED_IMAGE_TYPES } from "@/constants";
 import AddressInput from "@/components/ui/addressInput";
 import { createEvent, CreateEventRequest } from "@/requests";
 import { EventCreateFormData, eventCreateSchema } from "@/schemas";
-import { LabeledInput, LabeledTextArea, Modal } from "@/components/ui";
+import { LabeledInput, LabeledTextArea, Modal, Select } from "@/components/ui";
+import { useStaticData } from "@/store";
 
 // Types
 interface Props {
@@ -30,6 +31,7 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
     setValue,
     setError,
     handleSubmit,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<EventCreateFormData>({
     resolver: zodResolver(eventCreateSchema),
@@ -40,6 +42,9 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
   const startDate = watch("startDate");
   const selectedAddress = watch("address");
 
+  const { tags } = useStaticData();
+  const eventTypeOptions = tags.EVENT.map(createKeyLabelPair);
+
   const handleClose = () => {
     reset();
     onClose();
@@ -47,6 +52,7 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
 
   const prepareFormData = (data: CreateEventRequest): FormData => {
     const formData = new FormData();
+    formData.append("type", data.type);
     formData.append("name", data.name);
     formData.append("city", data.city);
     formData.append("state", data.state);
@@ -97,15 +103,23 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
       primaryButtonText="Publish Event"
     >
       <div className={styles.inputGrid}>
-        <div className={styles.inputSpan2}>
-          <LabeledInput
-            label="Event Name"
-            variant="secondary"
-            placeholder="Enter event name"
-            error={errors.name?.message?.toString()}
-            {...register("name")}
-          />
-        </div>
+        <LabeledInput
+          label="Event Name"
+          variant="secondary"
+          placeholder="Enter event name"
+          error={errors.name?.message?.toString()}
+          {...register("name")}
+        />
+
+        <Select
+          name="type"
+          label="Event Type"
+          variant="secondary"
+          placeholder="Select Event Type"
+          control={control}
+          options={eventTypeOptions}
+          error={errors.type?.message}
+        />
 
         <LabeledInput
           type="datetime-local"

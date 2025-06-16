@@ -5,6 +5,7 @@ import { IEvent, IMetaResponse } from "@/types";
 export interface CreateEventRequest {
   name: string;
   city: string;
+  type: string;
   state: string;
   address: string;
   endDate: string;
