@@ -1,7 +1,9 @@
-import { SortByEnum } from "@/enums";
+import { DurationFilterEnum, SortByEnum } from "@/enums";
 
 // TYPES
 export type SortByType = keyof typeof SortByEnum;
+export type DurationFilterType =
+  (typeof DurationFilterEnum)[keyof typeof DurationFilterEnum];
 
 // INTERFACES
 export interface IMedia {

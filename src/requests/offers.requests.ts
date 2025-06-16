@@ -4,7 +4,7 @@ import {
   OfferStatusType,
   IMetaResponse,
   OfferSpecialFilterType,
-  OfferDurationFilterType,
+  DurationFilterType,
 } from "@/types";
 // REQUEST INTERFACES
 export interface CreateOfferRequest {
@@ -35,7 +35,7 @@ interface GetAllOffersParams {
   page?: number;
   limit?: number;
   search?: string;
-  filter?: OfferDurationFilterType;
+  filter?: DurationFilterType;
   specialFilter?: OfferSpecialFilterType;
 }
 
