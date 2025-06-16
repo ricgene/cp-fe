@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { IUser } from "@/types";
+import { IUser, RoleType } from "@/types";
 import { usePaginatedList } from "@/hooks";
 import { getRegisteredUsers } from "@/requests";
 import { ControlHeader } from "@/components/shared";
@@ -9,11 +9,15 @@ import { Pagination, Table } from "@/components/ui";
 import { transformRegisteredUsersToTableData } from "@/utils";
 import { REGISTERED_USERS_TABLE_COLUMNS, SORT_BY_OPTIONS } from "@/constants";
 
+interface Props {
+  role: RoleType;
+}
+
 const styles = {
   pageContainer: "h-full flex flex-col",
 };
 
-const RegisteredUsers = () => {
+const RegisteredUsers = ({ role }: Props) => {
   const {
     meta,
     page,
@@ -25,7 +29,7 @@ const RegisteredUsers = () => {
     setSearchQuery,
   } = usePaginatedList<IUser>({
     fetcher: ({ page, limit, search }) =>
-      getRegisteredUsers({ page, limit, search }).then((response) => ({
+      getRegisteredUsers({ page, limit, search, role }).then((response) => ({
         data: response.data.users,
         meta: response.data.meta,
       })),

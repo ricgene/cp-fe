@@ -1,3 +1,6 @@
+import { RoleEnum } from "@/enums";
+import { RegisteredUsers } from "@/components/pages/registered-users";
+
 export default function RegisteredMerchantsPage() {
-  return <div>Registered Merchants</div>;
+  return <RegisteredUsers role={RoleEnum.MERCHANT} />;
 }
