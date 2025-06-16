@@ -1,3 +1,5 @@
+import ActiveOffers from "@/components/pages/offers/activeOffers";
+
 export default function AllOffersPage() {
-  return <div>All Offers</div>;
+  return <ActiveOffers forAdmin />;
 }

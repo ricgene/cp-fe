@@ -16,13 +16,17 @@ import {
 import QRCodeModal from "@/components/pages/offers/shared/qrCodeModal";
 import CreateEditOfferModal from "@/components/pages/offers/shared/createEditOfferModal";
 
+interface Props {
+  forAdmin?: boolean;
+}
+
 const styles = {
   pageContainer: "h-full flex flex-col",
 };
 
 type ModalType = "archive" | "create" | "qrCode";
 
-const ActiveOffers = () => {
+const ActiveOffers = ({ forAdmin = false }: Props) => {
   const {
     meta,
     page,
@@ -124,14 +128,18 @@ const ActiveOffers = () => {
     <>
       <div className={styles.pageContainer}>
         <ControlHeader
-          title="Active Offers"
-          buttonProps={{
-            size: "small",
-            variant: "primary",
-            children: "Create New offers",
-            onClick: () =>
-              actionModal.open({ type: "create", offer: {} as IOffer }),
-          }}
+          title={forAdmin ? "Offers" : "Active Offers"}
+          buttonProps={
+            !forAdmin
+              ? {
+                  size: "small",
+                  variant: "primary",
+                  children: "Create New offers",
+                  onClick: () =>
+                    actionModal.open({ type: "create", offer: {} as IOffer }),
+                }
+              : undefined
+          }
           searchBarProps={{
             onChangeText: setSearchQuery,
           }}
