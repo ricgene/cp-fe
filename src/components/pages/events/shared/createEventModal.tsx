@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createKeyLabelPair, handleError } from "@/utils";
@@ -86,6 +87,7 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
       const formData = prepareFormData(data);
       await createEvent(formData);
       onSuccess();
+      toast.success("Event created successfully");
       handleClose();
     } catch (error) {
       handleError(error);
