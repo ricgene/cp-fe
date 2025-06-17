@@ -19,7 +19,7 @@ const styles = {
   buttonContent: "flex items-center gap-2",
   icon: "h-5 !stroke-white",
   chevron: "h-3 duration-300 ease-in-out !stroke-white",
-  chevronClosed: "rotate-270",
+  chevronClosed: "rotate-0",
   chevronOpen: "rotate-180",
   linkContainer: "px-2 mt-1 flex flex-col gap-1",
   link: "flex items-center py-2 px-2 hover:bg-white/10 rounded-md text-[13px]",

@@ -1,3 +1,5 @@
+import { Alerts } from "@/components/pages/alerts";
+
 export default function AlertsPage() {
-  return <div>Alerts</div>;
+  return <Alerts />;
 }

@@ -1,4 +1,4 @@
-import { IEvent, IOffer, IUser } from "@/types";
+import { IAlert, IEvent, IOffer, IUser } from "@/types";
 
 const dateOptions = {
   day: "2-digit" as const,
@@ -66,5 +66,14 @@ export const transformEventsToTableData = (events: IEvent[]) => {
       dateTimeOptions
     ),
     address: event.address.address,
+  }));
+};
+
+export const transformAlertsToTableData = (alerts: IAlert[]) => {
+  return alerts.map((alert: IAlert) => ({
+    id: alert.id,
+    type: alert.type,
+    title: alert.title,
+    precautions: alert.precautions,
   }));
 };

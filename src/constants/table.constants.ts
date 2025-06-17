@@ -1,4 +1,4 @@
-import { IEvent, IOffer, IUser } from "@/types";
+import { IAlert, IEvent, IOffer, IUser } from "@/types";
 
 // (don't change the order of the columns)
 export const OFFER_TABLE_COLUMNS: {
@@ -44,4 +44,14 @@ export const EVENTS_TABLE_COLUMNS: {
   { key: "startDate", label: "Start Date & Time" },
   { key: "endDate", label: "End Date & Time" },
   { key: "image", label: "Venue Image" },
+];
+
+// (don't change the order of the columns)
+export const ALERTS_TABLE_COLUMNS: {
+  key: keyof IAlert | "type";
+  label: string;
+}[] = [
+  { key: "title", label: "Alert Title" },
+  { key: "type", label: "Alert Type" },
+  { key: "precautions", label: "Precautions" },
 ];

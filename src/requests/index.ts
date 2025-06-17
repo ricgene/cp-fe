@@ -5,5 +5,6 @@ export * from "./auth.requests";
 export * from "./user.requests";
 export * from "./offers.requests";
 export * from "./events.requests";
+export * from "./alerts.requests";
 export * from "./session.requests";
 export * from "./recovery.requests";
