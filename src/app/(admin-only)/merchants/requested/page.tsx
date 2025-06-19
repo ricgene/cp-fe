@@ -1,3 +1,5 @@
+import RequestedMerchants from "@/components/pages/merchants/requested";
+
 export default function RequestedMerchantsPage() {
-  return <div>Requested Merchants</div>;
+  return <RequestedMerchants />;
 }

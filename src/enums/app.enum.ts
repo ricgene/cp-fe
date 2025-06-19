@@ -15,7 +15,8 @@ export enum PathsEnum {
   OFFERS_ARCHIVED = "/offers/archived",
   OFFERS_SCHEDULED = "/offers/scheduled",
   //
-  REQUESTED_MERCHANTS = "/merchants/requests",
+  REVOKED_MERCHANTS = "/merchants/revoked",
+  REQUESTED_MERCHANTS = "/merchants/requested",
   REGISTERED_MERCHANTS = "/merchants/registered",
   //
   REGISTERED_USERS = "/registered-users",

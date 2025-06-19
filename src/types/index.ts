@@ -4,4 +4,5 @@ export * from "./user.types";
 export * from "./offer.types";
 export * from "./alert.types";
 export * from "./event.types";
+export * from "./merchant.types";
 export * from "./dashboard.types";

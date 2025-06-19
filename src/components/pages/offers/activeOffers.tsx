@@ -153,9 +153,9 @@ const ActiveOffers = ({ forAdmin = false }: Props) => {
         />
 
         <Table
-          showActions
           data={tableData}
           loading={isLoading}
+          showActions={!forAdmin}
           onAction={handleAction}
           columns={OFFER_TABLE_COLUMNS}
           isEmpty={!isLoading && tableData.length === 0}

@@ -22,6 +22,7 @@ export interface IUser {
   countryCode: string;
   callingCode: string;
   businessName?: string;
+  businessType?: string;
   isEmailVerified: boolean;
   isAdminApproved?: boolean;
   image: IMedia; // media

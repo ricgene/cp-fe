@@ -142,6 +142,13 @@ export const ROUTES: Record<
     isPublic: false,
     allowedRoles: [RoleEnum.ADMIN],
   },
+  REVOKED_MERCHANTS: {
+    path: PathsEnum.REVOKED_MERCHANTS,
+    title: "Revoked Merchants",
+    showSidebar: true,
+    isPublic: false,
+    allowedRoles: [RoleEnum.ADMIN],
+  },
   REGISTERED_USERS: {
     path: PathsEnum.REGISTERED_USERS,
     title: "Registered Users",
@@ -196,12 +203,16 @@ export const ADMIN_MENU_ITEMS: IMenuItem[] = [
     href: PathsEnum.EMPTY,
     items: [
       {
+        label: ROUTES.REGISTERED_MERCHANTS.title,
+        href: ROUTES.REGISTERED_MERCHANTS.path,
+      },
+      {
         label: ROUTES.REQUESTED_MERCHANTS.title,
         href: ROUTES.REQUESTED_MERCHANTS.path,
       },
       {
-        label: ROUTES.REGISTERED_MERCHANTS.title,
-        href: ROUTES.REGISTERED_MERCHANTS.path,
+        label: ROUTES.REVOKED_MERCHANTS.title,
+        href: ROUTES.REVOKED_MERCHANTS.path,
       },
     ],
   },

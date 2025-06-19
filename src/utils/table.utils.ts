@@ -1,4 +1,5 @@
-import { IAlert, IEvent, IOffer, IUser } from "@/types";
+import { RequestTypeEnum } from "@/enums";
+import { IAlert, IEvent, IMerchantRequest, IOffer, IUser } from "@/types";
 
 const dateOptions = {
   day: "2-digit" as const,
@@ -75,5 +76,24 @@ export const transformAlertsToTableData = (alerts: IAlert[]) => {
     type: alert.type,
     title: alert.title,
     precautions: alert.precautions,
+  }));
+};
+
+export const transformRequestsToTableData = (requests: IMerchantRequest[]) => {
+  return requests.map((request: IMerchantRequest) => ({
+    id: request.publicId,
+    type:
+      request.type === RequestTypeEnum.MERCHANT_UPDATE_REQUEST
+        ? "Update Request"
+        : "Registration Request",
+    name: request.name,
+    email: request.email,
+    phone: `${request.callingCode}${request.phone}`,
+    businessName: request.businessName,
+    businessType: request.businessType,
+    state: request.state,
+    city: request.city,
+    address: request.address,
+    reason: request.reason || "",
   }));
 };

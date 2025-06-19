@@ -1,4 +1,4 @@
-import { IAlert, IEvent, IOffer, IUser } from "@/types";
+import { IAlert, IEvent, IMerchantRequest, IOffer, IUser } from "@/types";
 
 // (don't change the order of the columns)
 export const OFFER_TABLE_COLUMNS: {
@@ -54,4 +54,29 @@ export const ALERTS_TABLE_COLUMNS: {
   { key: "title", label: "Alert Title" },
   { key: "type", label: "Alert Type" },
   { key: "precautions", label: "Precautions" },
+];
+
+// (don't change the order of the columns)
+export const REQUESTS_TABLE_COLUMNS: {
+  key: keyof IMerchantRequest;
+  label: string;
+}[] = [
+  { key: "name", label: "Name of Merchant" },
+  { key: "type", label: "Request Type" },
+  { key: "email", label: "Email" },
+  { key: "phone", label: "Phone No." },
+  { key: "businessName", label: "Business Name" },
+  { key: "businessType", label: "Business Type" },
+  { key: "state", label: "State" },
+  { key: "city", label: "City" },
+  { key: "address", label: "Address" },
+];
+
+// (don't change the order of the columns)
+export const REVOKED_REQUESTS_TABLE_COLUMNS: {
+  key: keyof IMerchantRequest;
+  label: string;
+}[] = [
+  ...REQUESTS_TABLE_COLUMNS,
+  { key: "reason", label: "Reason for Revocation" },
 ];
