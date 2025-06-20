@@ -34,6 +34,7 @@ const RevokedMerchants = () => {
       }).then((response) => ({
         data: response.data.requests.map((request) => ({
           ...request.data.merchantData,
+          id: request.id,
           type: request.type,
           status: request.status,
           reason: request.reason,
