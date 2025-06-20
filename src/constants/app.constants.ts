@@ -163,6 +163,28 @@ export const ROUTES: Record<
     isPublic: false,
     allowedRoles: [RoleEnum.ADMIN],
   },
+  // policies
+  PRIVACY_POLICY: {
+    path: PathsEnum.PRIVACY_POLICY,
+    title: "Privacy Policy",
+    showSidebar: false,
+    isPublic: true,
+    allowedRoles: [],
+  },
+  COOKIE_POLICY: {
+    path: PathsEnum.COOKIE_POLICY,
+    title: "Cookie Policy",
+    showSidebar: false,
+    isPublic: true,
+    allowedRoles: [],
+  },
+  TERMS_OF_USE: {
+    path: PathsEnum.TERMS_OF_USE,
+    title: "Terms of Use",
+    showSidebar: false,
+    isPublic: true,
+    allowedRoles: [],
+  },
 };
 
 export const MERCHANT_MENU_ITEMS: IMenuItem[] = [
