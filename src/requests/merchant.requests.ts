@@ -13,7 +13,7 @@ interface GetAllRequestsParams {
 
 interface IAllRequestsResponse {
   requests: {
-    id: string;
+    id: number;
     type: RequestTypeEnum;
     status: RequestStatusEnum;
     reason: string;
@@ -29,4 +29,12 @@ const baseRequestUrl = "/admin-requests";
 
 export const getAllRequests = async (params: GetAllRequestsParams) => {
   return await api.get<IAllRequestsResponse>(baseRequestUrl, { params });
+};
+
+export const acceptRequest = async (id: number) => {
+  return await api.patch(`${baseRequestUrl}/${id}/accept`);
+};
+
+export const rejectRequest = async (id: number) => {
+  return await api.patch(`${baseRequestUrl}/${id}/reject`);
 };

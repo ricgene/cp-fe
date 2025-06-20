@@ -23,4 +23,6 @@ export enum ActionEnum {
   ARCHIVE = "ARCHIVE",
   DELETE = "DELETE",
   QR_CODE = "QR_CODE",
+  APPROVE = "APPROVE",
+  REJECT = "REJECT",
 }

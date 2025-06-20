@@ -62,7 +62,6 @@ export const REQUESTS_TABLE_COLUMNS: {
   label: string;
 }[] = [
   { key: "name", label: "Name of Merchant" },
-  { key: "type", label: "Request Type" },
   { key: "email", label: "Email" },
   { key: "phone", label: "Phone No." },
   { key: "businessName", label: "Business Name" },
@@ -70,6 +69,7 @@ export const REQUESTS_TABLE_COLUMNS: {
   { key: "state", label: "State" },
   { key: "city", label: "City" },
   { key: "address", label: "Address" },
+  { key: "type", label: "Request Type" },
 ];
 
 // (don't change the order of the columns)

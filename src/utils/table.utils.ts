@@ -81,7 +81,7 @@ export const transformAlertsToTableData = (alerts: IAlert[]) => {
 
 export const transformRequestsToTableData = (requests: IMerchantRequest[]) => {
   return requests.map((request: IMerchantRequest) => ({
-    id: request.publicId,
+    id: request.id,
     type:
       request.type === RequestTypeEnum.MERCHANT_UPDATE_REQUEST
         ? "Update Request"
