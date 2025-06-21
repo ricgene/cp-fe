@@ -1,5 +1,3 @@
-import { Loader, Select, Typography } from "@/components/ui";
-import { BarChart, LineChart } from "@/components/shared/charts";
 import {
   DashboardChartTimeRangeType,
   DashboardChartType,
@@ -11,6 +9,8 @@ import {
   DASHBOARD_CHART_TIME_RANGE_OPTIONS,
 } from "@/constants";
 import { ChartTypeEnum } from "@/enums";
+import { Loader, Select, Typography } from "@/components/ui";
+import { BarChart, LineChart } from "@/components/shared/charts";
 
 const styles = {
   card: "flex-1 flex flex-col gap-4 px-1.5 pt-6 pb-4 border border-divider rounded-xl",
@@ -25,6 +25,7 @@ interface ChartCardProps {
   title: string;
   loading: boolean;
   subtitle: string;
+  multiSeries?: boolean;
   series: IChartSeries[];
   chartType: DashboardChartType;
   selectedTimeRange: DashboardChartTimeRangeType;
@@ -39,6 +40,7 @@ const ChartCard = ({
   subtitle,
   chartType,
   selectedTimeRange,
+  multiSeries = false,
   timeRangeOptions = DASHBOARD_CHART_TIME_RANGE_OPTIONS,
   onTimeRangeChange,
 }: ChartCardProps) => {
@@ -80,7 +82,11 @@ const ChartCard = ({
             {chartType === ChartTypeEnum.LINE ? (
               <LineChart categories={labels} series={series} />
             ) : (
-              <BarChart categories={labels} series={series} />
+              <BarChart
+                categories={labels}
+                series={series}
+                multiSeries={multiSeries}
+              />
             )}
           </>
         )}

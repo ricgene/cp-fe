@@ -35,10 +35,11 @@ const refreshSession = async (url: string, refreshToken: string) => {
 };
 
 export const getServerSession = async (
-  req: NextRequest
+  req?: NextRequest
 ): Promise<IUser | null> => {
-  const { origin } = req.nextUrl;
-  const refreshUrl = joinUrl(origin, "/api/refresh");
+  const refreshUrl = req
+    ? joinUrl(req.nextUrl.origin, "/api/refresh")
+    : "/api/refresh";
   try {
     const cookieStore = await cookies();
     const accessToken = cookieStore.get(ACCESS_COOKIE_NAME)?.value;

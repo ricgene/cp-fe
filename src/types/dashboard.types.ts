@@ -1,3 +1,4 @@
+import { IAlert } from "./alert.types";
 import { ChartTypeEnum, DashboardChartTimeRangeEnum } from "@/enums";
 
 //  TYPES
@@ -23,6 +24,11 @@ export interface IDashboardChartData {
     data: number[];
     [DashboardChartTimeRangeEnum.MONTHLY]: number[];
   };
+  platformAnalyticsChartData: {
+    [DashboardChartTimeRangeEnum.WEEKLY]: number[];
+    [DashboardChartTimeRangeEnum.MONTHLY]: number[];
+  };
+  alerts: IAlert[];
 }
 
 export interface IDashboardChartLabels {

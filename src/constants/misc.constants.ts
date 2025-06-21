@@ -40,7 +40,7 @@ export const COMMON_CHART_OPTIONS: Partial<ApexOptions> = {
   legend: {
     show: false,
   },
-  colors: ["#008F45"],
+  colors: ["#008F45", "#E5D200"],
   grid: {
     xaxis: {
       lines: {
