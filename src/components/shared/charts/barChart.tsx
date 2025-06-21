@@ -90,6 +90,14 @@ const BarChart = ({ categories, series, multiSeries }: Props) => {
     xaxis: {
       ...COMMON_CHART_OPTIONS.xaxis,
       categories,
+      ...(multiSeries && {
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+      }),
     },
   };
 

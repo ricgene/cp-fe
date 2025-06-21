@@ -18,6 +18,9 @@ const styles = {
   alertTextContainer: "flex flex-col gap-1",
   alertDateContainer: "flex mt-auto",
   alertDate: "text-paragraph text-[10px] ml-auto",
+  emptyContainer:
+    "m-auto p-6 bg-element rounded-lg border-[0.5px] border-stroke text-center shadow-sm",
+  alertsContainer: "w-full flex flex-col gap-4 pb-2",
 };
 interface ChartCardProps {
   title: string;
@@ -44,7 +47,7 @@ const AlertCard = ({ data, title, loading, subtitle }: ChartCardProps) => {
         {loading ? (
           <Loader className="m-auto stroke-primary" />
         ) : data?.length ? (
-          <div className="w-full flex flex-col gap-4">
+          <div className={styles.alertsContainer}>
             {data?.map((alert, index) => (
               <div
                 key={`alert${index + alert.id}`}
@@ -75,7 +78,10 @@ const AlertCard = ({ data, title, loading, subtitle }: ChartCardProps) => {
             ))}
           </div>
         ) : (
-          <div></div>
+          <div className={styles.emptyContainer}>
+            <Typography level="p1_bold">Nothing Here</Typography>
+            <Typography level="p1">You will find new alerts here</Typography>
+          </div>
         )}
       </div>
     </div>

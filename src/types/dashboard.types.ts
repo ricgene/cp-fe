@@ -24,7 +24,11 @@ export interface IDashboardChartData {
     data: number[];
     [DashboardChartTimeRangeEnum.MONTHLY]: number[];
   };
-  platformAnalyticsChartData: {
+  userGrowthChartData: {
+    [DashboardChartTimeRangeEnum.WEEKLY]: number[];
+    [DashboardChartTimeRangeEnum.MONTHLY]: number[];
+  };
+  offerPerformanceChartData: {
     [DashboardChartTimeRangeEnum.WEEKLY]: number[];
     [DashboardChartTimeRangeEnum.MONTHLY]: number[];
   };

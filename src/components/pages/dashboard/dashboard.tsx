@@ -33,27 +33,33 @@ const Dashboard = ({ forAdmin }: Props) => {
   const engagementSeries: IChartSeries[] = [
     {
       name: "Engagement",
-      data: data?.engagementChartData[selectedTimeRange.engagement] || [],
+      data: data?.engagementChartData?.[selectedTimeRange.engagement] || [],
     },
     {
       name: "Engagement",
-      data: data?.engagementChartData[selectedTimeRange.engagement] || [],
+      data: data?.engagementChartData?.[selectedTimeRange.engagement] || [],
     },
   ];
 
   const pointsSpentSeries: IChartSeries[] = [
     {
       name: "Points Spent",
-      data: data?.pointsSpentChartData[selectedTimeRange.pointsSpent] || [],
+      data: data?.pointsSpentChartData?.[selectedTimeRange.pointsSpent] || [],
     },
   ];
 
   const platformAnalyticsSeries: IChartSeries[] = [
     {
-      name: "Platform Analytics",
+      name: "User growth",
       data:
-        data?.platformAnalyticsChartData[selectedTimeRange.platformAnalytics] ||
-        [],
+        data?.userGrowthChartData?.[selectedTimeRange.platformAnalytics] || [],
+    },
+    {
+      name: "Offer performance",
+      data:
+        data?.offerPerformanceChartData?.[
+          selectedTimeRange.platformAnalytics
+        ] || [],
     },
   ];
 
