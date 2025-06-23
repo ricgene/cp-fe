@@ -142,12 +142,48 @@ export const ROUTES: Record<
     isPublic: false,
     allowedRoles: [RoleEnum.ADMIN],
   },
+  REVOKED_MERCHANTS: {
+    path: PathsEnum.REVOKED_MERCHANTS,
+    title: "Revoked Merchants",
+    showSidebar: true,
+    isPublic: false,
+    allowedRoles: [RoleEnum.ADMIN],
+  },
   REGISTERED_USERS: {
     path: PathsEnum.REGISTERED_USERS,
     title: "Registered Users",
     showSidebar: true,
     isPublic: false,
     allowedRoles: [RoleEnum.ADMIN],
+  },
+  OFFERS_ALL: {
+    path: PathsEnum.OFFERS_ALL,
+    title: "Offers",
+    showSidebar: true,
+    isPublic: false,
+    allowedRoles: [RoleEnum.ADMIN],
+  },
+  // policies
+  PRIVACY_POLICY: {
+    path: PathsEnum.PRIVACY_POLICY,
+    title: "Privacy Policy",
+    showSidebar: false,
+    isPublic: true,
+    allowedRoles: [],
+  },
+  COOKIE_POLICY: {
+    path: PathsEnum.COOKIE_POLICY,
+    title: "Cookie Policy",
+    showSidebar: false,
+    isPublic: true,
+    allowedRoles: [],
+  },
+  TERMS_OF_USE: {
+    path: PathsEnum.TERMS_OF_USE,
+    title: "Terms of Use",
+    showSidebar: false,
+    isPublic: true,
+    allowedRoles: [],
   },
 };
 
@@ -184,42 +220,46 @@ export const ADMIN_MENU_ITEMS: IMenuItem[] = [
     label: ROUTES.DASHBOARD.title,
   },
   {
-    icon: "dashboard",
+    icon: "merchants",
     label: "Merchants",
     href: PathsEnum.EMPTY,
     items: [
+      {
+        label: ROUTES.REGISTERED_MERCHANTS.title,
+        href: ROUTES.REGISTERED_MERCHANTS.path,
+      },
       {
         label: ROUTES.REQUESTED_MERCHANTS.title,
         href: ROUTES.REQUESTED_MERCHANTS.path,
       },
       {
-        label: ROUTES.REGISTERED_MERCHANTS.title,
-        href: ROUTES.REGISTERED_MERCHANTS.path,
+        label: ROUTES.REVOKED_MERCHANTS.title,
+        href: ROUTES.REVOKED_MERCHANTS.path,
       },
     ],
   },
   {
-    icon: "dashboard",
+    icon: "users",
     href: ROUTES.REGISTERED_USERS.path,
     label: ROUTES.REGISTERED_USERS.title,
   },
   {
-    icon: "dashboard",
+    icon: "alerts",
     label: ROUTES.ALERTS.title,
     href: ROUTES.ALERTS.path,
   },
   {
-    icon: "dashboard",
+    icon: "events",
     label: ROUTES.EVENTS.title,
     href: ROUTES.EVENTS.path,
   },
   {
-    icon: "dashboard",
+    icon: "offers",
     label: "Offers",
-    href: ROUTES.OFFERS_ACTIVE.path,
+    href: ROUTES.OFFERS_ALL.path,
   },
   {
-    icon: "dashboard",
+    icon: "points",
     label: "Points",
     href: PathsEnum.EMPTY,
     items: [

@@ -421,7 +421,7 @@ export const ICONS_LIST = {
       className={className}
     >
       <path
-        stroke="#595959"
+        stroke="inherit"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={1.403}
@@ -429,7 +429,7 @@ export const ICONS_LIST = {
         clipRule="evenodd"
       />
       <path
-        stroke="#595959"
+        stroke="inherit"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={1.403}
@@ -1022,6 +1022,144 @@ export const ICONS_LIST = {
             transform="translate(0 0.550781)"
           />
         </clipPath>
+      </defs>
+    </svg>
+  ),
+  merchants: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+    >
+      <path
+        stroke="#fff"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M20.333 19.5v-1.667a3.335 3.335 0 0 0-2.5-3.228m-2.916-9.863a3.334 3.334 0 0 1 0 6.182m1.25 8.576c0-1.553 0-2.33-.254-2.942a3.333 3.333 0 0 0-1.804-1.804c-.613-.254-1.39-.254-2.942-.254h-2.5c-1.553 0-2.33 0-2.943.254a3.334 3.334 0 0 0-1.804 1.804c-.253.612-.253 1.389-.253 2.942M13.25 7.833a3.333 3.333 0 1 1-6.667 0 3.333 3.333 0 0 1 6.667 0Z"
+      />
+    </svg>
+  ),
+  users: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+    >
+      <path
+        stroke="#fff"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M15.333 4.89a3.75 3.75 0 0 1 0 6.72M17 15.972c1.26.57 2.394 1.499 3.333 2.695m-16.666 0c1.622-2.065 3.824-3.334 6.25-3.334 2.425 0 4.628 1.27 6.25 3.334m-2.5-10.417a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+      />
+    </svg>
+  ),
+  alerts: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+    >
+      <path
+        stroke="#fff"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M15.038 17.013a2.5 2.5 0 0 1-4.83 1.294m-6.494-6.629a3.34 3.34 0 0 1 .877-3.272m7.531-1.622a2.083 2.083 0 1 0-2.892.775m9.703.041a3.339 3.339 0 0 0-2.395-2.395m.038 4.666c-.298-1.11-1.092-2.038-2.208-2.58-1.116-.543-2.463-.654-3.744-.311-1.28.343-2.39 1.113-3.086 2.14-.696 1.028-.92 2.23-.622 3.34.492 1.836.397 3.301.086 4.415-.354 1.269-.531 1.904-.483 2.031.054.146.094.186.24.242.126.05.66-.094 1.725-.38l9.888-2.649c1.066-.285 1.6-.428 1.685-.534.097-.122.112-.176.086-.33-.022-.134-.493-.595-1.434-1.517-.826-.809-1.641-2.03-2.133-3.867Z"
+      />
+    </svg>
+  ),
+  points: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+    >
+      <path
+        stroke="#fff"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M12 16.167a4.167 4.167 0 1 0 8.333 0 4.167 4.167 0 0 0-8.333 0Zm0 0c0-.939.31-1.804.833-2.5v-7.5m-.833 10c0 .688.167 1.336.462 1.908-.702.593-2.324 1.008-4.212 1.008-2.531 0-4.583-.746-4.583-1.666V6.167m9.166 0c0 .92-2.052 1.666-4.583 1.666s-4.583-.746-4.583-1.666m9.166 0c0-.92-2.052-1.667-4.583-1.667s-4.583.746-4.583 1.667m0 7.5c0 .92 2.052 1.666 4.583 1.666 1.824 0 3.4-.387 4.137-.948m.446-4.468c0 .92-2.052 1.666-4.583 1.666s-4.583-.746-4.583-1.666"
+      />
+    </svg>
+  ),
+  events: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+    >
+      <path
+        stroke="#fff"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M19.5 10.334h-15m10.833-6.667V7M8.667 3.667V7M8.5 20.334h7c1.4 0 2.1 0 2.635-.273a2.5 2.5 0 0 0 1.092-1.092c.273-.535.273-1.235.273-2.635v-7c0-1.4 0-2.1-.273-2.635a2.5 2.5 0 0 0-1.092-1.093c-.535-.272-1.235-.272-2.635-.272h-7c-1.4 0-2.1 0-2.635.272A2.5 2.5 0 0 0 4.772 6.7C4.5 7.233 4.5 7.934 4.5 9.334v7c0 1.4 0 2.1.272 2.635a2.5 2.5 0 0 0 1.093 1.092c.535.273 1.235.273 2.635.273Z"
+      />
+    </svg>
+  ),
+  alert: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 28"
+      fill="none"
+      className={className}
+    >
+      <path
+        stroke="url(#a)"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M18.333 6.667V10M8.542 4.583H5.667c-1.4 0-2.1 0-2.635.273a2.5 2.5 0 0 0-1.093 1.092c-.272.535-.272 1.235-.272 2.635v1c0 .777 0 1.165.127 1.471.169.409.493.733.902.902.306.127.694.127 1.47.127v3.542c0 .193 0 .29.009.372a1.667 1.667 0 0 0 1.495 1.495c.081.008.178.008.372.008.193 0 .29 0 .371-.008a1.667 1.667 0 0 0 1.496-1.495c.008-.082.008-.179.008-.372v-3.542h.625c1.472 0 3.272.79 4.662 1.547.81.441 1.215.662 1.48.63a.788.788 0 0 0 .577-.342c.156-.218.156-.653.156-1.523V4.272c0-.87 0-1.306-.156-1.523a.788.788 0 0 0-.576-.342c-.266-.033-.671.188-1.481.63-1.39.757-3.19 1.546-4.662 1.546Z"
+      />
+      <defs>
+        <linearGradient
+          id="a"
+          x1={3.963}
+          x2={17.303}
+          y1={3.4}
+          y2={16.028}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#0A974D" />
+          <stop offset={1} stopColor="#006260" />
+        </linearGradient>
+      </defs>
+    </svg>
+  ),
+  warning: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 28"
+      fill="none"
+      className={className}
+    >
+      <path
+        stroke="url(#a)"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M13.038 15.012a2.5 2.5 0 1 1-4.83 1.294M1.715 9.678a3.34 3.34 0 0 1 .877-3.272m7.531-1.622a2.083 2.083 0 1 0-2.892.775m9.703.041a3.34 3.34 0 0 0-2.395-2.395m.038 4.666c-.298-1.11-1.092-2.038-2.208-2.58-1.116-.543-2.463-.655-3.744-.312-1.28.344-2.39 1.114-3.086 2.142-.696 1.027-.92 2.228-.622 3.338.492 1.837.397 3.302.086 4.416-.354 1.269-.531 1.903-.483 2.03.054.146.094.186.24.243.126.049.66-.094 1.725-.38l9.888-2.649c1.066-.286 1.6-.429 1.685-.535.097-.12.112-.175.086-.329-.022-.134-.493-.595-1.434-1.517-.826-.809-1.641-2.03-2.133-3.867Z"
+      />
+      <defs>
+        <linearGradient
+          id="a"
+          x1={3.874}
+          x2={18.293}
+          y1={2.776}
+          y2={15.206}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#0A974D" />
+          <stop offset={1} stopColor="#006260" />
+        </linearGradient>
       </defs>
     </svg>
   ),

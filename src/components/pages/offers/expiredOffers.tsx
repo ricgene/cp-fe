@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { deleteOffer } from "@/requests";
-import { useOffers, useModal } from "@/hooks";
-import { IOffer, OfferActionType } from "@/types";
-import { OfferActionEnum, OfferStatusEnum } from "@/enums";
+import { IOffer, ActionType } from "@/types";
+import { usePaginatedList, useModal } from "@/hooks";
+import { deleteOffer, getAllOffers } from "@/requests";
+import { ActionEnum, OfferStatusEnum } from "@/enums";
 import { Table, Pagination, Typography } from "@/components/ui";
 import { handleError, transformOffersToTableData } from "@/utils";
 import { ControlHeader, ConfirmationModal } from "@/components/shared";
@@ -24,23 +24,34 @@ const ExpiredOffers = () => {
     page,
     sortBy,
     isLoading,
-    filteredAndSortedOffers,
+    filteredAndSorted,
     setPage,
     setSortBy,
-    refreshOffers,
+    refresh,
     setSearchQuery,
-  } = useOffers({ status: OfferStatusEnum.EXPIRED });
+  } = usePaginatedList<IOffer>({
+    fetcher: ({ page, limit, search }) =>
+      getAllOffers({
+        status: OfferStatusEnum.EXPIRED,
+        page,
+        limit,
+        search,
+      }).then((response) => ({
+        data: response.data.offers,
+        meta: response.data.meta,
+      })),
+  });
 
   const deleteModal = useModal<IOffer>();
   const [isActionLoading, setIsActionLoading] = useState(false);
-  const tableData = transformOffersToTableData(filteredAndSortedOffers);
+  const tableData = transformOffersToTableData(filteredAndSorted);
 
-  const handleAction = (itemId: number, action: OfferActionType) => {
-    const offer = filteredAndSortedOffers.find((o) => o.id === itemId);
+  const handleAction = (itemId: number, action: ActionType) => {
+    const offer = filteredAndSorted.find((o) => o.id === itemId);
     if (!offer) return;
 
     switch (action) {
-      case OfferActionEnum.DELETE:
+      case ActionEnum.DELETE:
         deleteModal.open(offer);
         break;
     }
@@ -52,7 +63,7 @@ const ExpiredOffers = () => {
     try {
       setIsActionLoading(true);
       await deleteOffer(deleteModal.data.id);
-      await refreshOffers();
+      await refresh();
     } catch (error) {
       handleError(error);
     } finally {

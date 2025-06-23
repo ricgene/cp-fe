@@ -17,11 +17,11 @@ const styles = {
 
   // body
   tbody: "text-paragraph",
-  bodyCell: "py-2 px-4 text-nowrap",
+  bodyCell: "h-11 px-4 text-nowrap",
   emptyBodyCell: "p-4 lg:text-center",
   actionButton: "p-1 cursor-pointer hover:opacity-30",
   imageContainer:
-    "h-8 aspect-video relative bg-gray-100 rounded overflow-hidden",
+    "mx-auto h-7 aspect-video relative bg-gray-100 rounded overflow-hidden",
   truncatedCell: "cursor-help",
   tooltip:
     "fixed bg-element text-paragraph px-2.5 py-1.5 rounded-md text-xs z-50 pointer-events-none max-w-[300px] break-words whitespace-normal",
@@ -234,7 +234,7 @@ const TableRow = ({
       <td className={twMerge(styles.bodyCell, styles.actionCell)}>
         <button
           className={styles.actionButton}
-          onClick={(e) => onActionClick(row.id, e)}
+          onClick={(e) => onActionClick(Number(row.id), e)}
         >
           Actions
         </button>

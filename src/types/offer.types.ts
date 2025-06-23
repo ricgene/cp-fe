@@ -1,23 +1,14 @@
 import { IMedia } from "./misc.types";
-import {
-  OfferActionEnum,
-  OfferDurationFilterEnum,
-  OfferSpecialFilterEnum,
-  OfferStatusEnum,
-} from "@/enums";
+import { ActionEnum, OfferStatusEnum, OfferSpecialFilterEnum } from "@/enums";
 
 // TYPES
 export type OfferStatusType =
   (typeof OfferStatusEnum)[keyof typeof OfferStatusEnum];
 
-export type OfferDurationFilterType =
-  (typeof OfferDurationFilterEnum)[keyof typeof OfferDurationFilterEnum];
-
 export type OfferSpecialFilterType =
   (typeof OfferSpecialFilterEnum)[keyof typeof OfferSpecialFilterEnum];
 
-export type OfferActionType =
-  (typeof OfferActionEnum)[keyof typeof OfferActionEnum];
+export type ActionType = (typeof ActionEnum)[keyof typeof ActionEnum];
 
 // INTERFACES
 export interface IOffer {
@@ -41,7 +32,7 @@ export interface IOffer {
 }
 
 export interface IAction {
-  key: OfferActionType;
+  key: ActionType;
   label: string;
 }
 
@@ -51,7 +42,7 @@ export interface IKeyLabelPair {
 }
 
 export interface ITableData {
-  id: number;
+  id: number | string;
   isPerk?: boolean;
   [key: string]: string | number | boolean | undefined;
 }

@@ -15,14 +15,20 @@ export enum PathsEnum {
   OFFERS_ARCHIVED = "/offers/archived",
   OFFERS_SCHEDULED = "/offers/scheduled",
   //
-  REQUESTED_MERCHANTS = "/merchant/requests",
-  REGISTERED_MERCHANTS = "/merchant/registers",
+  REVOKED_MERCHANTS = "/merchants/revoked",
+  REQUESTED_MERCHANTS = "/merchants/requested",
+  REGISTERED_MERCHANTS = "/merchants/registered",
   //
-  REGISTERED_USERS = "/users/registers",
+  REGISTERED_USERS = "/registered-users",
   //
   ALERTS = "/alerts",
   EVENTS = "/events",
+  OFFERS_ALL = "/all-offers",
   //
   POINTS_HISTORY = "/points/history",
   POINTS_ALLOCATE = "/points/allocate",
+  //
+  PRIVACY_POLICY = "/privacy-policy",
+  COOKIE_POLICY = "/cookie-policy",
+  TERMS_OF_USE = "/terms-of-use",
 }

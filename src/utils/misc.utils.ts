@@ -55,3 +55,21 @@ export const getStepSize = (series: IChartSeries[]) => {
 export const joinUrl = (base: string, path: string) => {
   return `${base.replace(/\/+$/, "")}/${path.replace(/^\/+/, "")}`;
 };
+
+export const formatDateTime = (dateString: string) => {
+  const date = new Date(dateString);
+
+  const timeOptions: Intl.DateTimeFormatOptions = {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  };
+  const time = date.toLocaleTimeString("en-US", timeOptions);
+
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    month: "long",
+    day: "numeric",
+  };
+  const formattedDate = date.toLocaleDateString("en-US", dateOptions);
+  return `${time}, ${formattedDate}`;
+};

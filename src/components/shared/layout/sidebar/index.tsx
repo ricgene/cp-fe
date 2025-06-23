@@ -84,11 +84,7 @@ const Sidebar = ({ pathname }: Props) => {
   const { userData } = useUserData();
   const { isOpen, closeSidebar } = useMobileSidebar();
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [expandedMenus, setExpandedMenus] = useState<string[]>([
-    "Offers",
-    "Points",
-    "Merchants",
-  ]);
+  const [expandedMenus, setExpandedMenus] = useState<string[]>(["Offers"]);
   const MENU_ITEMS = !!userData
     ? userData?.role === RoleEnum.MERCHANT
       ? MERCHANT_MENU_ITEMS

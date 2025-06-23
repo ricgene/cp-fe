@@ -1,4 +1,4 @@
-export * from "./useDebounce";
+export * from "./usePaginatedList";
 export * from "./useOutsideClick";
-export * from "./useOffers";
+export * from "./useDebounce";
 export * from "./useModal";

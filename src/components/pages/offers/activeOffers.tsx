@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { useOffers, useModal } from "@/hooks";
-import { changeOfferStatus } from "@/requests";
-import { IOffer, OfferActionType } from "@/types";
-import { OfferActionEnum, OfferStatusEnum } from "@/enums";
+import { useModal, usePaginatedList } from "@/hooks";
+import { getAllOffers, changeOfferStatus } from "@/requests";
+import { IOffer, ActionType } from "@/types";
+import { ActionEnum, OfferStatusEnum } from "@/enums";
 import { Table, Pagination, Typography } from "@/components/ui";
 import { handleError, transformOffersToTableData } from "@/utils";
 import { ControlHeader, ConfirmationModal } from "@/components/shared";
@@ -16,38 +16,53 @@ import {
 import QRCodeModal from "@/components/pages/offers/shared/qrCodeModal";
 import CreateEditOfferModal from "@/components/pages/offers/shared/createEditOfferModal";
 
+interface Props {
+  forAdmin?: boolean;
+}
+
 const styles = {
   pageContainer: "h-full flex flex-col",
 };
 
 type ModalType = "archive" | "create" | "qrCode";
 
-const ActiveOffers = () => {
+const ActiveOffers = ({ forAdmin = false }: Props) => {
   const {
     meta,
     page,
     sortBy,
     isLoading,
-    filteredAndSortedOffers,
+    filteredAndSorted,
+    refresh,
     setPage,
     setSortBy,
-    refreshOffers,
     setSearchQuery,
-  } = useOffers({ status: OfferStatusEnum.ACTIVE });
+  } = usePaginatedList<IOffer>({
+    fetcher: ({ page, limit, search }) =>
+      getAllOffers({
+        status: OfferStatusEnum.ACTIVE,
+        page,
+        limit,
+        search,
+      }).then((response) => ({
+        data: response.data.offers,
+        meta: response.data.meta,
+      })),
+  });
 
   const actionModal = useModal<{ type: ModalType; offer: IOffer }>();
+  const tableData = transformOffersToTableData(filteredAndSorted);
   const [isActionLoading, setIsActionLoading] = useState(false);
-  const tableData = transformOffersToTableData(filteredAndSortedOffers);
 
-  const handleAction = (itemId: number, action: OfferActionType) => {
-    const offer = filteredAndSortedOffers.find((o) => o.id === itemId);
+  const handleAction = (itemId: number, action: ActionType) => {
+    const offer = filteredAndSorted.find((o) => o.id === itemId);
     if (!offer) return;
 
     switch (action) {
-      case OfferActionEnum.ARCHIVE:
+      case ActionEnum.ARCHIVE:
         actionModal.open({ type: "archive", offer });
         break;
-      case OfferActionEnum.QR_CODE:
+      case ActionEnum.QR_CODE:
         actionModal.open({ type: "qrCode", offer });
         break;
     }
@@ -55,7 +70,7 @@ const ActiveOffers = () => {
 
   const handleCreateOffer = async () => {
     try {
-      await refreshOffers();
+      await refresh();
       actionModal.close();
     } catch (error) {
       handleError(error);
@@ -71,7 +86,7 @@ const ActiveOffers = () => {
         actionModal.data.offer.id,
         OfferStatusEnum.ARCHIVED
       );
-      await refreshOffers();
+      await refresh();
     } catch (error) {
       handleError(error);
     } finally {
@@ -80,7 +95,6 @@ const ActiveOffers = () => {
     }
   };
 
-  // Modal content
   const getModalContent = () => {
     if (!actionModal.data?.offer) return null;
 
@@ -111,17 +125,21 @@ const ActiveOffers = () => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <div className={styles.pageContainer}>
         <ControlHeader
-          title="Active Offers"
-          buttonProps={{
-            size: "small",
-            variant: "primary",
-            children: "Create New offers",
-            onClick: () =>
-              actionModal.open({ type: "create", offer: {} as IOffer }),
-          }}
+          title={forAdmin ? "Offers" : "Active Offers"}
+          buttonProps={
+            !forAdmin
+              ? {
+                  size: "small",
+                  variant: "primary",
+                  children: "Create New offers",
+                  onClick: () =>
+                    actionModal.open({ type: "create", offer: {} as IOffer }),
+                }
+              : undefined
+          }
           searchBarProps={{
             onChangeText: setSearchQuery,
           }}
@@ -135,9 +153,9 @@ const ActiveOffers = () => {
         />
 
         <Table
-          showActions
           data={tableData}
           loading={isLoading}
+          showActions={!forAdmin}
           onAction={handleAction}
           columns={OFFER_TABLE_COLUMNS}
           isEmpty={!isLoading && tableData.length === 0}
@@ -172,7 +190,7 @@ const ActiveOffers = () => {
         onApprove={handleConfirmAction}
         centerContent={getModalContent()}
       />
-    </React.Fragment>
+    </>
   );
 };
 

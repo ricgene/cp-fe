@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
-import { useOffers } from "@/hooks";
+import { IOffer } from "@/types";
+import { getAllOffers } from "@/requests";
 import { OfferStatusEnum } from "@/enums";
+import { usePaginatedList } from "@/hooks";
 import { ControlHeader } from "@/components/shared";
 import { Table, Pagination } from "@/components/ui";
 import { transformOffersToTableData } from "@/utils";
@@ -18,13 +20,24 @@ const ArchivedOffers = () => {
     page,
     sortBy,
     isLoading,
-    filteredAndSortedOffers,
+    filteredAndSorted,
     setPage,
     setSortBy,
     setSearchQuery,
-  } = useOffers({ status: OfferStatusEnum.ARCHIVED });
+  } = usePaginatedList<IOffer>({
+    fetcher: ({ page, limit, search }) =>
+      getAllOffers({
+        status: OfferStatusEnum.ARCHIVED,
+        page,
+        limit,
+        search,
+      }).then((response) => ({
+        data: response.data.offers,
+        meta: response.data.meta,
+      })),
+  });
   // Derived state
-  const tableData = transformOffersToTableData(filteredAndSortedOffers);
+  const tableData = transformOffersToTableData(filteredAndSorted);
 
   return (
     <React.Fragment>

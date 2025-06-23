@@ -6,6 +6,7 @@ export type RoleType = (typeof RoleEnum)[keyof typeof RoleEnum];
 
 // INTERFACES
 export interface IUser {
+  dob: Date;
   name: string;
   city: string;
   state: string;
@@ -18,7 +19,10 @@ export interface IUser {
   lastName: string;
   firstName: string;
   fcmToken?: string;
+  countryCode: string;
+  callingCode: string;
   businessName?: string;
+  businessType?: string;
   isEmailVerified: boolean;
   isAdminApproved?: boolean;
   image: IMedia; // media

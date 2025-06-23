@@ -1,7 +1,9 @@
-import { SortByEnum } from "@/enums";
+import { DurationFilterEnum, SortByEnum } from "@/enums";
 
 // TYPES
 export type SortByType = keyof typeof SortByEnum;
+export type DurationFilterType =
+  (typeof DurationFilterEnum)[keyof typeof DurationFilterEnum];
 
 // INTERFACES
 export interface IMedia {
@@ -14,6 +16,15 @@ export interface IState {
   cities: string[];
 }
 
+export interface IAddress {
+  id: number;
+  city: string;
+  state: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+}
+
 export interface IStaticData {
   states: IState[];
   tags: ITags;
@@ -23,6 +34,7 @@ export interface ITags {
   PRODUCT: string[];
   OFFER: string[];
   BUSINESS: string[];
+  EVENT: string[];
 }
 
 export interface IChartSeries {
@@ -49,4 +61,17 @@ export interface ITokenResponse {
       sameSite: "lax" | "strict" | "none";
     };
   };
+}
+
+export interface IMetaResponse {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+export interface IPaginationParams {
+  page?: number;
+  limit?: number;
+  search?: string;
 }
