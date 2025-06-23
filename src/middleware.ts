@@ -12,7 +12,7 @@ const matchesRoute = (pathname: string, routePath: string): boolean => {
     const baseRoute = routePath.replace("/*", "");
     return pathname === baseRoute || pathname.startsWith(baseRoute + "/");
   }
-  return pathname === routePath;
+  return pathname == routePath;
 };
 
 // (Get route config)

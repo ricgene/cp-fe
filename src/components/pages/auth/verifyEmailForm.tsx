@@ -1,7 +1,7 @@
 "use client";
 
 import toast from "react-hot-toast";
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Icon from "@/Icons";
 import { handleError } from "@/utils";
@@ -18,7 +18,8 @@ const styles = {
 };
 
 const VerifyEmailForm = () => {
-  const { token } = useParams();
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [userName, setUserName] = useState<string | null>(null);
@@ -56,9 +57,7 @@ const VerifyEmailForm = () => {
         </div>
       ) : !isVerified ? (
         <div className={styles.flexContainer}>
-          <Typography level="p1">
-            Something went wrong. Please try again.
-          </Typography>
+          <Typography level="p1">Invalid or expired token</Typography>
         </div>
       ) : (
         <React.Fragment>

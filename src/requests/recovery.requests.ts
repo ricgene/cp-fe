@@ -20,7 +20,7 @@ export const forgotPassword = (data: ForgotPasswordRequest) =>
   api.post(forgotPasswordUrl, data);
 
 export const resetPassword = (data: ResetPasswordRequest) =>
-  api.post(`${resetPasswordUrl}/${data.token}`, { password: data.password });
+  api.patch(`${resetPasswordUrl}/${data.token}`, { password: data.password });
 
 export const resendPasswordReset = (data: ForgotPasswordRequest) =>
   api.post(resendPasswordResetUrl, data);

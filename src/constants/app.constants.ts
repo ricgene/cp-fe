@@ -19,14 +19,7 @@ export const ROUTES: Record<
   Exclude<keyof typeof PathsEnum, "EMPTY">,
   IRouteConfig
 > = {
-  LANDING: {
-    path: PathsEnum.LANDING,
-    title: "Landing",
-    showSidebar: false,
-    borderedContent: false,
-    isPublic: true,
-    allowedRoles: [],
-  },
+  // auth
   LOGIN: {
     path: PathsEnum.LOGIN,
     title: "Login",
@@ -54,6 +47,22 @@ export const ROUTES: Record<
     path: PathsEnum.RESET_PASSWORD,
     title: "Reset Password",
     showSidebar: false,
+    isPublic: true,
+    allowedRoles: [],
+  },
+  VERIFY_EMAIL: {
+    path: PathsEnum.VERIFY_EMAIL,
+    title: "Verify Email",
+    showSidebar: false,
+    isPublic: true,
+    allowedRoles: [],
+  },
+  // pages
+  LANDING: {
+    path: PathsEnum.LANDING,
+    title: "Landing",
+    showSidebar: false,
+    borderedContent: false,
     isPublic: true,
     allowedRoles: [],
   },

@@ -2,7 +2,7 @@
 
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { handleError } from "@/utils";
 import { Button, LabeledInput } from "@/components/ui";
@@ -17,8 +17,9 @@ const styles = {
 };
 
 const ResetPasswordForm = () => {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
   const router = useRouter();
-  const { token } = useParams();
   const {
     register,
     handleSubmit,
