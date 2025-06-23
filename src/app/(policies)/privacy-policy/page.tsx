@@ -187,6 +187,21 @@ const PrivacyPolicyPage = () => {
               significant changes through in-app alerts or email notifications.
             </p>
           </section>
+
+          <section>
+            <h2 className={styles.sectionTitle}>13. Help & Contact</h2>
+            <p className={styles.paragraph}>
+              If you have any questions or need assistance regarding this
+              Privacy Policy or your data, please feel free to contact us at:{" "}
+              <a
+                href="mailto:help.cityperks@gmail.com"
+                className="text-blue-600 underline font-medium"
+              >
+                help.cityperks@gmail.com
+              </a>
+              .
+            </p>
+          </section>
         </div>
       </div>
     </div>
