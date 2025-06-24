@@ -35,10 +35,6 @@ const Dashboard = ({ forAdmin }: Props) => {
       name: "Engagement",
       data: data?.engagementChartData?.[selectedTimeRange.engagement] || [],
     },
-    {
-      name: "Engagement",
-      data: data?.engagementChartData?.[selectedTimeRange.engagement] || [],
-    },
   ];
 
   const pointsSpentSeries: IChartSeries[] = [
