@@ -24,16 +24,14 @@ const styles = {
     wrapper: "w-full",
     inputWrapper: "relative mt-1.5",
   },
-  leftIcon: "h-4 stroke-unactive mr-3",
+  leftIcon: "h-4 stroke-unactive mr-3 absolute top-1/2 left-4 -translate-y-1/2",
   input: {
-    base: "w-full flex items-center bg-white border-1 border-stroke rounded-lg h-11 px-4",
+    base: "w-full bg-white border-1 border-stroke rounded-lg h-11 px-4 focus:outline-none placeholder:text-paragraph text-sm text-heading no-spinner disabled:bg-stroke disabled:cursor-not-allowed disabled:opacity-50",
     secondary:
       "h-10 bg-element border-divider text-paragraph placeholder:text-unactive",
     file: "absolute top-0 left-0 h-full w-full z-10 opacity-0 cursor-pointer",
-    disabled:
-      "disabled:opacity-50 disabled:bg-stroke disabled:cursor-not-allowed",
-    inner:
-      "flex-1 focus:outline-none placeholder:text-paragraph text-sm text-heading no-spinner",
+    withRightIcon: "pr-10",
+    withLeftIcon: "pl-12",
   },
   fileInput: {
     container:
@@ -45,7 +43,6 @@ const styles = {
     toggle: "cursor-pointer m-auto",
   },
   error: "text-[10px] text-red-600 mt-1",
-  inputWithIcon: "pr-10",
 };
 
 const LabeledInputComponent = (
@@ -89,25 +86,13 @@ const LabeledInputComponent = (
               id={name}
               name={name}
               type="file"
-              className={twMerge(
-                styles.input.file,
-                styles.input.disabled,
-                className
-              )}
+              className={twMerge(styles.input.file, className)}
               {...rest}
             />
           </div>
         ) : (
           <React.Fragment>
-            <div
-              className={twMerge(
-                styles.input.base,
-                isPasswordType && styles.inputWithIcon,
-                styles.input.disabled,
-                variant === "secondary" && styles.input.secondary,
-                className
-              )}
-            >
+            <div className="relative">
               {leftIcon && (
                 <Icon
                   name={leftIcon}
@@ -120,7 +105,13 @@ const LabeledInputComponent = (
                 name={name}
                 type={inputType}
                 autoComplete="off"
-                className={styles.input.inner}
+                className={twMerge(
+                  styles.input.base,
+                  isPasswordType && styles.input.withRightIcon,
+                  leftIcon && styles.input.withLeftIcon,
+                  variant === "secondary" && styles.input.secondary,
+                  className
+                )}
                 {...rest}
               />
             </div>
