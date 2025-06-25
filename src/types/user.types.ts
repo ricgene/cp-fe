@@ -27,4 +27,6 @@ export interface IUser {
   isAdminApproved?: boolean;
   image: IMedia; // media
   role: RoleType; // role
+  latitude?: number;
+  longitude?: number;
 }

@@ -5,6 +5,8 @@ import debounce from "lodash.debounce";
 import { twMerge } from "tailwind-merge";
 import usePlacesService from "react-google-autocomplete/lib/usePlacesAutocompleteService";
 import { Typography } from "@/components/ui";
+import { IconsType } from "@/types";
+import Icon from "@/Icons";
 
 interface AddressComponent {
   long_name: string;
@@ -34,6 +36,7 @@ interface Props {
   value: string;
   className?: string;
   disabled?: boolean;
+  leftIcon?: IconsType;
   placeholder?: string;
   wrapperClassName?: string;
   variant?: "primary" | "secondary";
@@ -50,10 +53,14 @@ interface Props {
 const styles = {
   wrapper: "w-full",
   label: "block mb-1.5",
+  leftIcon: "h-4 stroke-unactive mr-3",
   input: {
-    base: "w-full bg-white border-1 border-stroke rounded-lg h-11 px-4 focus:outline-none placeholder:text-paragraph text-sm text-heading disabled:bg-stroke disabled:cursor-not-allowed disabled:opacity-50",
+    base: "w-full flex items-center bg-white border-1 border-stroke rounded-lg h-11 px-4",
     secondary:
       "h-10 bg-element border-divider text-paragraph placeholder:text-unactive",
+    disabled: "opacity-50 bg-stroke cursor-not-allowed",
+    inner:
+      "flex-1 focus:outline-none placeholder:text-paragraph text-sm text-heading",
   },
   error: "text-[10px] text-red-600 mt-1",
   predictions:
@@ -66,6 +73,7 @@ const AddressInput = ({
   label,
   error,
   value,
+  leftIcon,
   disabled,
   className,
   wrapperClassName,
@@ -149,21 +157,26 @@ const AddressInput = ({
         </label>
       )}
       <div className="relative">
-        <input
-          type="text"
-          autoComplete="off"
-          value={value}
-          disabled={disabled}
-          placeholder={placeholder}
+        <div
           className={twMerge(
             styles.input.base,
             variant === "secondary" && styles.input.secondary,
             className || ""
           )}
-          onChange={handleInputChange}
-          onFocus={() => value.length > 2 && setShowPredictions(true)}
-          onBlur={() => setTimeout(() => setShowPredictions(false), 200)}
-        />
+        >
+          {leftIcon && <Icon name={leftIcon} className={styles.leftIcon} />}
+          <input
+            type="text"
+            autoComplete="off"
+            value={value}
+            disabled={disabled}
+            placeholder={placeholder}
+            className={styles.input.inner}
+            onChange={handleInputChange}
+            onFocus={() => value.length > 2 && setShowPredictions(true)}
+            onBlur={() => setTimeout(() => setShowPredictions(false), 200)}
+          />
+        </div>
         {showPredictions &&
           (placePredictions?.length > 0 || isPlacePredictionsLoading) && (
             <div className={styles.predictions}>

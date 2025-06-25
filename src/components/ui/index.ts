@@ -7,6 +7,7 @@ export { default as Select } from "./select";
 export { default as SearchBar } from "./searchBar";
 export { default as Typography } from "./typography";
 export { default as Pagination } from "./pagination";
+export { default as AddressInput } from "./addressInput";
 export { default as LabeledInput } from "./labeledInput";
 export { default as LabeledTextArea } from "./labeledTextArea";
 export { default as LabeledPhoneInput } from "./labeledPhoneInput";

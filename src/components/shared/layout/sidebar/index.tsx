@@ -15,13 +15,13 @@ import {
   ROUTES,
   DISABLED_MENU_ITEMS,
 } from "@/constants";
+import { useModal } from "@/hooks";
+import { PathsEnum, RoleEnum } from "@/enums";
+import { ConfirmationModal } from "../../modals";
+import { useUserData } from "@/store/userData.atom";
 import { Typography, Button } from "@/components/ui";
 import ExpandableMenuItem from "./expandableMenuItem";
 import { useMobileSidebar } from "@/store/mobileSidebar.atom";
-import { useUserData } from "@/store/userData.atom";
-import { RoleEnum } from "@/enums";
-import { ConfirmationModal } from "../../modals";
-import { useModal } from "@/hooks";
 
 interface Props {
   pathname: string;
@@ -149,7 +149,11 @@ const Sidebar = ({ pathname }: Props) => {
         {/* Sidebar */}
         <div className={styles.sidebar.base}>
           <div className={styles.sidebar.header}>
-            <Icon name="logoWithWhiteText" className="h-6" />
+            <Icon
+              name="logoWithWhiteText"
+              href={PathsEnum.DASHBOARD}
+              className="h-6"
+            />
             <button
               onClick={() => logoutModal.open()}
               className={twMerge(styles.button.base, styles.button.hover)}

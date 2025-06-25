@@ -16,7 +16,15 @@ export const registeredUsersUrl = "/user/all";
 
 // REQUESTS
 export const loadUser = () => api.get<{ user: IUser }>(meUrl);
+
 export const getRegisteredUsers = (params: GetAllUsersParams) =>
   api.get<IRegisteredUsersResponse>(registeredUsersUrl, {
     params,
+  });
+
+export const updateUser = (data: FormData) =>
+  api.patch(registeredUsersUrl, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
   });
