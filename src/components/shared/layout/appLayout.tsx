@@ -29,7 +29,7 @@ const styles = {
 const AppLayout = ({ children, staticData }: Props) => {
   const pathname = usePathname();
   const { setUserData, userData } = useUserData();
-  const { setStaticData } = useStaticData();
+  const { setStaticData, tags } = useStaticData();
   const { closeSidebar } = useMobileSidebar();
 
   const currentRoute = Object.values(ROUTES).find(
@@ -48,15 +48,21 @@ const AppLayout = ({ children, staticData }: Props) => {
   };
 
   useEffect(() => {
+    console.log("App Layout", tags.EVENT);
     if (!userData) {
       fetchUserData();
     }
-
-    if (staticData) setStaticData(staticData);
     closeSidebar();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname, staticData]);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (staticData) {
+      console.log("First Time", staticData.tags.EVENT, tags.EVENT);
+      setStaticData(staticData);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [staticData]);
 
   return (
     <React.Fragment>
