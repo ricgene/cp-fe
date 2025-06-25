@@ -2,6 +2,7 @@ import Link from "next/link";
 import Icon from "@/Icons";
 import { Button } from "@/components/ui";
 import { LANDING_HEADER_CONTENT as CONTENT } from "@/constants";
+import { PathsEnum } from "@/enums";
 
 const styles = {
   header: "flex items-center gap-2",
@@ -23,7 +24,11 @@ const Header = () => {
     <div className={styles.header}>
       {/* Logo */}
       <div className={styles.logoContainer}>
-        <Icon name="logoWithGreenText" className={styles.logo} />
+        <Icon
+          name="logoWithGreenText"
+          href={PathsEnum.DASHBOARD}
+          className={styles.logo}
+        />
       </div>
 
       {/* Nav */}

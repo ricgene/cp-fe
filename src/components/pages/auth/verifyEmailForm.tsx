@@ -8,6 +8,7 @@ import { handleError } from "@/utils";
 import { Loader, Typography } from "@/components/ui";
 import { verifyEmailToken } from "@/requests/auth.requests";
 import AuthWrapper from "@/components/pages/auth/shared/authWrapper";
+import { PathsEnum } from "@/enums";
 
 const styles = {
   form: "md:w-[450px] text-justify",
@@ -61,7 +62,11 @@ const VerifyEmailForm = () => {
         </div>
       ) : (
         <React.Fragment>
-          <Icon name="logoWithGreenText" className={styles.logoIcon} />
+          <Icon
+            name="logoWithGreenText"
+            href={PathsEnum.LANDING}
+            className={styles.logoIcon}
+          />
           <Typography level="p1">
             Dear {userName},
             <br />
