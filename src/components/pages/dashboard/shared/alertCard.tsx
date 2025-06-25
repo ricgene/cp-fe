@@ -49,10 +49,7 @@ const AlertCard = ({ data, title, loading, subtitle }: ChartCardProps) => {
         ) : data?.length ? (
           <div className={styles.alertsContainer}>
             {data?.map((alert, index) => (
-              <div
-                key={`alert${index + alert.id}`}
-                className={styles.alertItem}
-              >
+              <div key={`alert${index}`} className={styles.alertItem}>
                 <div className={styles.alertContent}>
                   <Icon
                     name={

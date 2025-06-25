@@ -44,7 +44,7 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
   const selectedAddress = watch("address");
 
   const { tags } = useStaticData();
-  const eventTypeOptions = tags.EVENT.map(createKeyLabelPair);
+  const eventTypeOptions = tags?.EVENT?.map(createKeyLabelPair);
 
   const handleClose = () => {
     reset();

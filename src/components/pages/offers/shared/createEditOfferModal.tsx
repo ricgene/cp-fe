@@ -76,8 +76,8 @@ const CreateEditOfferModal = ({ isOpen, onClose, onSuccess, offer }: Props) => {
   const endDate = watch("endDate");
 
   // Dropdown options
-  const offerTypeOptions = tags.OFFER.map(createKeyLabelPair);
-  const productCategoryOptions = tags.PRODUCT.map(createKeyLabelPair);
+  const offerTypeOptions = tags?.OFFER?.map(createKeyLabelPair);
+  const productCategoryOptions = tags?.PRODUCT?.map(createKeyLabelPair);
 
   // Set form values for edit
   useEffect(() => {
