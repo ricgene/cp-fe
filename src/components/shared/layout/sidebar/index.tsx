@@ -22,6 +22,7 @@ import { useUserData } from "@/store/userData.atom";
 import { Typography, Button } from "@/components/ui";
 import ExpandableMenuItem from "./expandableMenuItem";
 import { useMobileSidebar } from "@/store/mobileSidebar.atom";
+import Link from "next/link";
 
 interface Props {
   pathname: string;
@@ -34,9 +35,10 @@ interface ProfileSectionProps {
   loading: boolean;
 }
 
-interface SearchSectionProps {
-  onSearch: (query: string) => void;
-}
+// TODO: Add search section
+// interface SearchSectionProps {
+//   onSearch: (query: string) => void;
+// }
 
 const styles = {
   wrapper: {
@@ -103,9 +105,10 @@ const Sidebar = ({ pathname }: Props) => {
     }
   };
 
-  const handleSearch = (query: string) => {
-    console.log("Search query:", query);
-  };
+  // TODO: Add search section
+  // const handleSearch = (query: string) => {
+  //   console.log("Search query:", query);
+  // };
 
   const handleCloseSidebar = () => {
     setIsVisible(false);
@@ -175,7 +178,8 @@ const Sidebar = ({ pathname }: Props) => {
 
           <Divider />
 
-          <SearchSection onSearch={handleSearch} />
+          {/* TODO: Add search section */}
+          {/* <SearchSection onSearch={handleSearch} /> */}
 
           <Divider />
 
@@ -233,59 +237,62 @@ const ProfileSection = ({
   avatarSrc,
   loading,
 }: ProfileSectionProps) => (
-  <div className={styles.profile.container}>
-    {loading ? (
-      <React.Fragment>
-        <div className="animate-pulse bg-gradient-to-r from-stroke/50 via-stroke to-stroke/50 bg-[length:200%_100%] h-[55px] aspect-square rounded-full" />
-        <div>
-          <div className="animate-pulse bg-gradient-to-r from-stroke/50 via-stroke to-stroke/50 bg-[length:200%_100%] rounded h-3 w-16" />
-          <div className="animate-pulse bg-gradient-to-r from-stroke/50 via-stroke to-stroke/50 bg-[length:200%_100%] rounded h-4 w-24 my-2" />
-          <div className="animate-pulse bg-gradient-to-r from-stroke/50 via-stroke to-stroke/50 bg-[length:200%_100%] rounded h-2 w-12" />
-        </div>
-      </React.Fragment>
-    ) : (
-      <React.Fragment>
-        <Image
-          src={avatarSrc}
-          alt="profile"
-          width={55}
-          height={55}
-          className="rounded-full"
-        />
-        <div>
-          <Typography level="p1_bold" className={styles.profile.name}>
-            {name}
-          </Typography>
-          <Typography level="p1" className={styles.profile.role}>
-            {role}
-          </Typography>
-          <div className={styles.profile.status.container}>
-            <span className={styles.profile.status.dot} />
-            <Typography level="custom" className={styles.profile.status.text}>
-              online
-            </Typography>
+  <Link href={PathsEnum.PROFILE} className="cursor-pointer">
+    <div className={styles.profile.container}>
+      {loading ? (
+        <React.Fragment>
+          <div className="animate-pulse bg-gradient-to-r from-stroke/50 via-stroke to-stroke/50 bg-[length:200%_100%] h-[55px] aspect-square rounded-full" />
+          <div>
+            <div className="animate-pulse bg-gradient-to-r from-stroke/50 via-stroke to-stroke/50 bg-[length:200%_100%] rounded h-3 w-16" />
+            <div className="animate-pulse bg-gradient-to-r from-stroke/50 via-stroke to-stroke/50 bg-[length:200%_100%] rounded h-4 w-24 my-2" />
+            <div className="animate-pulse bg-gradient-to-r from-stroke/50 via-stroke to-stroke/50 bg-[length:200%_100%] rounded h-2 w-12" />
           </div>
-        </div>
-      </React.Fragment>
-    )}
-  </div>
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <Image
+            src={avatarSrc}
+            alt="profile"
+            width={55}
+            height={55}
+            className="rounded-full"
+          />
+          <div>
+            <Typography level="p1_bold" className={styles.profile.name}>
+              {name}
+            </Typography>
+            <Typography level="p1" className={styles.profile.role}>
+              {role}
+            </Typography>
+            <div className={styles.profile.status.container}>
+              <span className={styles.profile.status.dot} />
+              <Typography level="custom" className={styles.profile.status.text}>
+                online
+              </Typography>
+            </div>
+          </div>
+        </React.Fragment>
+      )}
+    </div>
+  </Link>
 );
 
+// TODO: Add search section
 // ------------------------------------------------------------------------------
 // Search Section Component
-const SearchSection = ({ onSearch }: SearchSectionProps) => (
-  <div className={styles.search.container}>
-    <div className={styles.search.inputContainer}>
-      <Icon name="search" className={styles.search.icon} />
-      <input
-        type="text"
-        className={styles.search.input}
-        placeholder="Search"
-        onChange={(e) => onSearch(e.target.value)}
-      />
-    </div>
-  </div>
-);
+// const SearchSection = ({ onSearch }: SearchSectionProps) => (
+//   <div className={styles.search.container}>
+//     <div className={styles.search.inputContainer}>
+//       <Icon name="search" className={styles.search.icon} />
+//       <input
+//         type="text"
+//         className={styles.search.input}
+//         placeholder="Search"
+//         onChange={(e) => onSearch(e.target.value)}
+//       />
+//     </div>
+//   </div>
+// );
 
 // ------------------------------------------------------------------------------
 // Divider Component
