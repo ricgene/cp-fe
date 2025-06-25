@@ -53,11 +53,11 @@ const RegisterForm = () => {
   const selectedState = watch("state");
   const selectedAddress = watch("address");
 
-  const businessTypeOptions = tags.BUSINESS.map(createKeyLabelPair);
-  const stateOptions = states.map(({ name }) => createKeyLabelPair(name));
+  const businessTypeOptions = tags?.BUSINESS?.map(createKeyLabelPair);
+  const stateOptions = states?.map(({ name }) => createKeyLabelPair(name));
   const cityOptions =
     states
-      .find(({ name }) => name === selectedState)
+      ?.find(({ name }) => name === selectedState)
       ?.cities.map(createKeyLabelPair) || [];
 
   // Reset city when state changes
