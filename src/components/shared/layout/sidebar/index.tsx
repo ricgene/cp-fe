@@ -20,6 +20,8 @@ import ExpandableMenuItem from "./expandableMenuItem";
 import { useMobileSidebar } from "@/store/mobileSidebar.atom";
 import { useUserData } from "@/store/userData.atom";
 import { RoleEnum } from "@/enums";
+import { ConfirmationModal } from "../../modals";
+import { useModal } from "@/hooks";
 
 interface Props {
   pathname: string;
@@ -82,8 +84,10 @@ const styles = {
 const Sidebar = ({ pathname }: Props) => {
   const router = useRouter();
   const { userData } = useUserData();
+  const logoutModal = useModal<{ type: "logout" }>(); // for logout
   const { isOpen, closeSidebar } = useMobileSidebar();
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isLoggingOut, setIsLoggingOut] = useState<boolean>(false);
   const [expandedMenus, setExpandedMenus] = useState<string[]>(["Offers"]);
   const MENU_ITEMS = !!userData
     ? userData?.role === RoleEnum.MERCHANT
@@ -111,13 +115,16 @@ const Sidebar = ({ pathname }: Props) => {
     }, 300);
   };
 
+  // For Logout
   const handleLogout = async () => {
     try {
+      setIsLoggingOut(true);
       const response = await logout();
-      toast.success(response.data.mesage || "Logged out successfully");
       router.push(ROUTES.LOGIN.path);
+      toast.success(response.data.mesage || "Logged out successfully");
     } catch (error) {
       handleError(error);
+      setIsLoggingOut(false);
     }
   };
 
@@ -144,7 +151,7 @@ const Sidebar = ({ pathname }: Props) => {
           <div className={styles.sidebar.header}>
             <Icon name="logoWithWhiteText" className="h-6" />
             <button
-              onClick={handleLogout}
+              onClick={() => logoutModal.open()}
               className={twMerge(styles.button.base, styles.button.hover)}
             >
               <Icon name="logout" className="h-6" />
@@ -195,6 +202,19 @@ const Sidebar = ({ pathname }: Props) => {
           <Icon name="close" className={styles.closeIcon} />
         </Button>
       </div>
+
+      {/* Logout Modal */}
+      <ConfirmationModal
+        title={"Logout Confirmation!"}
+        centerContent={
+          <Typography level="p1">Are you sure you want to logout?</Typography>
+        }
+        isOpen={logoutModal.isOpen}
+        isLoading={isLoggingOut}
+        onCancel={logoutModal.close}
+        onApprove={handleLogout}
+        approveButtonText="Logout"
+      />
     </div>
   );
 };
