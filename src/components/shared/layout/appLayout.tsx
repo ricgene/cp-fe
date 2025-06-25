@@ -29,7 +29,7 @@ const styles = {
 const AppLayout = ({ children, staticData }: Props) => {
   const pathname = usePathname();
   const { setUserData, userData } = useUserData();
-  const { setStaticData, tags } = useStaticData();
+  const { setStaticData } = useStaticData();
   const { closeSidebar } = useMobileSidebar();
 
   const currentRoute = Object.values(ROUTES).find(
@@ -48,7 +48,6 @@ const AppLayout = ({ children, staticData }: Props) => {
   };
 
   useEffect(() => {
-    console.log("App Layout", tags.EVENT);
     if (!userData) {
       fetchUserData();
     }
@@ -58,7 +57,6 @@ const AppLayout = ({ children, staticData }: Props) => {
 
   useEffect(() => {
     if (staticData) {
-      console.log("First Time", staticData.tags.EVENT, tags.EVENT);
       setStaticData(staticData);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
