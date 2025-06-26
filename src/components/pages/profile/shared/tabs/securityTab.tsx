@@ -1,9 +1,11 @@
 import React from "react";
-import { IUser } from "@/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SecurityFormData, securitySchema } from "@/schemas";
 import { Button, LabeledInput, Typography } from "@/components/ui";
+import { handleError } from "@/utils";
+import { updatePassword } from "@/requests";
+import { toast } from "react-hot-toast";
 
 const styles = {
   container: "flex flex-col gap-8",
@@ -11,22 +13,23 @@ const styles = {
   buttonWrapper: "flex justify-end mt-10",
 };
 
-interface Props {
-  userData: IUser | null;
-}
-
-const SecurityTab = ({ userData }: Props) => {
+const SecurityTab = () => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<SecurityFormData>({
     resolver: zodResolver(securitySchema),
+    reValidateMode: "onChange",
   });
 
-  const onSubmit = (data: SecurityFormData) => {
-    // TODO: handle save changes
-    console.log(data);
+  const onSubmit = async (data: SecurityFormData) => {
+    try {
+      const response = await updatePassword(data);
+      toast.success(response?.data?.message || "Password updated successfully");
+    } catch (error) {
+      handleError(error);
+    }
   };
 
   return (
@@ -41,6 +44,7 @@ const SecurityTab = ({ userData }: Props) => {
           placeholder="Enter your old password"
           error={errors.oldPassword?.message}
           {...register("oldPassword")}
+          leftIcon="lock"
         />
 
         <LabeledInput
@@ -50,6 +54,7 @@ const SecurityTab = ({ userData }: Props) => {
           placeholder="Enter new Password"
           error={errors.newPassword?.message}
           {...register("newPassword")}
+          leftIcon="lock"
         />
 
         <LabeledInput
@@ -59,6 +64,7 @@ const SecurityTab = ({ userData }: Props) => {
           placeholder="Re-enter your password"
           error={errors.confirmPassword?.message}
           {...register("confirmPassword")}
+          leftIcon="lock"
         />
       </div>
 

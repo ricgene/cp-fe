@@ -13,7 +13,7 @@ const styles = {
   tabSectionWrapper: "flex-1 flex flex-col gap-5",
   tabList: "w-full border-b border-stroke flex items-center gap-10",
   tabButton:
-    "pb-2 border-b-[3px] border-b-transparent text-paragraph duration-150 ease-in-out",
+    "pb-2 border-b-[3px] border-b-transparent text-paragraph duration-150 ease-in-out cursor-pointer",
   tabButtonActive: "!text-primary border-b-primary",
   tabTitle: "text-base",
   tabPanel: "flex-1",
@@ -31,7 +31,7 @@ const TabSection = () => {
           : "Business Details",
       component: <BusinessDetailsTab userData={userData} />,
     },
-    { title: "Security", component: <SecurityTab userData={userData} /> },
+    { title: "Security", component: <SecurityTab /> },
   ];
 
   const handleTabChange = (index: number) => {

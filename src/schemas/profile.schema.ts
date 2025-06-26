@@ -29,15 +29,17 @@ export type ImageUpdateFormData = z.infer<typeof imageUpdateSchema>;
 export const generalSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
-  phone: z.string().min(8, "Phone number is required"),
+  phone: z.string().min(1, "Phone number is required"),
+  countryCode: z.string({ message: "Country Code is required" }),
+  callingCode: z.string({ message: "Calling Code is required" }),
 });
 
 export type GeneralFormData = z.infer<typeof generalSchema>;
 
 // Business/Address Tab Schema
 export const businessAddressSchema = z.object({
-  businessType: z.string().min(1, "Business type is required").optional(),
-  businessName: z.string().min(1, "Business name is required").optional(),
+  businessType: z.string().min(1, "Business type is required"),
+  businessName: z.string().min(1, "Business name is required"),
   state: z.string().min(1, "State is required"),
   city: z.string().min(1, "City is required"),
   address: z.string().min(1, "Address is required"),
@@ -53,7 +55,7 @@ export const securitySchema = z
     newPassword: z
       .string()
       .min(8, "New password must be at least 8 characters"),
-    confirmPassword: z.string().min(8, "Please confirm your new password"),
+    confirmPassword: z.string().min(8, "Passwords do not match"),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: "Passwords do not match",

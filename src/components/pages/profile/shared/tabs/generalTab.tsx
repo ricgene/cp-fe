@@ -3,7 +3,15 @@ import { IUser } from "@/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GeneralFormData, generalSchema } from "@/schemas";
-import { Button, LabeledInput, Typography } from "@/components/ui";
+import {
+  Button,
+  LabeledInput,
+  Typography,
+  LabeledPhoneInput,
+} from "@/components/ui";
+import { updateProfile } from "@/requests";
+import { handleError } from "@/utils";
+import toast from "react-hot-toast";
 
 interface Props {
   userData: IUser | null;
@@ -12,14 +20,15 @@ interface Props {
 const styles = {
   container: "flex flex-col gap-8",
   grid: "grid grid-cols-3 gap-8",
-  emailInputWrapper: "opacity-70",
   buttonWrapper: "flex justify-end mt-10",
+  button: "min-w-[120px]",
 };
 
 const GeneralTab = ({ userData }: Props) => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<GeneralFormData>({
     resolver: zodResolver(generalSchema),
@@ -27,12 +36,18 @@ const GeneralTab = ({ userData }: Props) => {
       firstName: userData?.firstName,
       lastName: userData?.lastName,
       phone: userData?.phone,
+      countryCode: userData?.countryCode,
+      callingCode: userData?.callingCode,
     },
   });
 
-  const onSubmit = (data: GeneralFormData) => {
-    // TODO: handle save changes
-    console.log(data);
+  const onSubmit = async (data: GeneralFormData) => {
+    try {
+      const response = await updateProfile(data);
+      toast.success(response?.data?.message || "Profile updated successfully");
+    } catch (error) {
+      handleError(error);
+    }
   };
 
   return (
@@ -45,6 +60,7 @@ const GeneralTab = ({ userData }: Props) => {
           leftIcon="user"
           variant="secondary"
           placeholder="Enter your First Name"
+          disabled={isSubmitting}
           error={errors.firstName?.message}
           {...register("firstName")}
         />
@@ -54,17 +70,31 @@ const GeneralTab = ({ userData }: Props) => {
           leftIcon="user"
           variant="secondary"
           placeholder="Enter your Last Name"
+          disabled={isSubmitting}
           error={errors.lastName?.message}
           {...register("lastName")}
         />
 
-        <LabeledInput
+        <LabeledPhoneInput
           label="Phone Number"
-          leftIcon="phone"
-          variant="secondary"
-          placeholder="Enter your Number"
-          error={errors.phone?.message}
-          {...register("phone")}
+          disabled={isSubmitting}
+          error={
+            errors.phone?.message ||
+            ((errors.countryCode?.message || errors.callingCode?.message) &&
+              "Invalid phone number")
+          }
+          value={`${userData?.callingCode || ""}${userData?.phone || ""}`}
+          onChange={(value, data) => {
+            const { dialCode, countryCode } = data;
+            const formattedValue = value.replace(dialCode, "");
+            const callingCode = dialCode.startsWith("+")
+              ? dialCode
+              : `+${dialCode}`;
+
+            setValue("phone", formattedValue);
+            setValue("callingCode", callingCode);
+            setValue("countryCode", countryCode.toUpperCase());
+          }}
         />
 
         <LabeledInput
@@ -72,7 +102,6 @@ const GeneralTab = ({ userData }: Props) => {
           leftIcon="mail"
           variant="secondary"
           value={userData?.email}
-          wrapperClassName={styles.emailInputWrapper}
           disabled
         />
       </div>
@@ -82,6 +111,7 @@ const GeneralTab = ({ userData }: Props) => {
           size="small"
           onClick={handleSubmit(onSubmit)}
           loading={isSubmitting}
+          className={styles.button}
         >
           Save Changes
         </Button>

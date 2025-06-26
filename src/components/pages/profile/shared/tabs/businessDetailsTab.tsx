@@ -1,14 +1,20 @@
 import React from "react";
+import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IUser } from "@/types";
 import { RoleEnum } from "@/enums";
 import { useStaticData } from "@/store";
-import { Select } from "@/components/ui";
-import { AddressInput } from "@/components/ui";
-import { createKeyLabelPair } from "@/utils";
-import { Button, Typography } from "@/components/ui";
+import { createKeyLabelPair, handleError } from "@/utils";
 import { BusinessAddressFormData, businessAddressSchema } from "@/schemas";
+import {
+  LabeledInput,
+  Select,
+  Button,
+  Typography,
+  AddressInput,
+} from "@/components/ui";
+import { updateBusinessAddress } from "@/requests";
 
 interface Props {
   userData: IUser | null;
@@ -18,25 +24,32 @@ const styles = {
   container: "flex flex-col gap-8",
   grid: "grid grid-cols-3 gap-8",
   buttonWrapper: "flex justify-end mt-10",
-  col2Span: "col-span-2",
+  button: "min-w-[120px]",
 };
 
 const BusinessDetailsTab = ({ userData }: Props) => {
   const {
     control,
-    handleSubmit,
+    watch,
+    register,
     setValue,
     setError,
-    watch,
+    handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<BusinessAddressFormData>({
     resolver: zodResolver(businessAddressSchema),
     defaultValues: {
-      address: userData?.address || "",
-      businessName: userData?.businessName || "",
-      businessType: userData?.businessType || "",
+      businessName:
+        userData?.role === RoleEnum.MERCHANT
+          ? userData?.businessName || ""
+          : "_", // to validate the form
+      businessType:
+        userData?.role === RoleEnum.MERCHANT
+          ? userData?.businessType || ""
+          : "_", // to validate the form
       city: userData?.city || "",
       state: userData?.state || "",
+      address: userData?.address || "",
       latitude: userData?.latitude ?? 0,
       longitude: userData?.longitude ?? 0,
     },
@@ -47,6 +60,7 @@ const BusinessDetailsTab = ({ userData }: Props) => {
   const selectedState = watch("state");
   const selectedAddress = watch("address");
 
+  // for business type
   const businessTypeOptions = tags?.BUSINESS?.map(createKeyLabelPair);
   const stateOptions = states?.map(({ name }) => createKeyLabelPair(name));
   const cityOptions =
@@ -62,9 +76,31 @@ const BusinessDetailsTab = ({ userData }: Props) => {
     setValue("longitude", 0);
   };
 
-  const onSubmit = (data: BusinessAddressFormData) => {
-    // TODO: handle save changes
-    console.log(data);
+  const onSubmit = async (data: BusinessAddressFormData) => {
+    try {
+      // For admin users, exclude business fields
+      const requestData = {
+        address: data.address,
+        city: data.city,
+        state: data.state,
+        latitude: data.latitude,
+        longitude: data.longitude,
+        ...(userData?.role === RoleEnum.MERCHANT && {
+          businessName: data.businessName,
+          businessType: data.businessType,
+        }),
+      };
+
+      const response = await updateBusinessAddress(requestData);
+      toast.success(
+        response?.data?.message ||
+          (userData?.role === RoleEnum.MERCHANT
+            ? "Business details updated successfully"
+            : "Address updated successfully")
+      );
+    } catch (error) {
+      handleError(error);
+    }
   };
 
   return (
@@ -73,22 +109,23 @@ const BusinessDetailsTab = ({ userData }: Props) => {
       <div className={styles.grid}>
         {userData?.role === RoleEnum.MERCHANT && (
           <>
+            <LabeledInput
+              label="Business Name"
+              leftIcon="user"
+              variant="secondary"
+              placeholder="Enter your Business Name"
+              error={errors.businessName?.message}
+              {...register("businessName")}
+              disabled={isSubmitting}
+            />
+
             <Select
               label="Business Type"
               error={errors.businessType?.message}
               control={control}
+              disabled={isSubmitting}
               name="businessType"
               options={businessTypeOptions}
-              variant="secondary"
-              leftIcon="building"
-            />
-
-            <Select
-              label="Business Name"
-              error={errors.businessName?.message}
-              control={control}
-              name="businessName"
-              options={[]}
               variant="secondary"
               leftIcon="building"
             />
@@ -104,6 +141,7 @@ const BusinessDetailsTab = ({ userData }: Props) => {
           }}
           control={control}
           name="state"
+          disabled={isSubmitting}
           options={stateOptions}
           variant="secondary"
           leftIcon="location"
@@ -115,7 +153,7 @@ const BusinessDetailsTab = ({ userData }: Props) => {
           control={control}
           name="city"
           options={cityOptions}
-          disabled={!selectedState}
+          disabled={!selectedState || isSubmitting}
           variant="secondary"
           leftIcon="location"
         />
@@ -124,7 +162,7 @@ const BusinessDetailsTab = ({ userData }: Props) => {
           label="Address"
           placeholder="Enter your Address"
           variant="secondary"
-          disabled={!selectedState || !selectedCity}
+          disabled={!selectedState || !selectedCity || isSubmitting}
           leftIcon="location"
           error={
             errors.address?.message ||
@@ -164,6 +202,7 @@ const BusinessDetailsTab = ({ userData }: Props) => {
           size="small"
           onClick={handleSubmit(onSubmit)}
           loading={isSubmitting}
+          className={styles.button}
         >
           Save Changes
         </Button>

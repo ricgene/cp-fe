@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import debounce from "lodash.debounce";
 import { twMerge } from "tailwind-merge";
 import usePlacesService from "react-google-autocomplete/lib/usePlacesAutocompleteService";
 import { Typography } from "@/components/ui";
 import { IconsType } from "@/types";
 import Icon from "@/Icons";
+import { useOutsideClick } from "@/hooks";
 
 interface AddressComponent {
   long_name: string;
@@ -83,6 +84,8 @@ const AddressInput = ({
   onPlaceSelect,
 }: Props) => {
   const [showPredictions, setShowPredictions] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useOutsideClick(ref, () => setShowPredictions(false));
 
   const {
     placesService,
@@ -156,11 +159,12 @@ const AddressInput = ({
           <Typography level="p1_bold">{label}</Typography>
         </label>
       )}
-      <div className="relative">
+      <div className="relative" ref={ref}>
         <div
           className={twMerge(
             styles.input.base,
             variant === "secondary" && styles.input.secondary,
+            disabled && styles.input.disabled,
             className || ""
           )}
         >
