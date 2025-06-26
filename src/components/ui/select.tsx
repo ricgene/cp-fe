@@ -66,7 +66,7 @@ const styles = {
     emptySecondary: "!text-unactive",
     small: "h-8 px-3 text-xs rounded-md !border-divider",
     empty: "!text-paragraph",
-    disabled: "bg-stroke cursor-not-allowed opacity-50",
+    disabled: "!bg-stroke !cursor-not-allowed !opacity-50",
     leftIcon: "h-4 stroke-unactive mr-3",
   },
   error: "text-[10px] text-red-600 mt-1",
@@ -133,10 +133,10 @@ const SelectComponent = <T extends FieldValues>(
           className={twMerge(
             styles.select.base,
             !value && styles.select.empty,
-            disabled && styles.select.disabled,
             size === "small" && styles.select.small,
             variant === "secondary" && styles.select.secondary,
             variant === "secondary" && !value && styles.select.emptySecondary,
+            disabled && styles.select.disabled,
             className
           )}
           onClick={() => !disabled && setIsOpen(!isOpen)}
