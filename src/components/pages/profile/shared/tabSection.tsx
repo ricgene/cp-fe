@@ -22,19 +22,30 @@ const styles = {
 const TabSection = () => {
   const { userData } = useUserData();
   const [selectedTab, setSelectedTab] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
   const tabs = [
-    { title: "General", component: <GeneralTab userData={userData} /> },
+    {
+      title: "General",
+      component: <GeneralTab userData={userData} setIsLoading={setIsLoading} />,
+    },
     {
       title:
         userData?.role === RoleEnum.ADMIN
           ? "Address Detalis"
           : "Business Details",
-      component: <BusinessDetailsTab userData={userData} />,
+      component: (
+        <BusinessDetailsTab userData={userData} setIsLoading={setIsLoading} />
+      ),
     },
-    { title: "Security", component: <SecurityTab /> },
+    {
+      title: "Security",
+      component: <SecurityTab setIsLoading={setIsLoading} />,
+    },
   ];
 
   const handleTabChange = (index: number) => {
+    if (isLoading) return;
     setSelectedTab(index);
   };
 
@@ -44,6 +55,7 @@ const TabSection = () => {
         {tabs?.map((tab, index) => (
           <button
             key={`${tab.title} ${index}`}
+            disabled={isLoading}
             className={twMerge(
               styles.tabButton,
               index === selectedTab && styles.tabButtonActive

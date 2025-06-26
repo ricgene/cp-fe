@@ -52,17 +52,15 @@ export type BusinessAddressFormData = z.infer<typeof businessAddressSchema>;
 export const securitySchema = z
   .object({
     oldPassword: z.string().min(6, "Old password is required"),
-    newPassword: z
-      .string()
-      .min(8, "New password must be at least 8 characters"),
+    password: z.string().min(8, "New password must be at least 8 characters"),
     confirmPassword: z.string().min(8, "Passwords do not match"),
   })
-  .refine((data) => data.newPassword === data.confirmPassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
     path: ["confirmPassword"],
   })
-  .refine((data) => data.oldPassword !== data.newPassword, {
+  .refine((data) => data.oldPassword !== data.password, {
     message: "Old and New passwords should not be same",
-    path: ["newPassword"],
+    path: ["password"],
   });
 export type SecurityFormData = z.infer<typeof securitySchema>;

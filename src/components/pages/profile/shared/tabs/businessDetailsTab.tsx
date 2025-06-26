@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,6 +18,7 @@ import { updateBusinessAddress } from "@/requests";
 
 interface Props {
   userData: IUser | null;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 const styles = {
@@ -27,7 +28,7 @@ const styles = {
   button: "min-w-[120px]",
 };
 
-const BusinessDetailsTab = ({ userData }: Props) => {
+const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
   const {
     control,
     watch,
@@ -78,6 +79,7 @@ const BusinessDetailsTab = ({ userData }: Props) => {
 
   const onSubmit = async (data: BusinessAddressFormData) => {
     try {
+      setIsLoading(true);
       // For admin users, exclude business fields
       const requestData = {
         address: data.address,
@@ -100,6 +102,8 @@ const BusinessDetailsTab = ({ userData }: Props) => {
       );
     } catch (error) {
       handleError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 

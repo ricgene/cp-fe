@@ -5,11 +5,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Icon from "@/Icons";
 import { RoleEnum } from "@/enums";
+import { handleError } from "@/utils";
+import { updateProfile } from "@/requests";
 import { useUserData } from "@/store/userData.atom";
 import { Button, Typography } from "@/components/ui";
-import { updateUser } from "@/requests/user.requests";
 import { ImageUpdateFormData, imageUpdateSchema } from "@/schemas";
-import { handleError } from "@/utils";
 
 const styles = {
   container: "flex items-center gap-8",
@@ -17,7 +17,7 @@ const styles = {
   imageContainer:
     "relative h-[100px] aspect-square rounded-full overflow-hidden bg-gray-100",
   cameraButton:
-    "absolute z-10 bottom-0 right-0 -translate-x-1/6 -translate-y-1/6 rounded-full p-0 h-6 w-6",
+    "absolute z-10 bottom-0 right-0 -translate-x-1/6 -translate-y-1/6 rounded-full p-0 h-6 w-6 !opacity-100",
   cameraIcon: "h-4 w-4",
   hiddenInput: "hidden",
   name: "mb-1 font-semibold text-3xl text-heading",
@@ -53,6 +53,8 @@ const ImageSection = () => {
   } = register("image");
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (isSubmitting) return;
+
     const files = event.target.files;
     if (!files) return;
 
@@ -67,8 +69,10 @@ const ImageSection = () => {
     const formData = new FormData();
     formData.append("image", data.image[0]);
     try {
-      await updateUser(formData);
-      toast.success("Profile image updated successfully");
+      const response = await updateProfile(formData);
+      toast.success(
+        response?.data?.message || "Profile image updated successfully"
+      );
     } catch (error) {
       toast.error((error as Error).message || "Failed to update image");
     }
@@ -110,6 +114,7 @@ const ImageSection = () => {
           variant="primary"
           className={styles.cameraButton}
           onClick={() => fileInputRef.current?.click()}
+          loading={isSubmitting}
           type="button"
         >
           <Icon name="camera" className={styles.cameraIcon} />
@@ -150,11 +155,10 @@ const ImageSection = () => {
 
       <div className={styles.shareButtonWrapper}>
         <Button
-          variant="primary"
-          className={styles.shareButton}
           type="submit"
-          loading={isSubmitting}
+          variant="primary"
           onClick={handleShare}
+          className={styles.shareButton}
         >
           <Icon name="share" className={styles.shareIcon} />
         </Button>

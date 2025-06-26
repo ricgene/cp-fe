@@ -1,11 +1,15 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
+import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SecurityFormData, securitySchema } from "@/schemas";
-import { Button, LabeledInput, Typography } from "@/components/ui";
 import { handleError } from "@/utils";
 import { updatePassword } from "@/requests";
-import { toast } from "react-hot-toast";
+import { SecurityFormData, securitySchema } from "@/schemas";
+import { Button, LabeledInput, Typography } from "@/components/ui";
+
+interface Props {
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
+}
 
 const styles = {
   container: "flex flex-col gap-8",
@@ -13,22 +17,31 @@ const styles = {
   buttonWrapper: "flex justify-end mt-10",
 };
 
-const SecurityTab = () => {
+const SecurityTab = ({ setIsLoading }: Props) => {
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<SecurityFormData>({
     resolver: zodResolver(securitySchema),
+    mode: "onChange",
     reValidateMode: "onChange",
   });
 
   const onSubmit = async (data: SecurityFormData) => {
     try {
-      const response = await updatePassword(data);
+      setIsLoading(true);
+      const response = await updatePassword({
+        oldPassword: data.oldPassword,
+        password: data.password,
+      });
+      reset();
       toast.success(response?.data?.message || "Password updated successfully");
     } catch (error) {
       handleError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -52,8 +65,8 @@ const SecurityTab = () => {
           variant="secondary"
           type="password"
           placeholder="Enter new Password"
-          error={errors.newPassword?.message}
-          {...register("newPassword")}
+          error={errors.password?.message}
+          {...register("password")}
           leftIcon="lock"
         />
 

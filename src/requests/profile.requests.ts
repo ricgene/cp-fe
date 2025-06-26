@@ -21,7 +21,7 @@ interface BusinessAddressUpdateData {
 
 interface PasswordUpdateData {
   oldPassword: string;
-  newPassword: string;
+  password: string;
 }
 
 // ENDPOINT URLS

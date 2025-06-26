@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { IUser } from "@/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 
 interface Props {
   userData: IUser | null;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 const styles = {
@@ -24,7 +25,7 @@ const styles = {
   button: "min-w-[120px]",
 };
 
-const GeneralTab = ({ userData }: Props) => {
+const GeneralTab = ({ userData, setIsLoading }: Props) => {
   const {
     register,
     handleSubmit,
@@ -43,10 +44,13 @@ const GeneralTab = ({ userData }: Props) => {
 
   const onSubmit = async (data: GeneralFormData) => {
     try {
+      setIsLoading(true);
       const response = await updateProfile(data);
       toast.success(response?.data?.message || "Profile updated successfully");
     } catch (error) {
       handleError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -77,6 +81,7 @@ const GeneralTab = ({ userData }: Props) => {
 
         <LabeledPhoneInput
           label="Phone Number"
+          variant="secondary"
           disabled={isSubmitting}
           error={
             errors.phone?.message ||
