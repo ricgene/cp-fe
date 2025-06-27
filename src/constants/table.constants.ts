@@ -1,4 +1,11 @@
-import { IAlert, IEvent, IMerchantRequest, IOffer, IUser } from "@/types";
+import {
+  IAlert,
+  IEvent,
+  IMerchantRequest,
+  IOffer,
+  IPointTransaction,
+  IUser,
+} from "@/types";
 
 // (don't change the order of the columns)
 export const OFFER_TABLE_COLUMNS: {
@@ -79,4 +86,15 @@ export const REVOKED_REQUESTS_TABLE_COLUMNS: {
 }[] = [
   ...REQUESTS_TABLE_COLUMNS,
   { key: "reason", label: "Reason for Revocation" },
+];
+
+// (don't change the order of the columns)
+export const POINTS_HISTORY_TABLE_COLUMNS: {
+  key: keyof IPointTransaction;
+  label: string;
+}[] = [
+  { key: "name", label: "Person Name" },
+  { key: "userId", label: "User ID" },
+  { key: "points", label: "Points Rewarded" },
+  { key: "reason", label: "Reason of Reward" },
 ];

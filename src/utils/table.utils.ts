@@ -1,5 +1,6 @@
 import { RequestTypeEnum } from "@/enums";
 import { IAlert, IEvent, IMerchantRequest, IOffer, IUser } from "@/types";
+import { IPointTransaction } from "@/types/point-transaction.types";
 
 const dateOptions = {
   day: "2-digit" as const,
@@ -95,5 +96,17 @@ export const transformRequestsToTableData = (requests: IMerchantRequest[]) => {
     city: request.city,
     address: request.address,
     reason: request.reason || "",
+  }));
+};
+
+export const transformPointTransactionsToTableData = (
+  transactions: IPointTransaction[]
+) => {
+  return transactions.map((request) => ({
+    id: request.id,
+    name: request.name,
+    userId: request.publicId,
+    points: `${request.points} Points`,
+    reason: request.reason,
   }));
 };
