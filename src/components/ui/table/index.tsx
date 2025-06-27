@@ -10,15 +10,19 @@ import { ActionEnum } from "@/enums";
 // Types
 
 interface TableProps {
-  data: ITableData[];
-  actions?: IAction[];
-  columns: IKeyLabelPair[];
   loading?: boolean;
   isEmpty?: boolean;
   className?: string;
   showActions?: boolean;
+  isSelectedAll?: boolean;
+  selectableField?: string;
   wrapperClassName?: string;
+  data: ITableData[];
+  actions?: IAction[];
+  columns: IKeyLabelPair[];
+  selectedValues?: string[];
   onAction?: (itemId: number, action: ActionType) => void;
+  onSelectionChange?: (selected: string[]) => void;
 }
 
 interface DropdownPosition {
@@ -58,8 +62,12 @@ const Table = ({
   loading = false,
   className,
   showActions = false,
+  isSelectedAll = false,
   wrapperClassName,
   onAction,
+  selectableField,
+  selectedValues = [],
+  onSelectionChange,
 }: TableProps) => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
@@ -67,6 +75,9 @@ const Table = ({
     top: 0,
     left: 0,
   });
+
+  // Close dropdown when clicking outside
+  useOutsideClick(dropdownRef, () => setActiveDropdown(null));
 
   // Memoize dropdown position calculation
   const calculateDropdownPosition = useCallback(
@@ -107,14 +118,21 @@ const Table = ({
     [onAction]
   );
 
-  // Close dropdown when clicking outside
-  useOutsideClick(dropdownRef, () => setActiveDropdown(null));
+  const handleRowSelect = (value: string) => {
+    if (!onSelectionChange) return;
+    if (selectedValues.includes(value)) {
+      onSelectionChange(selectedValues.filter((v) => v !== value));
+    } else {
+      onSelectionChange([...selectedValues, value]);
+    }
+  };
 
   return (
     <div className={twMerge(styles.wrapper, wrapperClassName)}>
       <div className={styles.tableContainer}>
         <table className={twMerge(styles.table, className)}>
           <TableHeader
+            isSelectable={!!selectableField}
             columns={columns}
             showActions={showActions}
             isEmpty={isEmpty}
@@ -128,7 +146,11 @@ const Table = ({
               columns={columns}
               data={data}
               showActions={showActions}
+              isSelectedAll={isSelectedAll}
               onActionClick={handleActionClick}
+              selectableField={selectableField}
+              selectedValues={selectedValues}
+              onRowSelect={handleRowSelect}
             />
           )}
         </table>

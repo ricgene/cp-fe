@@ -1,3 +1,5 @@
+import AllocatePoints from "@/components/pages/points/allocate";
+
 export default function AllocatePointsPage() {
-  return <div>Allocate Points</div>;
+  return <AllocatePoints />;
 }

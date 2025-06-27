@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { memo, useCallback, useMemo, useRef, useState } from "react";
 import debounce from "lodash.debounce";
 import { twMerge } from "tailwind-merge";
+import { Checkbox } from "@/components/ui";
 import { truncateText } from "@/utils/misc.utils";
 import { IKeyLabelPair, ITableData } from "@/types";
 
@@ -13,11 +14,13 @@ const styles = {
   thead: "bg-element sticky top-0 z-10",
   headerRow: "bg-element",
   headerCell: "font-medium py-4 px-4 min-w-[90px] text-nowrap",
+  headerCellSmall: "!min-w-fit w-[100px]",
   actionCell: "!min-w-[120px] text-center",
 
   // body
   tbody: "text-paragraph",
   bodyCell: "h-11 px-4 text-nowrap",
+  bodyCellSelect: "h-11 px-4 text-nowrap flex pl-8",
   emptyBodyCell: "p-4 lg:text-center",
   actionButton: "p-1 cursor-pointer hover:opacity-30",
   imageContainer:
@@ -44,13 +47,21 @@ interface TableBodyProps {
   columns: IKeyLabelPair[];
   data: ITableData[];
   showActions: boolean;
+  isSelectedAll?: boolean;
   onActionClick: (id: number, event: React.MouseEvent) => void;
+  selectableField?: string;
+  selectedValues?: string[];
+  onRowSelect?: (value: string) => void;
 }
 const TableBody = ({
   columns,
   data,
   showActions,
   onActionClick,
+  isSelectedAll,
+  selectableField,
+  selectedValues = [],
+  onRowSelect,
 }: TableBodyProps) => {
   // Use refs to store tooltip position to avoid re-renders
   const tooltipRef = useRef<HTMLDivElement>(null);
@@ -103,6 +114,10 @@ const TableBody = ({
           onActionClick={handleActionClick}
           onCellMouseEnter={handleCellMouseEnter}
           onCellMouseLeave={handleCellMouseLeave}
+          isSelectedAll={isSelectedAll}
+          selectableField={selectableField}
+          selectedValues={selectedValues}
+          onRowSelect={onRowSelect}
         />
       )),
     [
@@ -112,6 +127,10 @@ const TableBody = ({
       handleActionClick,
       handleCellMouseEnter,
       handleCellMouseLeave,
+      isSelectedAll,
+      selectableField,
+      selectedValues,
+      onRowSelect,
     ]
   );
 
@@ -144,11 +163,20 @@ interface TableHeaderProps {
   columns: IKeyLabelPair[];
   showActions: boolean;
   isEmpty?: boolean;
+  isSelectable?: boolean;
 }
 
-const TableHeader = ({ columns, showActions, isEmpty }: TableHeaderProps) => (
+const TableHeader = ({
+  columns,
+  showActions,
+  isEmpty,
+  isSelectable,
+}: TableHeaderProps) => (
   <thead className={styles.thead}>
     <tr className={styles.headerRow}>
+      {isSelectable && (
+        <th className={twMerge(styles.headerCell, styles.headerCellSmall)}></th>
+      )}
       {columns.map((col: IKeyLabelPair, index: number) => {
         const isPointsColumn = col.key === "pointsPerPurchase";
         return (
@@ -189,6 +217,10 @@ interface TableRowProps {
     e: React.MouseEvent
   ) => void;
   onCellMouseLeave: () => void;
+  isSelectedAll?: boolean;
+  selectableField?: string;
+  selectedValues?: string[];
+  onRowSelect?: (value: string) => void;
 }
 
 const TableRow = ({
@@ -198,13 +230,29 @@ const TableRow = ({
   onActionClick,
   onCellMouseEnter,
   onCellMouseLeave,
+  isSelectedAll,
+  selectableField,
+  selectedValues = [],
+  onRowSelect,
 }: TableRowProps) => (
   <tr>
+    {selectableField && (
+      <td className={styles.bodyCellSelect}>
+        <Checkbox
+          checked={
+            isSelectedAll ||
+            selectedValues.includes(String(row[selectableField]))
+          }
+          onChange={() =>
+            onRowSelect && onRowSelect(String(row[selectableField]))
+          }
+        />
+      </td>
+    )}
     {columns.map((col, index) => {
       const isImageColumn = col.key === "image";
       const cellValue = row[col.key];
       const isTruncated = !isImageColumn && String(cellValue).length > 25;
-
       return (
         <td
           key={`row-${row.id}-col-${index}`}

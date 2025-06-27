@@ -94,7 +94,7 @@ export const POINTS_HISTORY_TABLE_COLUMNS: {
   label: string;
 }[] = [
   { key: "name", label: "Person Name" },
-  { key: "userId", label: "User ID" },
+  { key: "publicId", label: "User ID" },
   { key: "points", label: "Points Rewarded" },
   { key: "reason", label: "Reason of Reward" },
 ];

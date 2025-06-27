@@ -4,6 +4,7 @@ export { default as Switch } from "./switch";
 export { default as Button } from "./button";
 export { default as Loader } from "./loader";
 export { default as Select } from "./select";
+export { default as Checkbox } from "./checkbox";
 export { default as SearchBar } from "./searchBar";
 export { default as Typography } from "./typography";
 export { default as Pagination } from "./pagination";
