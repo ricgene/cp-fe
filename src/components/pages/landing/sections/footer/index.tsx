@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Typography } from "@/components/ui";
 import Section from "@/components/pages/landing/shared/section";
 import { LANDING_FOOTER_CONTENT as CONTENT } from "@/constants";
+import { PathsEnum } from "@/enums";
 
 const styles = {
   section:
@@ -24,7 +25,11 @@ const Footer = () => {
     <Section className={styles.section}>
       {/* Logo */}
       <div className={styles.logoContainer}>
-        <Icon name="logoWithWhiteText" className={styles.logo} />
+        <Icon
+          name="logoWithWhiteText"
+          href={PathsEnum.DASHBOARD}
+          className={styles.logo}
+        />
       </div>
 
       {/* Copyright */}

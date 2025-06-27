@@ -5,6 +5,7 @@ export enum PathsEnum {
   LOGIN = "/login",
   REGISTER = "/register",
   DASHBOARD = "/dashboard",
+  PROFILE = "/profile",
   //
   VERIFY_EMAIL = "/verify-email",
   RESET_PASSWORD = "/reset-password",

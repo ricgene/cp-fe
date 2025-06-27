@@ -4,13 +4,16 @@ import React, { forwardRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import Icon from "@/Icons";
 import { Typography } from "@/components/ui";
+import { IconsType } from "@/types";
 
 // Types
 interface LabeledInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   error?: string;
+  leftIcon?: IconsType;
   wrapperClassName?: string;
+  leftIconClassName?: string;
   selectedFile?: FileList;
   variant?: "primary" | "secondary";
 }
@@ -21,11 +24,14 @@ const styles = {
     wrapper: "w-full",
     inputWrapper: "relative mt-1.5",
   },
+  leftIcon: "h-4 stroke-unactive mr-3 absolute top-1/2 left-4 -translate-y-1/2",
   input: {
-    base: "w-full bg-white border-1 border-stroke rounded-lg h-11 px-4 focus:outline-none placeholder:text-paragraph text-sm text-heading no-spinner",
+    base: "w-full bg-white border-1 border-stroke rounded-lg h-11 px-4 focus:outline-none placeholder:text-paragraph text-sm text-heading no-spinner disabled:bg-stroke disabled:cursor-not-allowed disabled:opacity-50",
     secondary:
       "h-10 bg-element border-divider text-paragraph placeholder:text-unactive",
     file: "absolute top-0 left-0 h-full w-full z-10 opacity-0 cursor-pointer",
+    withRightIcon: "pr-10",
+    withLeftIcon: "pl-12",
   },
   fileInput: {
     container:
@@ -37,7 +43,6 @@ const styles = {
     toggle: "cursor-pointer m-auto",
   },
   error: "text-[10px] text-red-600 mt-1",
-  inputWithIcon: "pr-10",
 };
 
 const LabeledInputComponent = (
@@ -45,10 +50,13 @@ const LabeledInputComponent = (
     name,
     error,
     label,
+    leftIcon,
+    className,
     selectedFile,
     type = "text",
     variant = "primary",
     wrapperClassName,
+    leftIconClassName,
     ...rest
   }: LabeledInputProps,
   ref: React.Ref<HTMLInputElement>
@@ -78,25 +86,35 @@ const LabeledInputComponent = (
               id={name}
               name={name}
               type="file"
+              className={twMerge(styles.input.file, className)}
               {...rest}
-              className={styles.input.file}
             />
           </div>
         ) : (
           <React.Fragment>
-            <input
-              ref={ref}
-              id={name}
-              name={name}
-              type={inputType}
-              autoComplete="off"
-              className={twMerge(
-                styles.input.base,
-                isPasswordType && styles.inputWithIcon,
-                variant === "secondary" && styles.input.secondary
+            <div className="relative">
+              {leftIcon && (
+                <Icon
+                  name={leftIcon}
+                  className={twMerge(styles.leftIcon, leftIconClassName)}
+                />
               )}
-              {...rest}
-            />
+              <input
+                ref={ref}
+                id={name}
+                name={name}
+                type={inputType}
+                autoComplete="off"
+                className={twMerge(
+                  styles.input.base,
+                  isPasswordType && styles.input.withRightIcon,
+                  leftIcon && styles.input.withLeftIcon,
+                  variant === "secondary" && styles.input.secondary,
+                  className
+                )}
+                {...rest}
+              />
+            </div>
 
             {isPasswordType && (
               <PasswordToggle

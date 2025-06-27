@@ -74,6 +74,14 @@ export const ROUTES: Record<
     allowedRoles: [RoleEnum.ADMIN, RoleEnum.MERCHANT],
     borderedContent: false,
   },
+  PROFILE: {
+    path: PathsEnum.PROFILE,
+    title: "Profile",
+    showSidebar: false,
+    isPublic: false,
+    allowedRoles: [],
+    borderedContent: false,
+  },
   OFFERS_ACTIVE: {
     path: PathsEnum.OFFERS_ACTIVE,
     title: "Active Offers",

@@ -26,12 +26,14 @@ interface BaseSelectProps {
   className?: string;
   disabled?: boolean;
   rotateIcon?: boolean;
+  leftIcon?: IconsType;
   placeholder?: string;
   options: SelectOption[];
   variant?: SelectVariant;
   optionClassName?: string;
   wrapperClassName?: string;
   dropdownClassName?: string;
+  leftIconClassName?: string;
   onChange?: (value: string) => void;
 }
 
@@ -64,7 +66,8 @@ const styles = {
     emptySecondary: "!text-unactive",
     small: "h-8 px-3 text-xs rounded-md !border-divider",
     empty: "!text-paragraph",
-    disabled: "bg-stroke cursor-not-allowed opacity-50",
+    disabled: "!bg-stroke !cursor-not-allowed !opacity-50",
+    leftIcon: "h-4 stroke-unactive mr-3",
   },
   error: "text-[10px] text-red-600 mt-1",
   dropdown: {
@@ -92,6 +95,7 @@ const SelectComponent = <T extends FieldValues>(
     label,
     error,
     options,
+    leftIcon,
     disabled,
     className,
     placeholder,
@@ -99,6 +103,7 @@ const SelectComponent = <T extends FieldValues>(
     size = "default",
     wrapperClassName,
     dropdownClassName,
+    leftIconClassName,
     variant = "primary",
     icon = "chevronDown",
     rotateIcon = true,
@@ -128,14 +133,20 @@ const SelectComponent = <T extends FieldValues>(
           className={twMerge(
             styles.select.base,
             !value && styles.select.empty,
-            disabled && styles.select.disabled,
             size === "small" && styles.select.small,
             variant === "secondary" && styles.select.secondary,
             variant === "secondary" && !value && styles.select.emptySecondary,
+            disabled && styles.select.disabled,
             className
           )}
           onClick={() => !disabled && setIsOpen(!isOpen)}
         >
+          {leftIcon && (
+            <Icon
+              name={leftIcon}
+              className={twMerge(styles.select.leftIcon, leftIconClassName)}
+            />
+          )}
           <span>{displayValue}</span>
 
           <Icon

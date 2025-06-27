@@ -1163,4 +1163,138 @@ export const ICONS_LIST = {
       </defs>
     </svg>
   ),
+  camera: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 19 19"
+      fill="none"
+      className={className}
+    >
+      <path
+        fill="#fff"
+        fillRule="evenodd"
+        d="M13.656 5.44c.03.051.08.088.147.088A3.203 3.203 0 0 1 17 8.72v4.352a3.203 3.203 0 0 1-3.197 3.193H5.53a3.198 3.198 0 0 1-3.198-3.193V8.72a3.198 3.198 0 0 1 3.198-3.193c.058 0 .117-.03.139-.088l.044-.088.078-.163c.187-.396.395-.833.523-1.09.338-.659.91-1.025 1.621-1.033h3.454c.711.008 1.29.374 1.628 1.033.115.231.291.603.461.96l.104.22.073.16Zm-.535 2.813c0 .366.293.659.66.659a.663.663 0 0 0 .667-.66.663.663 0 1 0-1.327 0ZM8.398 9.388a1.776 1.776 0 0 1 1.269-.527c.477 0 .924.183 1.261.52.338.337.52.784.52 1.26-.006.981-.798 1.78-1.781 1.78a1.77 1.77 0 0 1-1.261-.52 1.766 1.766 0 0 1-.521-1.26v-.008a1.72 1.72 0 0 1 .513-1.245Zm3.3 3.29a2.883 2.883 0 0 1-4.07 0 2.876 2.876 0 0 1-.843-2.037 2.834 2.834 0 0 1 .836-2.03c.55-.549 1.276-.85 2.046-.85.77 0 1.496.301 2.039.843.542.55.843 1.275.843 2.037a2.902 2.902 0 0 1-.85 2.036Z"
+        clipRule="evenodd"
+      />
+    </svg>
+  ),
+  share: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 25 25"
+      fill="none"
+      className={className}
+    >
+      <path
+        stroke="#fff"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M18.333 8.167a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6.333 15.167a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM18.333 22.167a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM8.923 13.677l6.83 3.98M15.743 6.677l-6.82 3.98"
+      />
+    </svg>
+  ),
+  building: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+    >
+      <path
+        stroke="inherit"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M7.5 11H4.6c-.56 0-.84 0-1.054.109a1 1 0 0 0-.437.437C3 11.76 3 12.04 3 12.6V21m13.5-10h2.9c.56 0 .84 0 1.054.109a1 1 0 0 1 .437.437C21 11.76 21 12.04 21 12.6V21m-4.5 0V6.2c0-1.12 0-1.68-.218-2.108a2 2 0 0 0-.874-.874C14.98 3 14.42 3 13.3 3h-2.6c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C7.5 4.52 7.5 5.08 7.5 6.2V21M22 21H2m9-14h2m-2 4h2m-2 4h2"
+      />
+    </svg>
+  ),
+  location: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+    >
+      <path
+        stroke="inherit"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M12 12.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+      />
+      <path
+        stroke="inherit"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M12 22c2-4 8-6.582 8-12a8 8 0 1 0-16 0c0 5.418 6 8 8 12Z"
+      />
+    </svg>
+  ),
+  lock: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+    >
+      <path
+        stroke="inherit"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M17 11V8A5 5 0 0 0 7 8v3m1.8 10h6.4c1.68 0 2.52 0 3.162-.327a3 3 0 0 0 1.311-1.311C20 18.72 20 17.88 20 16.2v-.4c0-1.68 0-2.52-.327-3.162a3 3 0 0 0-1.311-1.311C17.72 11 16.88 11 15.2 11H8.8c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.311 1.311C4 13.28 4 14.12 4 15.8v.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311C6.28 21 7.12 21 8.8 21Z"
+      />
+    </svg>
+  ),
+  user: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+    >
+      <path
+        stroke="inherit"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M3 20c2.336-2.477 5.507-4 9-4 3.493 0 6.664 1.523 9 4M16.5 7.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z"
+      />
+    </svg>
+  ),
+  phone: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 25 24"
+      fill="none"
+      className={className}
+    >
+      <path
+        stroke="inherit"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M15.667 2v1.4c0 .56 0 .84-.109 1.054a1 1 0 0 1-.437.437C14.907 5 14.627 5 14.067 5h-2.8c-.56 0-.84 0-1.054-.109a1 1 0 0 1-.437-.437c-.109-.214-.109-.494-.109-1.054V2m-.8 20h7.6c1.12 0 1.68 0 2.108-.218a2 2 0 0 0 .874-.874c.218-.428.218-.988.218-2.108V5.2c0-1.12 0-1.68-.218-2.108a2 2 0 0 0-.874-.874C18.147 2 17.587 2 16.467 2h-7.6c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874c-.218.428-.218.988-.218 2.108v13.6c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874c.428.218.988.218 2.108.218Z"
+      />
+    </svg>
+  ),
+  mail: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+    >
+      <path
+        stroke="inherit"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="m2 7 8.165 5.715c.661.463.992.695 1.351.784a2 2 0 0 0 .968 0c.36-.09.69-.32 1.351-.784L22 7M6.8 20h10.4c1.68 0 2.52 0 3.162-.327a3 3 0 0 0 1.311-1.311C22 17.72 22 16.88 22 15.2V8.8c0-1.68 0-2.52-.327-3.162a3 3 0 0 0-1.311-1.311C19.72 4 18.88 4 17.2 4H6.8c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.311 1.311C2 6.28 2 7.12 2 8.8v6.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311C4.28 20 5.12 20 6.8 20Z"
+      />
+    </svg>
+  ),
 };

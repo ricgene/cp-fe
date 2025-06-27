@@ -1,6 +1,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import Icon from "@/Icons";
+import { PathsEnum } from "@/enums";
 import { Typography } from "@/components/ui";
 import { Footer } from "@/components/shared/layout";
 
@@ -29,7 +30,11 @@ const AuthWrapper = ({
 }: Props) => {
   return (
     <div className={styles.container}>
-      <Icon name="logoWithGreenText" className={styles.icon} />
+      <Icon
+        name="logoWithGreenText"
+        href={PathsEnum.LANDING}
+        className={styles.icon}
+      />
 
       <div className={styles.formWrapper}>
         <div className={twMerge(styles.form, formClassName)}>

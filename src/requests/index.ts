@@ -9,3 +9,4 @@ export * from "./alerts.requests";
 export * from "./session.requests";
 export * from "./recovery.requests";
 export * from "./merchant.requests";
+export * from "./profile.requests";

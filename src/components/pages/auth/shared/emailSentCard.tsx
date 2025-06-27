@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import Icon from "@/Icons";
+import { PathsEnum } from "@/enums";
 import { ROUTES } from "@/constants";
 import { handleError } from "@/utils";
 import { Typography } from "@/components/ui";
@@ -44,7 +45,11 @@ const EmailSentCard = ({ email, type, setIsEmailSent }: Props) => {
 
   return (
     <div className={styles.container}>
-      <Icon name="logoWithGreenText" className={styles.logoIcon} />
+      <Icon
+        name="logoWithGreenText"
+        href={PathsEnum.LANDING}
+        className={styles.logoIcon}
+      />
 
       <Typography level="custom" className={styles.headingText}>
         {type === "forgotPassword" ? "Can’t login" : "Verify your Email"}
@@ -52,14 +57,14 @@ const EmailSentCard = ({ email, type, setIsEmailSent }: Props) => {
 
       <Icon name="cantLogin" className={styles.cantLoginIcon} />
 
-      <Typography level="custom" className={styles.emailText}>
-        {email}
-      </Typography>
-
       <Typography level="p1">
         {type === "forgotPassword"
           ? "We sent a recovery link to you at"
           : "We sent a verification link to you at"}
+      </Typography>
+
+      <Typography level="custom" className={styles.emailText}>
+        {email}
       </Typography>
 
       <div className={styles.bottomLinkContainer}>
