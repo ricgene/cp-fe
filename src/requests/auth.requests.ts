@@ -35,7 +35,7 @@ export const login = (data: LoginRequest) => api.post(loginUrl, data);
 
 export const signup = (data: SignupRequest) => api.post(signupUrl, data);
 
-export const logout = () => api.get(logoutUrl);
+export const logout = () => api.post(logoutUrl);
 
 export const verifyEmailToken = (token: string) =>
   api.get(`${verifyUrl}/${token}`);
