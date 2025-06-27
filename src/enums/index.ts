@@ -1,3 +1,4 @@
+export * from "./points-transactions.enum";
 export * from "./dashboard.enum";
 export * from "./merchant.enum";
 export * from "./alert.enum";

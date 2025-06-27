@@ -15,6 +15,7 @@
   --color-divider: #EEEDED;
   --color-points: #9BCFB9;
   --gradient-button: linear-gradient(130.61deg, #0A974D 10.46%, #006260 92.17%);
+  --gradient-avatar: linear-gradient(346.82deg, #E8F3EF 7.56%, #FFFFFF 101.86%);
   --gradient-sidebar: linear-gradient(147.24deg, #0A974D -47.89%, #006260 94.31%);
   --gradient-background: linear-gradient(130.61deg, #0A974D4D 10.46%, #0062604D 92.17%);
   --gradient-landing-hero: linear-gradient(359.8deg, #FFFFFF 2.99%, rgba(255, 255, 255, 0) 99.82%);

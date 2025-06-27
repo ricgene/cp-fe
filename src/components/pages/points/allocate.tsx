@@ -3,11 +3,14 @@
 import React, { useState } from "react";
 import { IUser } from "@/types";
 import { usePaginatedList } from "@/hooks";
+import { useModal } from "@/hooks/useModal";
 import { getRegisteredUsers } from "@/requests";
 import { ControlHeader } from "@/components/shared";
+import AllocatePointsModal from "./allocatePointsModal";
 import { Checkbox, Pagination, Table } from "@/components/ui";
 import { transformRegisteredUsersToTableData } from "@/utils";
 import { REGISTERED_USERS_TABLE_COLUMNS, SORT_BY_OPTIONS } from "@/constants";
+import { RoleEnum } from "@/enums";
 
 const styles = {
   pageContainer: "h-full flex flex-col",
@@ -17,6 +20,7 @@ const styles = {
 const AllocatePoints = () => {
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
   const [selectedAll, setSelectedAll] = useState<boolean>(false);
+  const allocateModal = useModal();
   const {
     meta,
     page,
@@ -28,10 +32,12 @@ const AllocatePoints = () => {
     setSearchQuery,
   } = usePaginatedList<IUser>({
     fetcher: ({ page, limit, search }) =>
-      getRegisteredUsers({ page, limit, search }).then((response) => ({
-        data: response.data.users,
-        meta: response.data.meta,
-      })),
+      getRegisteredUsers({ page, limit, search, role: RoleEnum.RESIDENT }).then(
+        (response) => ({
+          data: response.data.users,
+          meta: response.data.meta,
+        })
+      ),
     initialLimit: 10,
   });
   const tableData = transformRegisteredUsersToTableData(filteredAndSorted);
@@ -42,11 +48,8 @@ const AllocatePoints = () => {
   };
 
   const handleAllocate = () => {
-    // Send selected publicIds to parent or API
-    // Example: allocatePointsToUsers(selected)
-    alert(`Allocate points to: ${selectedUsers}`);
+    allocateModal.open();
   };
-  console.log(selectedUsers);
 
   return (
     <div className={styles.pageContainer}>
@@ -68,6 +71,7 @@ const AllocatePoints = () => {
           variant: "primary",
           children: "Allocate Points to User",
           onClick: () => handleAllocate(),
+          disabled: !selectedAll && selectedUsers.length === 0,
         }}
       />
 
@@ -98,6 +102,24 @@ const AllocatePoints = () => {
         loading={isLoading}
         onPageChange={setPage}
         totalPages={meta?.totalPages}
+      />
+
+      <AllocatePointsModal
+        totalUsers={meta?.total}
+        isSelectedAll={selectedAll}
+        isOpen={allocateModal.isOpen}
+        onClose={allocateModal.close}
+        selectedValues={selectedUsers}
+        selectedUsers={
+          selectedAll
+            ? filteredAndSorted.map((u) => ({
+                name: u.name,
+                publicId: u.publicId,
+              }))
+            : filteredAndSorted
+                .filter((u) => selectedUsers.includes(u.publicId))
+                .map((u) => ({ name: u.name, publicId: u.publicId }))
+        }
       />
     </div>
   );

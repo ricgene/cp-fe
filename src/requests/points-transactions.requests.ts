@@ -1,6 +1,9 @@
 import { api } from "@/libs";
 import { IMetaResponse } from "@/types/misc.types";
-import { IPointTransaction } from "@/types/point-transaction.types";
+import {
+  AllotmentPointTransactionType,
+  IPointTransaction,
+} from "@/types/point-transaction.types";
 
 interface GetAllPointTransactionsParams {
   page?: number;
@@ -8,17 +11,29 @@ interface GetAllPointTransactionsParams {
   search?: string;
 }
 
+interface AllocatePointsParams {
+  points: number;
+  reason: string;
+  publicIds: string[];
+  type: AllotmentPointTransactionType;
+}
+
 interface IAllPointTransactionsResponse {
   transactions: IPointTransaction[];
   meta: IMetaResponse;
 }
 
-const basePointsUrl = "/point-transactions?filter=EARNED";
+const getPointsUrl = "/point-transactions?filter=EARNED";
+const allotmentUrl = "/point-transactions/allocate";
 
 export const getAllPointTransactions = async (
   params: GetAllPointTransactionsParams
 ) => {
-  return await api.get<IAllPointTransactionsResponse>(basePointsUrl, {
+  return await api.get<IAllPointTransactionsResponse>(getPointsUrl, {
     params,
   });
+};
+
+export const allocatePoints = async (data: AllocatePointsParams) => {
+  return await api.post(allotmentUrl, data);
 };
