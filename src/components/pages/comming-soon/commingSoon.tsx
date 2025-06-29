@@ -1,7 +1,16 @@
+"use client";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-hot-toast";
+import { AxiosResponse } from "axios";
 import Section from "@/components/pages/landing/shared/section";
 import { Button, Typography } from "@/components/ui";
 import Icon from "@/Icons";
 import Image from "next/image";
+import { addToWaitlist } from "@/requests";
+import { waitlistSchema, WaitlistFormData } from "@/schemas";
+import { handleError } from "@/utils";
 
 const waitlist = [
 	"/assets/comming-soon/user-1.png",
@@ -27,10 +36,13 @@ const styles = {
 	titleHighlight:
 		"font-bold [background-image:var(--gradient-button)] bg-clip-text text-transparent",
 	description: "text-sm text-paragraph",
+	emailInputContainerWrapper: "max-w-full",
 	emailInputContainer:
 		"max-md:max-w-full md:w-[420px] h-12 py-1 px-2 flex items-center bg-[#EEEDEDFC] rounded-full border border-[#D9D9D9]",
 	emailInput:
-		"h-full flex-1 min-w-0 bg-transparent focus:outline-none px-4 text-paragraph",
+		"h-full flex-1 min-w-0 bg-transparent focus:outline-none px-4 text-paragraph rounded-full",
+	emailInputError: "border-red-500",
+	errorText: "text-red-500 text-xs pl-6 pt-1 mr-auto text-left",
 	joinButton: "rounded-full h-full w-[120px]",
 	joinButtonIcon: "h-4 stroke-white -rotate-90 ml-1",
 	waitlistContainer: "w-fit flex items-center justify-center flex-wrap gap-5",
@@ -45,6 +57,34 @@ const styles = {
 };
 
 const CommingSoon = () => {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, isSubmitting },
+		reset,
+	} = useForm<WaitlistFormData>({
+		mode: "onChange",
+		reValidateMode: "onChange",
+		resolver: zodResolver(waitlistSchema),
+		defaultValues: {
+			email: "",
+		},
+	});
+
+	const handleSubmitSuccess = (response: AxiosResponse) => {
+		toast.success(response?.data?.message || "Successfully added to waitlist!");
+		reset();
+	};
+
+	const onSubmit = async (data: WaitlistFormData) => {
+		try {
+			const response = await addToWaitlist(data);
+			handleSubmitSuccess(response);
+		} catch (error) {
+			handleError(error);
+		}
+	};
+
 	return (
 		<Section
 			className={styles.section}
@@ -88,17 +128,33 @@ const CommingSoon = () => {
 						communication.
 					</Typography>
 
-					<div className={styles.emailInputContainer}>
-						<input
-							type="text"
-							className={styles.emailInput}
-							placeholder="Enter your email"
-						/>
+					<div className={styles.emailInputContainerWrapper}>
+						<div className={styles.emailInputContainer}>
+							<input
+								type="email"
+								className={`${styles.emailInput} ${
+									errors.email ? styles.emailInputError : ""
+								}`}
+								placeholder="Enter your email"
+								{...register("email")}
+							/>
 
-						<Button size="small" className={styles.joinButton}>
-							Join waitlist
-							<Icon name="chevronDown" className={styles.joinButtonIcon} />
-						</Button>
+							<Button
+								type="submit"
+								size="small"
+								className={styles.joinButton}
+								disabled={isSubmitting}
+								onClick={handleSubmit(onSubmit)}
+							>
+								{isSubmitting ? "Joining..." : "Join waitlist"}
+								<Icon name="chevronDown" className={styles.joinButtonIcon} />
+							</Button>
+						</div>
+						{errors.email && (
+							<Typography level="custom" className={styles.errorText}>
+								{errors.email.message}
+							</Typography>
+						)}
 					</div>
 
 					<div className={styles.waitlistContainer}>
