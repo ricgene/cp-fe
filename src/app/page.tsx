@@ -1,22 +1,26 @@
-import FAQ from "@/components/pages/landing/sections/faq";
-import WhyCP from "@/components/pages/landing/sections/whyCp";
-import Footer from "@/components/pages/landing/sections/footer";
-import Stories from "@/components/pages/landing/sections/stories";
-import Broker1 from "@/components/pages/landing/sections/broker1";
-import Broker2 from "@/components/pages/landing/sections/broker2";
-import Broker3 from "@/components/pages/landing/sections/broker3";
-import HeroSection from "@/components/pages/landing/sections/hero";
-import HowCpWorks from "../components/pages/landing/sections/howCpWorks";
-import TrackEngagement from "@/components/pages/landing/sections/trackEngagement";
+// import FAQ from "@/components/pages/landing/sections/faq";
+// import WhyCP from "@/components/pages/landing/sections/whyCp";
+// import Footer from "@/components/pages/landing/sections/footer";
+// import Stories from "@/components/pages/landing/sections/stories";
+// import Broker1 from "@/components/pages/landing/sections/broker1";
+// import Broker2 from "@/components/pages/landing/sections/broker2";
+// import Broker3 from "@/components/pages/landing/sections/broker3";
+// import HeroSection from "@/components/pages/landing/sections/hero";
+// import HowCpWorks from "../components/pages/landing/sections/howCpWorks";
+// import TrackEngagement from "@/components/pages/landing/sections/trackEngagement";
+import CommingSoon from "@/components/pages/comming-soon/commingSoon";
 
 const styles = {
-  container: "bg-white",
+	container: "bg-white",
 };
 
 export default function LandingPage() {
-  return (
-    <div className={styles.container}>
-      <HeroSection />
+	return (
+		<div className={styles.container}>
+			<CommingSoon />
+
+			{/* Landing Page (Commented for now) */}
+			{/* <HeroSection />
       <Broker1 />
       <WhyCP />
       <TrackEngagement />
@@ -25,7 +29,7 @@ export default function LandingPage() {
       <Stories />
       <FAQ />
       <Broker3 />
-      <Footer />
-    </div>
-  );
+      <Footer /> */}
+		</div>
+	);
 }
