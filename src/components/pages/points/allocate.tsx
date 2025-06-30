@@ -58,6 +58,7 @@ const AllocatePoints = () => {
         description="Select the users to Allocate points for their good deeds"
         searchBarProps={{
           onChangeText: setSearchQuery,
+          placeholder: "Search by name or ID...",
         }}
         selectProps={{
           size: "small",

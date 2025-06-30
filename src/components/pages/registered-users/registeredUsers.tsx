@@ -53,6 +53,7 @@ const RegisteredUsers = ({ role }: Props) => {
         }
         searchBarProps={{
           onChangeText: setSearchQuery,
+          placeholder: "Search by name or ID...",
         }}
         selectProps={{
           size: "small",

@@ -42,9 +42,10 @@ const PointsHistory = () => {
       <div className={styles.pageContainer}>
         <ControlHeader
           title="Point's History"
-          description="List of Active offers among societies shared by merchant"
+          description="List of all point transactions"
           searchBarProps={{
             onChangeText: (value) => setSearchQuery(value),
+            placeholder: "Search by name or ID...",
           }}
           selectProps={{
             size: "small",
