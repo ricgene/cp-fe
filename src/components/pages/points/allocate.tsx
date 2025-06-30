@@ -18,8 +18,13 @@ const styles = {
 };
 
 const AllocatePoints = () => {
-  const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
   const [selectedAll, setSelectedAll] = useState<boolean>(false);
+  const [selectedUsers, setSelectedUsers] = useState<
+    {
+      name: string;
+      publicId: string;
+    }[]
+  >([]);
   const allocateModal = useModal();
   const {
     meta,
@@ -43,13 +48,24 @@ const AllocatePoints = () => {
   const tableData = transformRegisteredUsersToTableData(filteredAndSorted);
 
   const handleSelectionChange = (selected: string[]) => {
-    setSelectedUsers(selected);
+    const selectedUserMap = new Map(selectedUsers.map((u) => [u.publicId, u]));
+    const newUsers = filteredAndSorted
+      .filter(
+        (u) => selected.includes(u.publicId) && !selectedUserMap.has(u.publicId)
+      )
+      .map((u) => ({ name: u.name, publicId: u.publicId }));
+    const stillSelected = selectedUsers.filter((u) =>
+      selected.includes(u.publicId)
+    );
+    setSelectedUsers([...stillSelected, ...newUsers]);
     setSelectedAll(false);
   };
 
   const handleAllocate = () => {
     allocateModal.open();
   };
+
+  console.log();
 
   return (
     <div className={styles.pageContainer}>
@@ -80,7 +96,10 @@ const AllocatePoints = () => {
         <Checkbox
           title="Select All"
           checked={selectedAll}
-          onChange={() => setSelectedAll((prev) => !prev)}
+          onChange={() => {
+            setSelectedAll((prev) => !prev);
+            setSelectedUsers([]);
+          }}
         />
       </div>
 
@@ -90,7 +109,7 @@ const AllocatePoints = () => {
         wrapperClassName="!mt-4"
         selectableField="publicId"
         isSelectedAll={selectedAll}
-        selectedValues={selectedUsers}
+        selectedValues={selectedUsers.map((u) => u.publicId)}
         onSelectionChange={handleSelectionChange}
         isEmpty={!isLoading && tableData.length === 0}
         columns={REGISTERED_USERS_TABLE_COLUMNS.filter(
@@ -115,17 +134,8 @@ const AllocatePoints = () => {
         isSelectedAll={selectedAll}
         isOpen={allocateModal.isOpen}
         onClose={allocateModal.close}
-        selectedValues={selectedUsers}
-        selectedUsers={
-          selectedAll
-            ? filteredAndSorted.map((u) => ({
-                name: u.name,
-                publicId: u.publicId,
-              }))
-            : filteredAndSorted
-                .filter((u) => selectedUsers.includes(u.publicId))
-                .map((u) => ({ name: u.name, publicId: u.publicId }))
-        }
+        selectedValues={selectedUsers.map((u) => u.publicId)}
+        selectedUsers={selectedUsers}
       />
     </div>
   );

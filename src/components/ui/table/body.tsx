@@ -23,6 +23,7 @@ const styles = {
   bodyCellSelect: "h-11 px-4 text-nowrap flex pl-8",
   emptyBodyCell: "p-4 lg:text-center",
   actionButton: "p-1 cursor-pointer hover:opacity-30",
+  activeActionButton: "text-primary",
   imageContainer:
     "mx-auto h-7 aspect-video relative bg-gray-100 rounded overflow-hidden",
   truncatedCell: "cursor-default",
@@ -52,6 +53,7 @@ interface TableBodyProps {
   selectableField?: string;
   selectedValues?: string[];
   onRowSelect?: (value: string) => void;
+  activeDropdown: number | null;
 }
 const TableBody = ({
   columns,
@@ -62,6 +64,7 @@ const TableBody = ({
   selectableField,
   selectedValues = [],
   onRowSelect,
+  activeDropdown,
 }: TableBodyProps) => {
   // Use refs to store tooltip position to avoid re-renders
   const tooltipRef = useRef<HTMLDivElement>(null);
@@ -118,6 +121,7 @@ const TableBody = ({
           selectableField={selectableField}
           selectedValues={selectedValues}
           onRowSelect={onRowSelect}
+          activeDropdown={activeDropdown}
         />
       )),
     [
@@ -131,6 +135,7 @@ const TableBody = ({
       selectableField,
       selectedValues,
       onRowSelect,
+      activeDropdown,
     ]
   );
 
@@ -221,6 +226,7 @@ interface TableRowProps {
   selectableField?: string;
   selectedValues?: string[];
   onRowSelect?: (value: string) => void;
+  activeDropdown: number | null;
 }
 
 const TableRow = ({
@@ -234,6 +240,7 @@ const TableRow = ({
   selectableField,
   selectedValues = [],
   onRowSelect,
+  activeDropdown,
 }: TableRowProps) => (
   <tr>
     {selectableField && (
@@ -281,7 +288,10 @@ const TableRow = ({
     {showActions && (
       <td className={twMerge(styles.bodyCell, styles.actionCell)}>
         <button
-          className={styles.actionButton}
+          className={twMerge(
+            styles.actionButton,
+            activeDropdown === Number(row.id) && styles.activeActionButton
+          )}
           onClick={(e) => onActionClick(Number(row.id), e)}
         >
           Actions

@@ -150,6 +150,7 @@ const Table = ({
               onActionClick={handleActionClick}
               selectableField={selectableField}
               selectedValues={selectedValues}
+              activeDropdown={activeDropdown}
               onRowSelect={handleRowSelect}
             />
           )}
