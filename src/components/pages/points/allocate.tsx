@@ -93,7 +93,12 @@ const AllocatePoints = () => {
         onSelectionChange={handleSelectionChange}
         isEmpty={!isLoading && tableData.length === 0}
         columns={REGISTERED_USERS_TABLE_COLUMNS.filter(
-          (col) => col.key === "name" || col.key === "publicId"
+          (col) =>
+            col.key === "name" ||
+            col.key === "email" ||
+            col.key === "state" ||
+            col.key === "city" ||
+            col.key === "publicId"
         )}
       />
 

@@ -132,7 +132,7 @@ const Table = ({
       <div className={styles.tableContainer}>
         <table className={twMerge(styles.table, className)}>
           <TableHeader
-            isSelectable={!!selectableField}
+            isSelectable={!!selectableField && !loading}
             columns={columns}
             showActions={showActions}
             isEmpty={isEmpty}

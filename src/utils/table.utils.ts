@@ -74,9 +74,13 @@ export const transformEventsToTableData = (events: IEvent[]) => {
 export const transformAlertsToTableData = (alerts: IAlert[]) => {
   return alerts.map((alert: IAlert) => ({
     id: alert.id,
-    type: alert.type,
+    type: alert.type?.toLowerCase(),
     title: alert.title,
     precautions: alert.precautions,
+    createdAt: new Date(alert.createdAt).toLocaleDateString(
+      "en-US",
+      dateTimeOptions
+    ),
   }));
 };
 
@@ -105,8 +109,12 @@ export const transformPointTransactionsToTableData = (
   return transactions.map((request) => ({
     id: request.id,
     name: request.name,
-    userId: request.publicId,
+    publicId: request.publicId,
     points: `${request.points} Points`,
+    createdAt: new Date(request.createdAt).toLocaleDateString(
+      "en-US",
+      dateTimeOptions
+    ),
     reason: request.reason,
   }));
 };

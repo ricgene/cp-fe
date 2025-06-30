@@ -13,21 +13,21 @@ const styles = {
   // header
   thead: "bg-element sticky top-0 z-10",
   headerRow: "bg-element",
-  headerCell: "font-medium py-4 px-4 min-w-[90px] text-nowrap",
+  headerCell: "font-medium py-4 px-4 min-w-[90px] text-nowrap capitalize",
   headerCellSmall: "!min-w-fit w-[100px]",
   actionCell: "!min-w-[120px] text-center",
 
   // body
   tbody: "text-paragraph",
-  bodyCell: "h-11 px-4 text-nowrap",
+  bodyCell: "h-11 px-4 text-nowrap capitalize",
   bodyCellSelect: "h-11 px-4 text-nowrap flex pl-8",
   emptyBodyCell: "p-4 lg:text-center",
   actionButton: "p-1 cursor-pointer hover:opacity-30",
   imageContainer:
     "mx-auto h-7 aspect-video relative bg-gray-100 rounded overflow-hidden",
-  truncatedCell: "cursor-help",
+  truncatedCell: "cursor-default",
   tooltip:
-    "fixed bg-element text-paragraph px-2.5 py-1.5 rounded-md text-xs z-50 pointer-events-none max-w-[300px] break-words whitespace-normal",
+    "fixed bg-black/70 text-white px-2.5 py-1.5 rounded-md text-xs z-50 pointer-events-none max-w-[300px] break-words whitespace-normal opacity-0 animate-fadeInSlow",
 
   // skeleton
   skeletonCell:
@@ -75,7 +75,7 @@ const TableBody = ({
     () =>
       debounce((text: string, x: number, y: number) => {
         setTooltip({ text, x, y });
-      }, 200),
+      }, 0), // Removed debounce to avoid tooltip flickering
     []
   );
 

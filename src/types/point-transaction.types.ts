@@ -7,6 +7,7 @@ export interface IPointTransaction {
   publicId: string;
   points: number;
   reason: string;
+  createdAt: string;
 }
 
 // Enum Types

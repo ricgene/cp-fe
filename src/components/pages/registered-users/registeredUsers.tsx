@@ -8,6 +8,7 @@ import { ControlHeader } from "@/components/shared";
 import { Pagination, Table } from "@/components/ui";
 import { transformRegisteredUsersToTableData } from "@/utils";
 import { REGISTERED_USERS_TABLE_COLUMNS, SORT_BY_OPTIONS } from "@/constants";
+import { RoleEnum } from "@/enums";
 
 interface Props {
   role: RoleType;
@@ -40,7 +41,16 @@ const RegisteredUsers = ({ role }: Props) => {
   return (
     <div className={styles.pageContainer}>
       <ControlHeader
-        title="Registered Users"
+        title={
+          role === RoleEnum.MERCHANT
+            ? "Registered Merchants"
+            : "Registered Users"
+        }
+        description={
+          role === RoleEnum.MERCHANT
+            ? "Active Merchants"
+            : "Registered Users from societies."
+        }
         searchBarProps={{
           onChangeText: setSearchQuery,
         }}
