@@ -70,7 +70,7 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
   const onSubmit = async (data: EventCreateFormData) => {
     try {
       // Check if start date is in the future
-      if (startDate && new Date(startDate).getDate() < new Date().getDate()) {
+      if (startDate && new Date(startDate) < new Date()) {
         setError("startDate", { message: "Start date must be in the future" });
         return;
       }
