@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,8 +13,15 @@ import {
   Button,
   Typography,
   AddressInput,
+  Loader,
 } from "@/components/ui";
-import { updateBusinessAddress } from "@/requests";
+import {
+  cancelProfileUpdateRequest,
+  getPendingProfileUpdateRequests,
+  updateBusinessAddress,
+} from "@/requests";
+import { useModal } from "@/hooks/useModal";
+import ConfirmationModal from "@/components/shared/modals/confirmationModal";
 
 interface Props {
   userData: IUser | null;
@@ -24,8 +31,12 @@ interface Props {
 const styles = {
   container: "flex flex-col gap-8",
   grid: "grid grid-cols-3 gap-8",
-  buttonWrapper: "flex justify-end mt-10",
+  buttonWrapper: "flex items-center justify-between mt-10",
   button: "min-w-[120px]",
+  loaderContainer: "h-[200px] flex",
+  loader: "m-auto stroke-primary",
+  cancelButton:
+    "text-primary underline cursor-pointer text-sm hover:opacity-80 duration-150 ease-in-out",
 };
 
 const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
@@ -55,6 +66,12 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
       longitude: userData?.longitude ?? 0,
     },
   });
+
+  const cancelModal = useModal();
+  const [isCancelling, setIsCancelling] = useState(false);
+  const [hasPendingRequests, setHasPendingRequests] = useState(false);
+  const [isLoadingPendingRequests, setIsLoadingPendingRequests] =
+    useState(false);
 
   const { states, tags } = useStaticData();
   const selectedCity = watch("city");
@@ -100,6 +117,7 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
             ? "Business details updated successfully"
             : "Address updated successfully")
       );
+      setHasPendingRequests(true);
     } catch (error) {
       handleError(error);
     } finally {
@@ -107,110 +125,191 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
     }
   };
 
+  // Fetch pending profile update requests
+  const fetchPendingRequests = async () => {
+    try {
+      setIsLoadingPendingRequests(true);
+      const pendingRequests = await getPendingProfileUpdateRequests();
+      setHasPendingRequests(pendingRequests.data.hasPendingRequests);
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setIsLoadingPendingRequests(false);
+    }
+  };
+
+  // Cancel pending profile update request
+  const cancelPendingRequest = async () => {
+    try {
+      setIsCancelling(true);
+      setIsLoading(true);
+      await cancelProfileUpdateRequest();
+      setHasPendingRequests(false);
+      cancelModal.close();
+      toast.success("Request cancelled successfully");
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setIsCancelling(false);
+      setIsLoading(false);
+    }
+  };
+
+  // Fetch pending profile update requests
+  useEffect(() => {
+    console.log(userData?.role);
+    if (userData?.role === RoleEnum.MERCHANT) {
+      fetchPendingRequests();
+    }
+  }, [userData]);
+
   return (
     <div className={styles.container}>
-      <Typography level="h2">Address</Typography>
-      <div className={styles.grid}>
-        {userData?.role === RoleEnum.MERCHANT && (
-          <>
-            <LabeledInput
-              label="Business Name"
-              leftIcon="user"
+      <div className="flex items-center gap-6">
+        <Typography level="h2">Address</Typography>
+        {hasPendingRequests && !isLoadingPendingRequests && (
+          <Typography level="p1">(Approval pending from Admin side)</Typography>
+        )}
+      </div>
+
+      {!isLoadingPendingRequests ? (
+        <React.Fragment>
+          <div className={styles.grid}>
+            {userData?.role === RoleEnum.MERCHANT && (
+              <>
+                <LabeledInput
+                  label="Business Name"
+                  leftIcon="user"
+                  variant="secondary"
+                  placeholder="Enter your Business Name"
+                  error={errors.businessName?.message}
+                  {...register("businessName")}
+                  disabled={isSubmitting || hasPendingRequests}
+                />
+
+                <Select
+                  label="Business Type"
+                  error={errors.businessType?.message}
+                  control={control}
+                  disabled={isSubmitting || hasPendingRequests}
+                  name="businessType"
+                  options={businessTypeOptions}
+                  variant="secondary"
+                  leftIcon="building"
+                />
+              </>
+            )}
+
+            <Select
+              label="State"
+              error={errors.state?.message}
+              onChange={(value) => {
+                setValue("state", value);
+                resetAddressFields();
+              }}
+              control={control}
+              name="state"
+              disabled={isSubmitting || hasPendingRequests}
+              options={stateOptions}
               variant="secondary"
-              placeholder="Enter your Business Name"
-              error={errors.businessName?.message}
-              {...register("businessName")}
-              disabled={isSubmitting}
+              leftIcon="location"
             />
 
             <Select
-              label="Business Type"
-              error={errors.businessType?.message}
+              label="City"
+              error={errors.city?.message}
               control={control}
-              disabled={isSubmitting}
-              name="businessType"
-              options={businessTypeOptions}
+              name="city"
+              options={cityOptions}
+              disabled={!selectedState || isSubmitting || hasPendingRequests}
               variant="secondary"
-              leftIcon="building"
+              leftIcon="location"
             />
-          </>
-        )}
 
-        <Select
-          label="State"
-          error={errors.state?.message}
-          onChange={(value) => {
-            setValue("state", value);
-            resetAddressFields();
-          }}
-          control={control}
-          name="state"
-          disabled={isSubmitting}
-          options={stateOptions}
-          variant="secondary"
-          leftIcon="location"
-        />
+            <AddressInput
+              label="Address"
+              placeholder="Enter your Address"
+              variant="secondary"
+              disabled={
+                !selectedState ||
+                !selectedCity ||
+                isSubmitting ||
+                hasPendingRequests
+              }
+              leftIcon="location"
+              error={
+                errors.address?.message ||
+                ((errors.latitude?.message || errors.longitude?.message) &&
+                  "Invalid address")
+              }
+              value={selectedAddress}
+              onChange={(value) => setValue("address", value)}
+              onPlaceSelect={(place) => {
+                if (selectedState.toLowerCase() !== place.state.toLowerCase()) {
+                  setError("address", {
+                    message: "Your address is not in the selected state",
+                  });
+                  return;
+                } else {
+                  setError("address", { message: "" });
+                }
+                if (selectedCity.toLowerCase() !== place.city.toLowerCase()) {
+                  setError("address", {
+                    message: "Your address is not in the selected city",
+                  });
+                  return;
+                } else {
+                  setError("address", { message: "" });
+                }
+                setValue("address", place.address);
+                setValue("latitude", place.latitude);
+                setValue("longitude", place.longitude);
+                setValue("state", place.state);
+                setValue("city", place.city);
+              }}
+            />
+          </div>
 
-        <Select
-          label="City"
-          error={errors.city?.message}
-          control={control}
-          name="city"
-          options={cityOptions}
-          disabled={!selectedState || isSubmitting}
-          variant="secondary"
-          leftIcon="location"
-        />
+          <div className={styles.buttonWrapper}>
+            {hasPendingRequests && (
+              <button
+                className={styles.cancelButton}
+                onClick={() => cancelModal.open()}
+                type="button"
+              >
+                Cancel Request
+              </button>
+            )}
+            <Button
+              size="small"
+              onClick={handleSubmit(onSubmit)}
+              loading={isSubmitting}
+              className={styles.button}
+              disabled={hasPendingRequests}
+            >
+              Save Changes
+            </Button>
+          </div>
+        </React.Fragment>
+      ) : (
+        <div className={styles.loaderContainer}>
+          <Loader className={styles.loader} />
+        </div>
+      )}
 
-        <AddressInput
-          label="Address"
-          placeholder="Enter your Address"
-          variant="secondary"
-          disabled={!selectedState || !selectedCity || isSubmitting}
-          leftIcon="location"
-          error={
-            errors.address?.message ||
-            ((errors.latitude?.message || errors.longitude?.message) &&
-              "Invalid address")
-          }
-          value={selectedAddress}
-          onChange={(value) => setValue("address", value)}
-          onPlaceSelect={(place) => {
-            if (selectedState.toLowerCase() !== place.state.toLowerCase()) {
-              setError("address", {
-                message: "Your address is not in the selected state",
-              });
-              return;
-            } else {
-              setError("address", { message: "" });
-            }
-            if (selectedCity.toLowerCase() !== place.city.toLowerCase()) {
-              setError("address", {
-                message: "Your address is not in the selected city",
-              });
-              return;
-            } else {
-              setError("address", { message: "" });
-            }
-            setValue("address", place.address);
-            setValue("latitude", place.latitude);
-            setValue("longitude", place.longitude);
-            setValue("state", place.state);
-            setValue("city", place.city);
-          }}
-        />
-      </div>
-
-      <div className={styles.buttonWrapper}>
-        <Button
-          size="small"
-          onClick={handleSubmit(onSubmit)}
-          loading={isSubmitting}
-          className={styles.button}
-        >
-          Save Changes
-        </Button>
-      </div>
+      <ConfirmationModal
+        title="Cancel Request Confirmation!"
+        centerContent={
+          <Typography level="p1">
+            Are you sure you want to cancel your profile update request?
+          </Typography>
+        }
+        isOpen={cancelModal.isOpen}
+        isLoading={isCancelling}
+        onCancel={cancelModal.close}
+        onApprove={cancelPendingRequest}
+        approveButtonText="Cancel Request"
+      />
     </div>
   );
 };

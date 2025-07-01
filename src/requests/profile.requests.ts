@@ -28,6 +28,9 @@ interface PasswordUpdateData {
 const profileUpdateUrl = "/user/web/profile";
 const businessAddressUpdateUrl = "/user/web/business-address";
 const passwordUpdateUrl = "/user/me/update-password";
+const pendingProfileUpdateRequestsUrl =
+  "/admin-requests/profile-update/pending";
+const cancelProfileUpdateRequestUrl = "/admin-requests/profile-update/cancel";
 
 // REQUESTS
 export const updateProfile = (data: FormData | GeneralProfileUpdateData) =>
@@ -42,3 +45,9 @@ export const updateBusinessAddress = (data: BusinessAddressUpdateData) =>
 
 export const updatePassword = (data: PasswordUpdateData) =>
   api.patch(passwordUpdateUrl, data);
+
+export const getPendingProfileUpdateRequests = () =>
+  api.get(pendingProfileUpdateRequestsUrl);
+
+export const cancelProfileUpdateRequest = () =>
+  api.patch(cancelProfileUpdateRequestUrl);

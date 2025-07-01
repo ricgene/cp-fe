@@ -13,7 +13,7 @@ export interface ButtonProps
 
 const styles = {
   button: {
-    base: "min-w-fit h-11 px-4 text-base rounded-lg cursor-pointer hover:opacity-80 duration-300 ease-in-out disabled:opacity-60 flex items-center justify-center",
+    base: "min-w-fit h-11 px-4 text-base rounded-lg cursor-pointer hover:opacity-80 duration-300 ease-in-out disabled:opacity-60 flex items-center justify-center disabled:cursor-default",
     small: "h-8 px-3.5 text-xs rounded-md",
   },
   variant: {
