@@ -177,7 +177,7 @@ const AddressInput = ({
             placeholder={placeholder}
             className={styles.input.inner}
             onChange={handleInputChange}
-            onFocus={() => value.length > 2 && setShowPredictions(true)}
+            onFocus={() => value?.length > 2 && setShowPredictions(true)}
             onBlur={() => setTimeout(() => setShowPredictions(false), 200)}
           />
         </div>
