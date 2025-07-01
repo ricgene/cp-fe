@@ -60,41 +60,43 @@ const LoginForm = () => {
         <EmailSentCard type="verification" email={getValues("email")} />
       ) : (
         <React.Fragment>
-          <div className={styles.inputGrid}>
-            <LabeledInput
-              label="Email"
-              placeholder="email"
-              {...register("email", { required: "Email is required" })}
-              error={errors.email?.message}
-            />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className={styles.inputGrid}>
+              <LabeledInput
+                label="Email"
+                placeholder="email"
+                {...register("email", { required: "Email is required" })}
+                error={errors.email?.message}
+              />
 
-            <LabeledInput
-              label="Password"
-              placeholder="password"
-              type="password"
-              {...register("password", { required: "Password is required" })}
-              error={errors.password?.message}
-            />
-          </div>
+              <LabeledInput
+                label="Password"
+                placeholder="password"
+                type="password"
+                {...register("password", { required: "Password is required" })}
+                error={errors.password?.message}
+              />
+            </div>
 
-          <Link href={ROUTES.FORGOT_PASSWORD.path} prefetch={false}>
-            <Typography
-              level="p1"
-              className={styles.forgotPasswordText}
-              hoverable
+            <Link href={ROUTES.FORGOT_PASSWORD.path} prefetch={false}>
+              <Typography
+                level="p1"
+                className={styles.forgotPasswordText}
+                hoverable
+              >
+                Forgot Password?
+              </Typography>
+            </Link>
+
+            <Button
+              variant="primary"
+              className={styles.button}
+              type="submit"
+              loading={isSubmitting}
             >
-              Forgot Password?
-            </Typography>
-          </Link>
-
-          <Button
-            variant="primary"
-            className={styles.button}
-            onClick={handleSubmit(onSubmit)}
-            loading={isSubmitting}
-          >
-            Login
-          </Button>
+              Login
+            </Button>
+          </form>
 
           <div className={styles.bottomLinkContainer}>
             <Typography level="p1">Don’t have an account?</Typography>
