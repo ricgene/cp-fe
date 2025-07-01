@@ -1,5 +1,6 @@
 import { RequestTypeEnum } from "@/enums";
 import { IAlert, IEvent, IMerchantRequest, IOffer, IUser } from "@/types";
+import { IPointTransaction } from "@/types/point-transaction.types";
 
 const dateOptions = {
   day: "2-digit" as const,
@@ -73,9 +74,13 @@ export const transformEventsToTableData = (events: IEvent[]) => {
 export const transformAlertsToTableData = (alerts: IAlert[]) => {
   return alerts.map((alert: IAlert) => ({
     id: alert.id,
-    type: alert.type,
+    type: alert.type?.toLowerCase(),
     title: alert.title,
     precautions: alert.precautions,
+    createdAt: new Date(alert.createdAt).toLocaleDateString(
+      "en-US",
+      dateTimeOptions
+    ),
   }));
 };
 
@@ -95,5 +100,21 @@ export const transformRequestsToTableData = (requests: IMerchantRequest[]) => {
     city: request.city,
     address: request.address,
     reason: request.reason || "",
+  }));
+};
+
+export const transformPointTransactionsToTableData = (
+  transactions: IPointTransaction[]
+) => {
+  return transactions.map((request) => ({
+    id: request.id,
+    name: request.name,
+    publicId: request.publicId,
+    points: `${request.points} Points`,
+    createdAt: new Date(request.createdAt).toLocaleDateString(
+      "en-US",
+      dateTimeOptions
+    ),
+    reason: request.reason,
   }));
 };

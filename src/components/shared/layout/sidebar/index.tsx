@@ -42,7 +42,7 @@ interface ProfileSectionProps {
 
 const styles = {
   wrapper: {
-    base: "max-md:absolute max-md:top-0 max-md:left-0 max-md:h-full max-md:z-20 max-md:w-full max-md:-translate-x-full  max-md:ease-in-out max-md:transition-opacity max-md:duration-300 max-md:opacity-0",
+    base: "max-md:absolute max-md:top-0 max-md:left-0 max-md:h-full max-md:z-50 max-md:w-full max-md:-translate-x-full  max-md:ease-in-out max-md:transition-opacity max-md:duration-300 max-md:opacity-0",
     open: "max-md:translate-x-0",
     visible: "max-md:opacity-100",
   },

@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { memo, useCallback, useMemo, useRef, useState } from "react";
 import debounce from "lodash.debounce";
 import { twMerge } from "tailwind-merge";
+import { Checkbox } from "@/components/ui";
 import { truncateText } from "@/utils/misc.utils";
 import { IKeyLabelPair, ITableData } from "@/types";
 
@@ -12,19 +13,22 @@ const styles = {
   // header
   thead: "bg-element sticky top-0 z-10",
   headerRow: "bg-element",
-  headerCell: "font-medium py-4 px-4 min-w-[90px] text-nowrap",
+  headerCell: "font-medium py-4 px-4 min-w-[90px] text-nowrap capitalize",
+  headerCellSmall: "!min-w-fit w-[100px]",
   actionCell: "!min-w-[120px] text-center",
 
   // body
   tbody: "text-paragraph",
-  bodyCell: "h-11 px-4 text-nowrap",
+  bodyCell: "h-11 px-4 text-nowrap capitalize",
+  bodyCellSelect: "h-11 px-4 text-nowrap flex pl-8",
   emptyBodyCell: "p-4 lg:text-center",
   actionButton: "p-1 cursor-pointer hover:opacity-30",
+  activeActionButton: "text-primary",
   imageContainer:
     "mx-auto h-7 aspect-video relative bg-gray-100 rounded overflow-hidden",
-  truncatedCell: "cursor-help",
+  truncatedCell: "cursor-default",
   tooltip:
-    "fixed bg-element text-paragraph px-2.5 py-1.5 rounded-md text-xs z-50 pointer-events-none max-w-[300px] break-words whitespace-normal",
+    "fixed bg-black/70 text-white px-2.5 py-1.5 rounded-md text-xs z-50 pointer-events-none max-w-[300px] break-words whitespace-normal opacity-0 animate-fadeInSlow",
 
   // skeleton
   skeletonCell:
@@ -44,13 +48,23 @@ interface TableBodyProps {
   columns: IKeyLabelPair[];
   data: ITableData[];
   showActions: boolean;
+  isSelectedAll?: boolean;
   onActionClick: (id: number, event: React.MouseEvent) => void;
+  selectableField?: string;
+  selectedValues?: string[];
+  onRowSelect?: (value: string) => void;
+  activeDropdown: number | null;
 }
 const TableBody = ({
   columns,
   data,
   showActions,
   onActionClick,
+  isSelectedAll,
+  selectableField,
+  selectedValues = [],
+  onRowSelect,
+  activeDropdown,
 }: TableBodyProps) => {
   // Use refs to store tooltip position to avoid re-renders
   const tooltipRef = useRef<HTMLDivElement>(null);
@@ -64,7 +78,7 @@ const TableBody = ({
     () =>
       debounce((text: string, x: number, y: number) => {
         setTooltip({ text, x, y });
-      }, 200),
+      }, 0), // Removed debounce to avoid tooltip flickering
     []
   );
 
@@ -103,6 +117,11 @@ const TableBody = ({
           onActionClick={handleActionClick}
           onCellMouseEnter={handleCellMouseEnter}
           onCellMouseLeave={handleCellMouseLeave}
+          isSelectedAll={isSelectedAll}
+          selectableField={selectableField}
+          selectedValues={selectedValues}
+          onRowSelect={onRowSelect}
+          activeDropdown={activeDropdown}
         />
       )),
     [
@@ -112,6 +131,11 @@ const TableBody = ({
       handleActionClick,
       handleCellMouseEnter,
       handleCellMouseLeave,
+      isSelectedAll,
+      selectableField,
+      selectedValues,
+      onRowSelect,
+      activeDropdown,
     ]
   );
 
@@ -144,11 +168,20 @@ interface TableHeaderProps {
   columns: IKeyLabelPair[];
   showActions: boolean;
   isEmpty?: boolean;
+  isSelectable?: boolean;
 }
 
-const TableHeader = ({ columns, showActions, isEmpty }: TableHeaderProps) => (
+const TableHeader = ({
+  columns,
+  showActions,
+  isEmpty,
+  isSelectable,
+}: TableHeaderProps) => (
   <thead className={styles.thead}>
     <tr className={styles.headerRow}>
+      {isSelectable && (
+        <th className={twMerge(styles.headerCell, styles.headerCellSmall)}></th>
+      )}
       {columns.map((col: IKeyLabelPair, index: number) => {
         const isPointsColumn = col.key === "pointsPerPurchase";
         return (
@@ -189,6 +222,11 @@ interface TableRowProps {
     e: React.MouseEvent
   ) => void;
   onCellMouseLeave: () => void;
+  isSelectedAll?: boolean;
+  selectableField?: string;
+  selectedValues?: string[];
+  onRowSelect?: (value: string) => void;
+  activeDropdown: number | null;
 }
 
 const TableRow = ({
@@ -198,13 +236,30 @@ const TableRow = ({
   onActionClick,
   onCellMouseEnter,
   onCellMouseLeave,
+  isSelectedAll,
+  selectableField,
+  selectedValues = [],
+  onRowSelect,
+  activeDropdown,
 }: TableRowProps) => (
   <tr>
+    {selectableField && (
+      <td className={styles.bodyCellSelect}>
+        <Checkbox
+          checked={
+            isSelectedAll ||
+            selectedValues.includes(String(row[selectableField]))
+          }
+          onChange={() =>
+            onRowSelect && onRowSelect(String(row[selectableField]))
+          }
+        />
+      </td>
+    )}
     {columns.map((col, index) => {
       const isImageColumn = col.key === "image";
       const cellValue = row[col.key];
       const isTruncated = !isImageColumn && String(cellValue).length > 25;
-
       return (
         <td
           key={`row-${row.id}-col-${index}`}
@@ -233,7 +288,10 @@ const TableRow = ({
     {showActions && (
       <td className={twMerge(styles.bodyCell, styles.actionCell)}>
         <button
-          className={styles.actionButton}
+          className={twMerge(
+            styles.actionButton,
+            activeDropdown === Number(row.id) && styles.activeActionButton
+          )}
           onClick={(e) => onActionClick(Number(row.id), e)}
         >
           Actions

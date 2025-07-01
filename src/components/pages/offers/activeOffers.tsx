@@ -129,6 +129,11 @@ const ActiveOffers = ({ forAdmin = false }: Props) => {
       <div className={styles.pageContainer}>
         <ControlHeader
           title={forAdmin ? "Offers" : "Active Offers"}
+          description={
+            forAdmin
+              ? "List of Active offers among societies shared by merchant"
+              : undefined
+          }
           buttonProps={
             !forAdmin
               ? {

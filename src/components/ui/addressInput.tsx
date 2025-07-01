@@ -61,7 +61,7 @@ const styles = {
       "h-10 bg-element border-divider text-paragraph placeholder:text-unactive",
     disabled: "opacity-50 bg-stroke cursor-not-allowed",
     inner:
-      "flex-1 focus:outline-none placeholder:text-paragraph text-sm text-heading",
+      "flex-1 focus:outline-none placeholder:text-paragraph text-sm text-heading disabled:cursor-not-allowed",
   },
   error: "text-[10px] text-red-600 mt-1",
   predictions:

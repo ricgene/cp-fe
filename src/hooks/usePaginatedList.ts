@@ -59,6 +59,12 @@ export const usePaginatedList = <T>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, page, limit]);
 
+  const handleSearchQueryChange = (search: string) => {
+    if (search === searchQuery) return;
+    setSearchQuery(search);
+    setPage(1);
+  };
+
   return {
     page,
     meta,
@@ -71,7 +77,7 @@ export const usePaginatedList = <T>({
     setPage,
     setLimit,
     setSortBy,
-    setSearchQuery,
+    setSearchQuery: handleSearchQueryChange,
     refresh: fetchData,
   };
 };
