@@ -32,8 +32,10 @@ body {
   color: black;
 }
 
-/* Hide scrollbar */
-::-webkit-scrollbar {
+/* ----------------------------- */
+
+/* Hide scrollbar everywhere except .table-container */
+*:not(.table-container)::-webkit-scrollbar {
   scrollbar-width: none;       /* Firefox */
   -ms-overflow-style: none;    /* IE and Edge */
   display: none;               /* Chrome, Safari */
@@ -51,6 +53,8 @@ body {
   -moz-appearance: textfield;
 }
 
+/* ----------------------------- */
+/* ApexCharts */
 /* Customize tooltip */
 .apexcharts-tooltip {
   border: none !important;
@@ -70,7 +74,9 @@ body {
   transform: translateX(-50%) !important;
 }
 
-/* Landing Hero Animation */
+/* ----------------------------- */
+/* Landing Page */
+/* Hero Animation */
 .device-wrapper-left {
   animation: slideRotateLeft 1s 1.5s ease-in-out forwards;
 }
@@ -97,9 +103,8 @@ body {
   }
 }
 
-
-
-
+/* ----------------------------- */
+/* Table */
 /* Tooltip Animation */
 @keyframes fadeInSlow {
   from { opacity: 0; }
@@ -107,4 +112,16 @@ body {
 }
 .animate-fadeInSlow {
   animation: fadeInSlow 0.2s ease-in forwards;
+}
+
+/* Table Scrollbar */
+.table-container::-webkit-scrollbar {
+  height: 2px !important; 
+  width: 0px !important;
+  background: transparent !important;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: var(--color-stroke);
+  border-radius: 10px;
 }

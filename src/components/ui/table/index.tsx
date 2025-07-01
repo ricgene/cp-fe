@@ -34,7 +34,7 @@ interface DropdownPosition {
 const styles = {
   // container
   wrapper: "relative border border-divider rounded-2xl overflow-hidden mt-10",
-  tableContainer: "h-full overflow-auto",
+  tableContainer: "h-full overflow-auto table-container",
   table: "w-full text-sm text-left",
 
   // dropdown
