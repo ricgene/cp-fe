@@ -45,6 +45,14 @@ const processQueue = (error: AxiosError | null = null) => {
   refreshAndRetryQueue.length = 0;
 };
 
+// Request interceptor
+api.interceptors.request.use((config) => {
+  const clientTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  config.headers["X-Time-Zone"] = clientTimeZone;
+  return config;
+});
+
+// Response interceptor
 api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
