@@ -13,7 +13,7 @@ const styles = {
   // header
   thead: "bg-element sticky top-0 z-10",
   headerRow: "bg-element",
-  headerCell: "font-medium py-4 px-4 min-w-[90px] text-nowrap capitalize",
+  headerCell: "font-medium py-4 px-4 min-w-[90px] text-nowrap",
   headerCellSmall: "!min-w-fit w-[100px]",
   actionCell: "!min-w-[120px] text-center",
 
@@ -21,6 +21,7 @@ const styles = {
   tbody: "text-paragraph",
   bodyCell: "h-11 px-4 text-nowrap capitalize",
   bodyCellSelect: "h-11 px-4 text-nowrap flex pl-8",
+  emailCell: "!lowercase",
   emptyBodyCell: "p-4 lg:text-center",
   actionButton: "p-1 cursor-pointer hover:opacity-30",
   activeActionButton: "text-primary",
@@ -258,6 +259,7 @@ const TableRow = ({
     )}
     {columns.map((col, index) => {
       const isImageColumn = col.key === "image";
+      const isEmailColumn = col.key === "email";
       const cellValue = row[col.key];
       const isTruncated = !isImageColumn && String(cellValue).length > 25;
       return (
@@ -265,6 +267,7 @@ const TableRow = ({
           key={`row-${row.id}-col-${index}`}
           className={twMerge(
             styles.bodyCell,
+            isEmailColumn && styles.emailCell,
             isTruncated && styles.truncatedCell
           )}
           onMouseEnter={(e) => !isImageColumn && onCellMouseEnter(cellValue, e)}

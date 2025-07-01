@@ -139,7 +139,7 @@ const ActiveOffers = ({ forAdmin = false }: Props) => {
               ? {
                   size: "small",
                   variant: "primary",
-                  children: "Create New offers",
+                  children: "Create New Offers",
                   onClick: () =>
                     actionModal.open({ type: "create", offer: {} as IOffer }),
                 }
