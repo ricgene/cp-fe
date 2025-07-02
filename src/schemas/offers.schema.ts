@@ -99,6 +99,32 @@ export const offerCreateSchema = offerBaseSchema
       message: "End date must be after or equal to start date",
       path: ["endDate"],
     }
+  )
+  .refine(
+    (data) => {
+      // If isPerk is true, pointsPerPurchase must be > 0
+      if (data.isPerk) {
+        return data.pointsPerPurchase > 0;
+      }
+      return true;
+    },
+    {
+      message: "Points per purchase cannot be 0 for perks.",
+      path: ["pointsPerPurchase"],
+    }
+  )
+  .refine(
+    (data) => {
+      // If isPerk is false, discountRate must be > 0
+      if (!data.isPerk) {
+        return data.discountRate > 0;
+      }
+      return true;
+    },
+    {
+      message: "Discount rate cannot be 0 for offers.",
+      path: ["discountRate"],
+    }
   );
 export type OfferCreateFormData = z.infer<typeof offerCreateSchema>;
 
