@@ -22,10 +22,14 @@ const offerBaseSchema = z.object({
     .min(0, "Points per purchase cannot be negative")
     .max(2147483647, "Points per purchase is too large")
     .default(0),
-  startDate: z.string({ required_error: "Start Date is required" }),
-  endDate: z.string({ required_error: "End Date is required" }),
+  startDate: z
+    .string({ required_error: "Start Date is required" })
+    .min(1, "Start Date is required"),
+  endDate: z
+    .string({ required_error: "End Date is required" })
+    .min(1, "End Date is required"),
   isPerk: z.boolean().default(false),
-  offerType: z.string(),
+  offerType: z.string().min(1, "Offer Type is required"),
   image: z
     .custom<FileList>((val) => val instanceof FileList, {
       message: "Image is required",
