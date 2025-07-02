@@ -55,6 +55,8 @@ const styles = {
   footerText: "text-heading",
   confirmationBox:
     "m-auto bg-element rounded-3xl max-w-[450px] py-12 px-10 text-center border border-stroke shadow-[0_4px_8px_rgba(0,0,0,0.1)] space-y-5",
+  confirmationIconBox: "mx-auto bg-[#F4FFFD] rounded-full p-2 h-28 w-28 flex",
+  confirmationIcon: "h-16 m-auto",
 };
 
 const CommingSoon = () => {
@@ -130,7 +132,10 @@ const CommingSoon = () => {
             </Typography>
 
             <div className={styles.emailInputContainerWrapper}>
-              <div className={styles.emailInputContainer}>
+              <form
+                className={styles.emailInputContainer}
+                onSubmit={handleSubmit(onSubmit)}
+              >
                 <input
                   type="email"
                   className={`${styles.emailInput} ${
@@ -145,12 +150,11 @@ const CommingSoon = () => {
                   size="small"
                   className={styles.joinButton}
                   disabled={isSubmitting}
-                  onClick={handleSubmit(onSubmit)}
                 >
                   {isSubmitting ? "Joining..." : "Join waitlist"}
                   <Icon name="chevronDown" className={styles.joinButtonIcon} />
                 </Button>
-              </div>
+              </form>
               {errors.email && (
                 <Typography level="custom" className={styles.errorText}>
                   {errors.email.message}
@@ -193,6 +197,9 @@ const CommingSoon = () => {
         </div>
       ) : (
         <div className={styles.confirmationBox}>
+          <div className={styles.confirmationIconBox}>
+            <Icon name="cantLogin" className={styles.confirmationIcon} />
+          </div>
           <Typography level="h2">Thanks for Joining Early!</Typography>
           <Typography level="p1">
             You’re now on our waitlist. We’ll keep you updated with the latest
