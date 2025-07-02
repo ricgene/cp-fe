@@ -14,12 +14,13 @@ const offerBaseSchema = z.object({
     .min(1, "Description is required"),
   discountRate: z
     .number({ message: "Discount Rate is required" })
-    .min(0)
+    .min(0, "Discount rate cannot be negative")
     .max(100, "Discount rate must be between 0 and 100")
     .default(0),
   pointsPerPurchase: z
     .number()
-    .min(0, "Points must be greater than or equal to 0")
+    .min(0, "Points per purchase cannot be negative")
+    .max(2147483647, "Points per purchase is too large")
     .default(0),
   startDate: z.string({ required_error: "Start Date is required" }),
   endDate: z.string({ required_error: "End Date is required" }),
