@@ -72,8 +72,6 @@ const CreateEditOfferModal = ({ isOpen, onClose, onSuccess, offer }: Props) => {
   });
   const image = watch("image");
   const isPerk = watch("isPerk");
-  const startDate = watch("startDate");
-  const endDate = watch("endDate");
 
   // Dropdown options
   const offerTypeOptions = tags?.OFFER?.map(createKeyLabelPair);
@@ -200,19 +198,6 @@ const CreateEditOfferModal = ({ isOpen, onClose, onSuccess, offer }: Props) => {
     data: OfferCreateFormData | OfferUpdateFormData,
     status: OfferStatusType = OfferStatusEnum.ACTIVE
   ) => {
-    // Check if start date is in the future
-    if (startDate && new Date(startDate).getDate() < new Date().getDate()) {
-      setError("startDate", { message: "Start date must be in the future" });
-      return;
-    }
-
-    // Check if start date is before end date
-    if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
-      setError("startDate", { message: "Start date must be before end date" });
-      setError("endDate", { message: "End date must be after start date" });
-      return;
-    }
-
     // Check if image is required for create
     if (!isEdit && !data.image) {
       setError("image", { message: "Image is required" });

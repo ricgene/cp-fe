@@ -1,8 +1,9 @@
 import { MAX_FILE_SIZE, ACCEPTED_IMAGE_TYPES } from "@/constants";
 import { z } from "zod";
+import { DateTime } from "luxon";
 
-// Offer Create Form Schema
-export const offerCreateSchema = z.object({
+// Offer Base Schema
+const offerBaseSchema = z.object({
   name: z.string().min(1, "Offer Name is required"),
   productName: z.string().min(1, "Product Name is required"),
   productCategory: z
@@ -60,8 +61,47 @@ export const offerCreateSchema = z.object({
     )
     .optional(),
 });
+
+// Offer Create Form Schema with date refinements
+export const offerCreateSchema = offerBaseSchema
+  .refine(
+    (data) => {
+      // Check startDate is today or in the future using Luxon
+      const today = DateTime.now().startOf("day");
+      const start = DateTime.fromISO(data.startDate).startOf("day");
+      return start >= today;
+    },
+    {
+      message: "Start date must be today or in the future",
+      path: ["startDate"],
+    }
+  )
+  .refine(
+    (data) => {
+      // Check startDate is before endDate using Luxon
+      const start = DateTime.fromISO(data.startDate).startOf("day");
+      const end = DateTime.fromISO(data.endDate).endOf("day");
+      return start <= end;
+    },
+    {
+      message: "Start date must be before or equal to end date",
+      path: ["startDate"],
+    }
+  )
+  .refine(
+    (data) => {
+      // Check endDate is after or equal to startDate using Luxon
+      const start = DateTime.fromISO(data.startDate).startOf("day");
+      const end = DateTime.fromISO(data.endDate).endOf("day");
+      return end >= start;
+    },
+    {
+      message: "End date must be after or equal to start date",
+      path: ["endDate"],
+    }
+  );
 export type OfferCreateFormData = z.infer<typeof offerCreateSchema>;
 
-// Offer Update Form Schema
-export const offerUpdateSchema = offerCreateSchema.partial();
+// Offer Update Form Schema (partial, no refinements)
+export const offerUpdateSchema = offerBaseSchema.partial();
 export type OfferUpdateFormData = z.infer<typeof offerUpdateSchema>;

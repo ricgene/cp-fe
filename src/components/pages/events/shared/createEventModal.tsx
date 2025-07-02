@@ -30,7 +30,6 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
     watch,
     register,
     setValue,
-    setError,
     handleSubmit,
     control,
     formState: { errors, isSubmitting },
@@ -39,8 +38,6 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
   });
 
   const image = watch("image");
-  const endDate = watch("endDate");
-  const startDate = watch("startDate");
   const selectedAddress = watch("address");
 
   const { tags } = useStaticData();
@@ -69,21 +66,6 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
 
   const onSubmit = async (data: EventCreateFormData) => {
     try {
-      // Check if start date is in the future
-      if (startDate && new Date(startDate) < new Date()) {
-        setError("startDate", { message: "Start date must be in the future" });
-        return;
-      }
-
-      // Check if start date is before end date
-      if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
-        setError("startDate", {
-          message: "Start date must be before end date",
-        });
-        setError("endDate", { message: "End date must be after start date" });
-        return;
-      }
-
       const formData = prepareFormData(data);
       await createEvent(formData);
       onSuccess();
