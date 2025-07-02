@@ -65,7 +65,7 @@ const styles = {
   },
   error: "text-[10px] text-red-600 mt-1",
   predictions:
-    "absolute z-10 w-full mt-1 bg-white border-1 border-stroke rounded-lg shadow-lg",
+    "absolute z-20 w-full mt-1 bg-white border-1 border-stroke rounded-lg shadow-lg",
   predictionItem:
     "px-4 py-2 text-sm text-paragraph hover:bg-stroke cursor-pointer",
 };
