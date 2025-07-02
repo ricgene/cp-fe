@@ -29,7 +29,7 @@ const offerBaseSchema = z.object({
     .string({ required_error: "End Date is required" })
     .min(1, "End Date is required"),
   isPerk: z.boolean().default(false),
-  offerType: z.string(),
+  offerType: z.string().min(1, "Offer Type is required"),
   image: z
     .custom<FileList>((val) => val instanceof FileList, {
       message: "Image is required",
