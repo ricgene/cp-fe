@@ -11,6 +11,10 @@ interface GetAllRequestsParams {
   status?: RequestStatusEnum;
 }
 
+interface RejectRequestParams {
+  reason: string;
+}
+
 interface IAllRequestsResponse {
   requests: {
     id: number;
@@ -35,6 +39,6 @@ export const acceptRequest = async (id: number) => {
   return await api.patch(`${baseRequestUrl}/${id}/accept`);
 };
 
-export const rejectRequest = async (id: number) => {
-  return await api.patch(`${baseRequestUrl}/${id}/reject`);
+export const rejectRequest = async (id: number, body: RejectRequestParams) => {
+  return await api.patch(`${baseRequestUrl}/${id}/reject`, body);
 };

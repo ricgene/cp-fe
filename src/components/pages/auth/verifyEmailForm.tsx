@@ -82,8 +82,8 @@ const VerifyEmailForm = () => {
             <br />
             <br />
             You will receive a notification once your account has been approved
-            and fully activated. This process typically takes up to [X
-            hours/days], and we appreciate your patience during this time.
+            and fully activated. This process typically takes up to 3 days, and
+            we appreciate your patience during this time.
             <br />
             <br />
             Warm regards,
