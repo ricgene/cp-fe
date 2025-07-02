@@ -29,10 +29,13 @@ export const transformOffersToTableData = (offers: IOffer[]) => {
     discountRate: `${offer.discountRate}%`,
     type: offer.isPerk ? "Perk" : "Offer",
     pointsPerPurchase: offer.isPerk ? `${offer.pointsPerPurchase} Points` : "",
-    endDate: new Date(offer.endDate).toLocaleDateString("en-GB", dateOptions),
+    endDate: new Date(offer.endDate).toLocaleDateString(
+      "en-GB",
+      dateTimeOptions
+    ),
     startDate: new Date(offer.startDate).toLocaleDateString(
       "en-GB",
-      dateOptions
+      dateTimeOptions
     ),
     offerType: offer.offerType,
   }));
