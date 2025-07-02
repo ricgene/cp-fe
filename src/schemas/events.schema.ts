@@ -8,8 +8,12 @@ export const eventCreateSchema = z
     name: z.string().min(1, "Name is required"),
     type: z.string().min(1, "Type is required"),
     details: z.string().min(1, "Details are required"),
-    startDate: z.string().min(1, "Start date is required"),
-    endDate: z.string().min(1, "End date is required"),
+    startDate: z
+      .string({ required_error: "Start Date is required" })
+      .min(1, "Start Date is required"),
+    endDate: z
+      .string({ required_error: "End Date is required" })
+      .min(1, "End Date is required"),
     address: z.string().min(1, "Address is required"),
     // hidden fields
     state: z.string().min(1, "State is required"),
