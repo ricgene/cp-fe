@@ -6,6 +6,7 @@ interface ConfirmationModalProps {
   isOpen: boolean;
   title: string;
   description?: string;
+  className?: string;
   footerClassName?: string;
   cancelButtonText?: string;
   centerContent?: ReactNode;
@@ -27,6 +28,7 @@ const ConfirmationModal = ({
   isOpen,
   onCancel,
   onApprove,
+  className,
   description,
   centerContent,
   footerClassName,
@@ -41,7 +43,7 @@ const ConfirmationModal = ({
       showFooter={true}
       showCancelButton={false}
       description={description}
-      className={styles.container}
+      className={twMerge(styles.container, className)}
       isPrimaryLoading={isLoading}
       footerClassName={twMerge(styles.footer, footerClassName)}
       primaryButtonText={approveButtonText}

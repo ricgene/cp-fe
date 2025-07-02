@@ -9,7 +9,13 @@ import {
   acceptRequest,
   rejectRequest,
 } from "@/requests/merchant.requests";
-import { Pagination, Table, Typography } from "@/components/ui";
+import {
+  Pagination,
+  Table,
+  Typography,
+  LabeledTextArea,
+} from "@/components/ui";
+import { useForm } from "react-hook-form";
 import { REQUEST_ACTIONS } from "@/constants/merchants.constants";
 import { transformRequestsToTableData, handleError } from "@/utils";
 import { REQUESTS_TABLE_COLUMNS, SORT_BY_OPTIONS } from "@/constants";
@@ -17,6 +23,8 @@ import { ControlHeader, ConfirmationModal } from "@/components/shared";
 
 const styles = {
   pageContainer: "h-full flex flex-col",
+  modal: "w-[500px]",
+  modalContent: "text-left flex flex-col gap-4",
 };
 
 type ModalType = "approve" | "reject";
@@ -51,11 +59,21 @@ const RequestedMerchants = () => {
       })),
   });
 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<{ reason: string }>({
+    defaultValues: { reason: "" },
+  });
+
   const actionModal = useModal<{
     type: ModalType;
     request: IMerchantRequest;
   }>();
   const [isActionLoading, setIsActionLoading] = useState(false);
+
   const tableData = transformRequestsToTableData(filteredAndSorted);
 
   const handleAction = (itemId: number, action: ActionType) => {
@@ -68,21 +86,37 @@ const RequestedMerchants = () => {
     }
   };
 
+  // for approve action
   const handleConfirmAction = async () => {
     if (!actionModal.data) return;
     try {
       setIsActionLoading(true);
       if (actionModal.data.type === "approve") {
         await acceptRequest(actionModal.data.request.id);
-      } else if (actionModal.data.type === "reject") {
-        await rejectRequest(actionModal.data.request.id);
+        await refresh();
       }
-      await refresh();
     } catch (error) {
       handleError(error);
     } finally {
       setIsActionLoading(false);
       actionModal.close();
+      reset();
+    }
+  };
+
+  // for reject action
+  const onSubmitReject = async (data: { reason: string }) => {
+    if (!actionModal.data) return;
+    try {
+      await rejectRequest(actionModal.data.request.id, {
+        reason: data.reason,
+      });
+      await refresh();
+    } catch (error) {
+      handleError(error);
+    } finally {
+      actionModal.close();
+      reset();
     }
   };
 
@@ -100,11 +134,27 @@ const RequestedMerchants = () => {
         );
       case "reject":
         return (
-          <Typography level="p1">
-            Are you sure you want to <span className="font-bold">reject</span>{" "}
-            merchant <span className="font-bold">{request.name}</span> (
-            {request.email})?
-          </Typography>
+          <div className={styles.modalContent}>
+            <Typography level="p1">
+              Are you sure you want to reject merchant request for{" "}
+              <span className="font-bold">{request.name}</span> ({request.email}
+              )?
+            </Typography>
+
+            <LabeledTextArea
+              label="Reason for rejection"
+              variant="secondary"
+              {...register("reason", {
+                required: "Reason is required",
+                minLength: {
+                  value: 8,
+                  message: "Reason is too short",
+                },
+              })}
+              error={errors.reason?.message}
+              placeholder="Enter reason..."
+            />
+          </div>
         );
       default:
         return null;
@@ -161,10 +211,18 @@ const RequestedMerchants = () => {
 
       <ConfirmationModal
         title={getModalTitle()}
+        className={actionModal.data?.type === "reject" ? styles.modal : ""}
         isOpen={actionModal.isOpen}
-        isLoading={isActionLoading}
-        onCancel={actionModal.close}
-        onApprove={handleConfirmAction}
+        isLoading={isActionLoading || isSubmitting}
+        onCancel={() => {
+          actionModal.close();
+          reset();
+        }}
+        onApprove={
+          actionModal.data?.type === "reject"
+            ? handleSubmit(onSubmitReject)
+            : handleConfirmAction
+        }
         centerContent={getModalContent()}
         approveButtonText={
           actionModal.data?.type === "approve" ? "Approve" : "Reject"
