@@ -100,3 +100,9 @@ export const POINTS_HISTORY_TABLE_COLUMNS: {
   { key: "createdAt", label: "Transaction Date" },
   { key: "reason", label: "Reason of Reward" },
 ];
+
+export const WAITLIST_TABLE_COLUMNS = [
+  { key: "email", label: "User Email" },
+  { key: "createdAt", label: "Registered At" },
+  { key: "isEmailSent", label: "Invitation Sent" },
+];
