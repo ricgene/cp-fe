@@ -15,7 +15,7 @@ const styles = {
   alertItem:
     "w-full bg-element rounded-lg border-[0.5px] border-stroke px-4 py-2 flex-1 flex flex-col",
   alertContent: "flex gap-4",
-  alertTextContainer: "flex flex-col gap-1",
+  alertTextContainer: "flex flex-col gap-1 capitalize",
   alertDateContainer: "flex mt-auto",
   alertDate: "text-paragraph text-[10px] ml-auto",
   emptyContainer:
@@ -60,7 +60,9 @@ const AlertCard = ({ data, title, loading, subtitle }: ChartCardProps) => {
                     className="w-5"
                   />
                   <div className={styles.alertTextContainer}>
-                    <Typography level="p1_bold">{alert.title}</Typography>
+                    <Typography level="p1_bold">
+                      {truncateText(alert.title, 50)}
+                    </Typography>
                     <Typography level="p1">
                       {truncateText(alert.precautions, 120)}
                     </Typography>
