@@ -118,39 +118,39 @@ const TermsAndConditionsPage = () => {
             </p>
             <ul className={styles.list}>
               <li>
-                <strong>a. Eligibility:</strong> All registered users of the
+                <strong>Eligibility:</strong> All registered users of the
                 CityPerks mobile app are eligible to participate in the rewards
                 program, unless restricted by local laws or app-specific rules.
               </li>
               <li>
-                <strong>b. Earning Points:</strong> Points are awarded manually
-                by CityPerks administrators based on user actions or
-                participation in verified activities. These actions may include
-                visiting partner locations, attending events, completing
-                promotions, or other engagement activities as determined by
-                CityPerks. Not all user actions are guaranteed to earn points,
-                and the criteria may change without notice.
+                <strong>Earning Points:</strong> Points are awarded manually by
+                CityPerks administrators based on user actions or participation
+                in verified activities. These actions may include visiting
+                partner locations, attending events, completing promotions, or
+                other engagement activities as determined by CityPerks. Not all
+                user actions are guaranteed to earn points, and the criteria may
+                change without notice.
               </li>
               <li>
-                <strong>c. Redeeming Points:</strong> Users can redeem earned
+                <strong>Redeeming Points:</strong> Users can redeem earned
                 points within the app for available perks, offers, or rewards.
                 Points are non-transferable, have no cash value, and cannot be
                 exchanged for money unless explicitly stated.
               </li>
               <li>
-                <strong>d. Expiration and Changes:</strong> Points may expire
-                after a certain period of inactivity or at the discretion of
+                <strong>Expiration and Changes:</strong> Points may expire after
+                a certain period of inactivity or at the discretion of
                 CityPerks. We reserve the right to modify the rules, available
                 rewards, or the structure of the program at any time.
               </li>
               <li>
-                <strong>e. Abuse or Misuse:</strong> Any fraudulent, abusive, or
+                <strong>Abuse or Misuse:</strong> Any fraudulent, abusive, or
                 manipulative behavior (including attempting to falsely trigger
                 rewards) may result in the revocation of points and account
                 suspension or termination.
               </li>
               <li>
-                <strong>f. Policy Updates:</strong> We may update these terms
+                <strong>Policy Updates:</strong> We may update these terms
                 periodically. Continued use of the app implies your acceptance
                 of the latest version of this policy.
               </li>
