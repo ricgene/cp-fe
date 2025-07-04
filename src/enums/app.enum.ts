@@ -31,6 +31,5 @@ export enum PathsEnum {
   POINTS_ALLOCATE = "/points/allocate",
   //
   PRIVACY_POLICY = "/privacy-policy",
-  COOKIE_POLICY = "/cookie-policy",
-  TERMS_OF_USE = "/terms-of-use",
+  TERMS_AND_CONDITIONS = "/terms-and-conditions",
 }

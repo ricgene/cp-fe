@@ -188,16 +188,9 @@ export const ROUTES: Record<
     isPublic: true,
     allowedRoles: [],
   },
-  COOKIE_POLICY: {
-    path: PathsEnum.COOKIE_POLICY,
-    title: "Cookie Policy",
-    showSidebar: false,
-    isPublic: true,
-    allowedRoles: [],
-  },
-  TERMS_OF_USE: {
-    path: PathsEnum.TERMS_OF_USE,
-    title: "Terms of Use",
+  TERMS_AND_CONDITIONS: {
+    path: PathsEnum.TERMS_AND_CONDITIONS,
+    title: "Terms and Conditions",
     showSidebar: false,
     isPublic: true,
     allowedRoles: [],
