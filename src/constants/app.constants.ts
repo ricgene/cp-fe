@@ -195,6 +195,13 @@ export const ROUTES: Record<
     isPublic: true,
     allowedRoles: [],
   },
+  WAITLIST: {
+    path: PathsEnum.WAITLIST,
+    title: "Waitlist",
+    showSidebar: true,
+    isPublic: false,
+    allowedRoles: [RoleEnum.ADMIN],
+  },
 };
 
 export const MERCHANT_MENU_ITEMS: IMenuItem[] = [
@@ -282,6 +289,11 @@ export const ADMIN_MENU_ITEMS: IMenuItem[] = [
         href: ROUTES.POINTS_ALLOCATE.path,
       },
     ],
+  },
+  {
+    icon: "waitlist",
+    label: ROUTES.WAITLIST.title,
+    href: ROUTES.WAITLIST.path,
   },
 ];
 

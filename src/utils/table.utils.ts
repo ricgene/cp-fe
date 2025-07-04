@@ -1,5 +1,12 @@
 import { RequestTypeEnum } from "@/enums";
-import { IAlert, IEvent, IMerchantRequest, IOffer, IUser } from "@/types";
+import {
+  IAlert,
+  IEvent,
+  IMerchantRequest,
+  IOffer,
+  IUser,
+  IWaitlistEntry,
+} from "@/types";
 import { IPointTransaction } from "@/types/point-transaction.types";
 
 const dateOptions = {
@@ -119,5 +126,17 @@ export const transformPointTransactionsToTableData = (
       dateTimeOptions
     ),
     reason: request.reason,
+  }));
+};
+
+export const transformWaitlistToTableData = (waitlist: IWaitlistEntry[]) => {
+  return waitlist.map((request) => ({
+    id: request.id,
+    email: request.email,
+    createdAt: new Date(request.createdAt).toLocaleDateString(
+      "en-US",
+      dateTimeOptions
+    ),
+    isEmailSent: request.isEmailSent ? "Yes" : "No",
   }));
 };
