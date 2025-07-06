@@ -62,21 +62,23 @@ const ForgotPasswordForm = () => {
         />
       ) : (
         <React.Fragment>
-          <LabeledInput
-            label="Email"
-            placeholder="email"
-            {...register("email", { required: "Email is required" })}
-            error={errors.email?.message}
-          />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <LabeledInput
+              label="Email"
+              placeholder="email"
+              {...register("email", { required: "Email is required" })}
+              error={errors.email?.message}
+            />
 
-          <Button
-            variant="primary"
-            loading={isSubmitting}
-            className={styles.button}
-            onClick={handleSubmit(onSubmit)}
-          >
-            Send Recovery Link
-          </Button>
+            <Button
+              variant="primary"
+              loading={isSubmitting}
+              className={styles.button}
+              type="submit"
+            >
+              Send Recovery Link
+            </Button>
+          </form>
 
           <div className={styles.bottomLinkContainer}>
             <Link href={ROUTES.LOGIN.path}>
