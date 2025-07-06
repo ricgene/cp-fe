@@ -59,6 +59,7 @@ const CreateEditOfferModal = ({ isOpen, onClose, onSuccess, offer }: Props) => {
     setValue,
     register,
     setError,
+    trigger,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<OfferCreateFormData | OfferUpdateFormData>({
@@ -313,7 +314,11 @@ const CreateEditOfferModal = ({ isOpen, onClose, onSuccess, offer }: Props) => {
           variant="secondary"
           placeholder="Select Date"
           error={errors.startDate?.message}
-          {...register("startDate")}
+          {...register("startDate", {
+            onChange: () => {
+              trigger(["startDate", "endDate"]);
+            },
+          })}
         />
 
         <LabeledInput
@@ -322,7 +327,11 @@ const CreateEditOfferModal = ({ isOpen, onClose, onSuccess, offer }: Props) => {
           variant="secondary"
           placeholder="Select Date"
           error={errors.endDate?.message}
-          {...register("endDate")}
+          {...register("endDate", {
+            onChange: () => {
+              trigger(["startDate", "endDate"]);
+            },
+          })}
         />
 
         <LabeledTextArea
