@@ -98,17 +98,6 @@ const Alerts = () => {
     }
   };
 
-  const getModalTitle = () => {
-    if (!actionModal.data) return "";
-
-    switch (actionModal.data.type) {
-      case "delete":
-        return "Delete Event";
-      default:
-        return "";
-    }
-  };
-
   return (
     <>
       <div className={styles.pageContainer}>
@@ -164,7 +153,7 @@ const Alerts = () => {
       />
 
       <ConfirmationModal
-        title={getModalTitle()}
+        title="Delete Alert"
         isOpen={actionModal.isOpen && actionModal.data?.type === "delete"}
         isLoading={isActionLoading}
         onCancel={actionModal.close}
