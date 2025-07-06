@@ -12,6 +12,8 @@ import {
 import { updateProfile } from "@/requests";
 import { handleError } from "@/utils";
 import toast from "react-hot-toast";
+import { useModal } from "@/hooks/useModal";
+import ConfirmationModal from "@/components/shared/modals/confirmationModal";
 
 interface Props {
   userData: IUser | null;
@@ -26,6 +28,7 @@ const styles = {
 };
 
 const GeneralTab = ({ userData, setIsLoading }: Props) => {
+  const saveModal = useModal();
   const {
     register,
     handleSubmit,
@@ -47,11 +50,16 @@ const GeneralTab = ({ userData, setIsLoading }: Props) => {
       setIsLoading(true);
       const response = await updateProfile(data);
       toast.success(response?.data?.message || "Profile updated successfully");
+      saveModal.close();
     } catch (error) {
       handleError(error);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSaveClick = () => {
+    saveModal.open();
   };
 
   return (
@@ -114,13 +122,27 @@ const GeneralTab = ({ userData, setIsLoading }: Props) => {
       <div className={styles.buttonWrapper}>
         <Button
           size="small"
-          onClick={handleSubmit(onSubmit)}
+          onClick={handleSaveClick}
           loading={isSubmitting}
           className={styles.button}
         >
           Save Changes
         </Button>
       </div>
+
+      <ConfirmationModal
+        title="Save Changes Confirmation"
+        centerContent={
+          <Typography level="p1">
+            Are you sure you want to save the changes to your profile?
+          </Typography>
+        }
+        isOpen={saveModal.isOpen}
+        isLoading={isSubmitting}
+        onCancel={saveModal.close}
+        onApprove={handleSubmit(onSubmit)}
+        approveButtonText="Save Changes"
+      />
     </div>
   );
 };
