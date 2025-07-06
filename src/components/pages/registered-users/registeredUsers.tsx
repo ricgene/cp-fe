@@ -29,11 +29,13 @@ const RegisteredUsers = ({ role }: Props) => {
     setSortBy,
     setSearchQuery,
   } = usePaginatedList<IUser>({
-    fetcher: ({ page, limit, search }) =>
-      getRegisteredUsers({ page, limit, search, role }).then((response) => ({
-        data: response.data.users,
-        meta: response.data.meta,
-      })),
+    fetcher: ({ page, limit, search, sortBy }) =>
+      getRegisteredUsers({ page, limit, search, sortBy, role }).then(
+        (response) => ({
+          data: response.data.users,
+          meta: response.data.meta,
+        })
+      ),
   });
 
   const tableData = transformRegisteredUsersToTableData(filteredAndSorted);

@@ -1,6 +1,6 @@
 export enum SortByEnum {
-  OLDEST = "OLDEST",
-  NEWEST = "NEWEST",
+  "asc" = "asc",
+  "desc" = "desc",
 }
 
 export enum TagEnum {

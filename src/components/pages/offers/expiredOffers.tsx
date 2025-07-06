@@ -30,12 +30,13 @@ const ExpiredOffers = () => {
     refresh,
     setSearchQuery,
   } = usePaginatedList<IOffer>({
-    fetcher: ({ page, limit, search }) =>
+    fetcher: ({ page, limit, search, sortBy }) =>
       getAllOffers({
         status: OfferStatusEnum.EXPIRED,
         page,
         limit,
         search,
+        sortBy,
       }).then((response) => ({
         data: response.data.offers,
         meta: response.data.meta,

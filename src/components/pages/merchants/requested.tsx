@@ -41,12 +41,13 @@ const RequestedMerchants = () => {
     setSearchQuery,
     refresh,
   } = usePaginatedList<IMerchantRequest>({
-    fetcher: ({ page, limit, search }) =>
+    fetcher: ({ page, limit, search, sortBy }) =>
       getAllRequests({
         status: RequestStatusEnum.PENDING,
         page,
         limit,
         search,
+        sortBy,
       }).then((response) => ({
         data: response.data.requests.map((request) => ({
           ...request.data.merchantData,

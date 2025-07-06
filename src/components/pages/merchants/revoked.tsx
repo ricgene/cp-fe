@@ -25,12 +25,13 @@ const RevokedMerchants = () => {
     setSortBy,
     setSearchQuery,
   } = usePaginatedList<IMerchantRequest>({
-    fetcher: ({ page, limit, search }) =>
+    fetcher: ({ page, limit, search, sortBy }) =>
       getAllRequests({
         status: RequestStatusEnum.REJECTED,
         page,
         limit,
         search,
+        sortBy,
       }).then((response) => ({
         data: response.data.requests.map((request) => ({
           ...request.data.merchantData,

@@ -1,25 +1,4 @@
-import { IChartSeries, SortByType } from "@/types";
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const sortList = (list: any[], value: SortByType | null) => {
-  if (!list) return [];
-  if (!value) return list;
-
-  switch (value) {
-    case "OLDEST":
-      return list.sort(
-        (a: { createdAt: string }, b: { createdAt: string }) =>
-          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-      );
-    case "NEWEST":
-      return list.sort(
-        (a: { createdAt: string }, b: { createdAt: string }) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
-    default:
-      return list;
-  }
-};
+import { IChartSeries } from "@/types";
 
 export const truncateText = (
   text: string | number | boolean | undefined,

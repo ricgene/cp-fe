@@ -29,11 +29,12 @@ const Events = () => {
     setSortBy,
     setSearchQuery,
   } = usePaginatedList<IEvent>({
-    fetcher: ({ page, limit, search }) =>
+    fetcher: ({ page, limit, search, sortBy }) =>
       getAllEvents({
         page,
         limit,
         search,
+        sortBy,
       }).then((response) => ({
         data: response.data.events,
         meta: response.data.meta,

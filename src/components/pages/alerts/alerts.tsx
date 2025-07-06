@@ -30,11 +30,12 @@ const Alerts = () => {
     setSortBy,
     setSearchQuery,
   } = usePaginatedList<IAlert>({
-    fetcher: ({ page, limit, search }) =>
+    fetcher: ({ page, limit, search, sortBy }) =>
       getAllAlerts({
         page,
         limit,
         search,
+        sortBy,
       }).then((response) => ({
         data: response.data.alerts,
         meta: response.data.meta,
