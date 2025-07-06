@@ -1,14 +1,10 @@
 import { api } from "@/libs";
 import { AlertAudienceEnum } from "@/enums";
-import { IMetaResponse } from "@/types/misc.types";
+import { IMetaResponse, IPaginationParams } from "@/types/misc.types";
 import { AlertType, IAlert } from "@/types/alert.types";
 
 // REQUEST INTERFACES
-interface GetAllAlertsParams {
-  page?: number;
-  limit?: number;
-  search?: string;
-}
+type GetAllAlertsParams = IPaginationParams;
 
 interface CreateAlertRequest {
   title: string;

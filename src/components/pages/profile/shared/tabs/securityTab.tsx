@@ -6,6 +6,8 @@ import { handleError } from "@/utils";
 import { updatePassword } from "@/requests";
 import { SecurityFormData, securitySchema } from "@/schemas";
 import { Button, LabeledInput, Typography } from "@/components/ui";
+import { useModal } from "@/hooks/useModal";
+import ConfirmationModal from "@/components/shared/modals/confirmationModal";
 
 interface Props {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
@@ -18,6 +20,7 @@ const styles = {
 };
 
 const SecurityTab = ({ setIsLoading }: Props) => {
+  const saveModal = useModal();
   const {
     reset,
     register,
@@ -38,11 +41,16 @@ const SecurityTab = ({ setIsLoading }: Props) => {
       });
       reset();
       toast.success(response?.data?.message || "Password updated successfully");
+      saveModal.close();
     } catch (error) {
       handleError(error);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSaveClick = () => {
+    saveModal.open();
   };
 
   return (
@@ -82,14 +90,24 @@ const SecurityTab = ({ setIsLoading }: Props) => {
       </div>
 
       <div className={styles.buttonWrapper}>
-        <Button
-          size="small"
-          onClick={handleSubmit(onSubmit)}
-          loading={isSubmitting}
-        >
+        <Button size="small" onClick={handleSaveClick} loading={isSubmitting}>
           Save Changes
         </Button>
       </div>
+
+      <ConfirmationModal
+        title="Save Changes Confirmation"
+        centerContent={
+          <Typography level="p1">
+            Are you sure you want to save the changes to your password?
+          </Typography>
+        }
+        isOpen={saveModal.isOpen}
+        isLoading={isSubmitting}
+        onCancel={saveModal.close}
+        onApprove={handleSubmit(onSubmit)}
+        approveButtonText="Save Changes"
+      />
     </div>
   );
 };

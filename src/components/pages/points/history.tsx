@@ -24,11 +24,12 @@ const PointsHistory = () => {
     setSortBy,
     setSearchQuery,
   } = usePaginatedList<IPointTransaction>({
-    fetcher: ({ page, limit, search }) =>
+    fetcher: ({ page, limit, search, sortBy }) =>
       getAllPointTransactions({
         page,
         limit,
         search,
+        sortBy,
       }).then((response) => ({
         data: response.data.transactions,
         meta: response.data.meta,

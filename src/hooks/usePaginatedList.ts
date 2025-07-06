@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { SortByType } from "@/types";
-import { handleError, sortList } from "@/utils";
+import { handleError } from "@/utils";
 
 interface UsePaginatedListProps<T> {
   fetcher: (params: {
     page: number;
     limit: number;
     search?: string;
+    sortBy?: SortByType;
   }) => Promise<{ data: T[]; meta: Meta }>;
   initialLimit?: number;
 }
@@ -41,6 +42,7 @@ export const usePaginatedList = <T>({
         page,
         limit,
         search: searchQuery || undefined,
+        sortBy: sortBy || undefined,
       });
       setData(response.data);
       setMeta(response.meta);
@@ -51,13 +53,11 @@ export const usePaginatedList = <T>({
     }
   };
 
-  const filteredAndSorted = sortList(data, sortBy);
-
   useEffect(() => {
     setIsLoading(true);
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery, page, limit]);
+  }, [searchQuery, page, limit, sortBy]);
 
   const handleSearchQueryChange = (search: string) => {
     if (search === searchQuery) return;
@@ -73,7 +73,7 @@ export const usePaginatedList = <T>({
     sortBy,
     isLoading,
     searchQuery,
-    filteredAndSorted,
+    filteredAndSorted: data,
     setPage,
     setLimit,
     setSortBy,

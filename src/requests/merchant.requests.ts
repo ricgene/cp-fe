@@ -1,13 +1,10 @@
 import { api } from "@/libs";
 import { IUser } from "@/types";
-import { IMetaResponse } from "@/types/misc.types";
+import { IMetaResponse, IPaginationParams } from "@/types/misc.types";
 import { RequestStatusEnum, RequestTypeEnum } from "@/enums";
 
 // REQUEST INTERFACES
-interface GetAllRequestsParams {
-  page?: number;
-  limit?: number;
-  search?: string;
+interface GetAllRequestsParams extends IPaginationParams {
   status?: RequestStatusEnum;
 }
 

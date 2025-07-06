@@ -1,15 +1,11 @@
 import { api } from "@/libs";
-import { IMetaResponse } from "@/types/misc.types";
+import { IMetaResponse, IPaginationParams } from "@/types/misc.types";
 import {
   AllotmentPointTransactionType,
   IPointTransaction,
 } from "@/types/point-transaction.types";
 
-interface GetAllPointTransactionsParams {
-  page?: number;
-  limit?: number;
-  search?: string;
-}
+type GetAllPointTransactionsParams = IPaginationParams;
 
 interface AllocatePointsParams {
   points: number;

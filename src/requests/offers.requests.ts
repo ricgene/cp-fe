@@ -5,6 +5,7 @@ import {
   IMetaResponse,
   OfferSpecialFilterType,
   DurationFilterType,
+  IPaginationParams,
 } from "@/types";
 // REQUEST INTERFACES
 export interface CreateOfferRequest {
@@ -30,11 +31,8 @@ const updateOfferUrl = "/offers"; // use with /:id
 const deleteOfferUrl = "/offers"; // use with /:id
 const publishOfferUrl = (id: number) => `/offers/${id}/publish`;
 
-interface GetAllOffersParams {
+interface GetAllOffersParams extends IPaginationParams {
   status: OfferStatusType;
-  page?: number;
-  limit?: number;
-  search?: string;
   filter?: DurationFilterType;
   specialFilter?: OfferSpecialFilterType;
 }

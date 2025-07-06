@@ -3,6 +3,7 @@
 import React from "react";
 import { IWaitlistEntry } from "@/types";
 import { usePaginatedList } from "@/hooks";
+import { SORT_BY_OPTIONS } from "@/constants";
 import { ControlHeader } from "@/components/shared";
 import { Table, Pagination } from "@/components/ui";
 import { getWaitlistAdmin } from "@/requests/waitlist.requests";
@@ -14,18 +15,28 @@ const styles = {
 };
 
 const Waitlist = () => {
-  const { meta, page, isLoading, filteredAndSorted, setPage, setSearchQuery } =
-    usePaginatedList<IWaitlistEntry>({
-      fetcher: ({ page, limit, search }) =>
-        getWaitlistAdmin({
-          page,
-          limit,
-          search,
-        }).then((response) => ({
-          data: response.data.data,
-          meta: response.data.meta,
-        })),
-    });
+  const {
+    meta,
+    page,
+    sortBy,
+    isLoading,
+    filteredAndSorted,
+    setPage,
+    setSortBy,
+    setSearchQuery,
+  } = usePaginatedList<IWaitlistEntry>({
+    fetcher: ({ page, limit, search, sortBy }) =>
+      getWaitlistAdmin({
+        page,
+        limit,
+        search,
+        sortBy,
+      }).then((response) => ({
+        data: response.data.data,
+        meta: response.data.meta,
+      })),
+    initialLimit: 10,
+  });
 
   const tableData = transformWaitlistToTableData(filteredAndSorted);
 
@@ -38,6 +49,13 @@ const Waitlist = () => {
           searchBarProps={{
             onChangeText: (value) => setSearchQuery(value),
             placeholder: "Search by email...",
+          }}
+          selectProps={{
+            name: "Sort by",
+            size: "small",
+            value: sortBy || "",
+            options: SORT_BY_OPTIONS,
+            onChange: setSortBy,
           }}
         />
 

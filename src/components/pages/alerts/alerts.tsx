@@ -11,6 +11,7 @@ import { Table, Pagination, Typography } from "@/components/ui";
 import { handleError, transformAlertsToTableData } from "@/utils";
 import { ALERTS_TABLE_COLUMNS, SORT_BY_OPTIONS } from "@/constants";
 import { ControlHeader, ConfirmationModal } from "@/components/shared";
+import toast from "react-hot-toast";
 
 const styles = {
   pageContainer: "h-full flex flex-col",
@@ -30,11 +31,12 @@ const Alerts = () => {
     setSortBy,
     setSearchQuery,
   } = usePaginatedList<IAlert>({
-    fetcher: ({ page, limit, search }) =>
+    fetcher: ({ page, limit, search, sortBy }) =>
       getAllAlerts({
         page,
         limit,
         search,
+        sortBy,
       }).then((response) => ({
         data: response.data.alerts,
         meta: response.data.meta,
@@ -71,40 +73,13 @@ const Alerts = () => {
     try {
       setIsActionLoading(true);
       await deleteAlert(actionModal.data.alert.id);
+      toast.success("Alert deleted successfully");
       await refresh();
     } catch (error) {
       handleError(error);
     } finally {
       setIsActionLoading(false);
       actionModal.close();
-    }
-  };
-
-  const getModalContent = () => {
-    if (!actionModal.data?.alert) return null;
-
-    switch (actionModal.data.type) {
-      case "delete":
-        return (
-          <Typography level="p1">
-            Are you sure you want to delete{" "}
-            <span className="font-bold">{actionModal.data.alert.title}</span>?
-            This action cannot be undone.
-          </Typography>
-        );
-      default:
-        return null;
-    }
-  };
-
-  const getModalTitle = () => {
-    if (!actionModal.data) return "";
-
-    switch (actionModal.data.type) {
-      case "delete":
-        return "Delete Event";
-      default:
-        return "";
     }
   };
 
@@ -163,12 +138,18 @@ const Alerts = () => {
       />
 
       <ConfirmationModal
-        title={getModalTitle()}
+        title="Delete Alert"
         isOpen={actionModal.isOpen && actionModal.data?.type === "delete"}
         isLoading={isActionLoading}
         onCancel={actionModal.close}
         onApprove={handleConfirmAction}
-        centerContent={getModalContent()}
+        centerContent={
+          <Typography level="p1">
+            Are you sure you want to delete{" "}
+            <span className="font-bold">{actionModal.data?.alert.title}</span>?
+            This action cannot be undone.
+          </Typography>
+        }
       />
     </>
   );

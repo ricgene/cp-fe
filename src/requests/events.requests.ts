@@ -1,5 +1,5 @@
 import { api } from "@/libs";
-import { IEvent, IMetaResponse } from "@/types";
+import { IEvent, IMetaResponse, IPaginationParams } from "@/types";
 
 // REQUEST INTERFACES
 export interface CreateEventRequest {
@@ -21,11 +21,7 @@ const createEventUrl = "/events";
 const getAllEventsUrl = "/events";
 const deleteEventUrl = "/events"; // use with /:id
 
-interface GetAllEventsParams {
-  page?: number;
-  limit?: number;
-  search?: string;
-}
+type GetAllEventsParams = IPaginationParams;
 
 interface IAllEventsResponse {
   events: IEvent[];

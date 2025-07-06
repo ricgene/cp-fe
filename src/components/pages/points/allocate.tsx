@@ -36,13 +36,17 @@ const AllocatePoints = () => {
     setSortBy,
     setSearchQuery,
   } = usePaginatedList<IUser>({
-    fetcher: ({ page, limit, search }) =>
-      getRegisteredUsers({ page, limit, search, role: RoleEnum.RESIDENT }).then(
-        (response) => ({
-          data: response.data.users,
-          meta: response.data.meta,
-        })
-      ),
+    fetcher: ({ page, limit, search, sortBy }) =>
+      getRegisteredUsers({
+        page,
+        limit,
+        search,
+        sortBy,
+        role: RoleEnum.RESIDENT,
+      }).then((response) => ({
+        data: response.data.users,
+        meta: response.data.meta,
+      })),
     initialLimit: 10,
   });
   const tableData = transformRegisteredUsersToTableData(filteredAndSorted);

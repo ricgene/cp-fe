@@ -22,6 +22,7 @@ import {
 } from "@/requests";
 import { useModal } from "@/hooks/useModal";
 import ConfirmationModal from "@/components/shared/modals/confirmationModal";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
   userData: IUser | null;
@@ -31,13 +32,16 @@ interface Props {
 const styles = {
   container: "flex flex-col gap-8",
   grid: "grid grid-cols-3 gap-8",
-  buttonWrapper: "flex items-center justify-between mt-10",
+  buttonWrapper: "flex items-center mt-10",
+  saveButton: "ml-auto",
   button: "min-w-[120px]",
   loaderContainer: "h-[200px] flex",
   loader: "m-auto stroke-primary",
   cancelButton:
     "text-primary underline cursor-pointer text-sm hover:opacity-80 duration-150 ease-in-out",
 };
+
+type ModalType = "save" | "cancel";
 
 const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
   const {
@@ -67,7 +71,7 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
     },
   });
 
-  const cancelModal = useModal();
+  const actionModal = useModal<{ type: ModalType }>();
   const [isCancelling, setIsCancelling] = useState(false);
   const [hasPendingRequests, setHasPendingRequests] = useState(false);
   const [isLoadingPendingRequests, setIsLoadingPendingRequests] =
@@ -118,11 +122,20 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
             : "Address updated successfully")
       );
       setHasPendingRequests(true);
+      actionModal.close();
     } catch (error) {
       handleError(error);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSaveClick = () => {
+    actionModal.open({ type: "save" });
+  };
+
+  const handleCancelClick = () => {
+    actionModal.open({ type: "cancel" });
   };
 
   // Fetch pending profile update requests
@@ -145,13 +158,77 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
       setIsLoading(true);
       await cancelProfileUpdateRequest();
       setHasPendingRequests(false);
-      cancelModal.close();
+      actionModal.close();
       toast.success("Request cancelled successfully");
     } catch (error) {
       handleError(error);
     } finally {
       setIsCancelling(false);
       setIsLoading(false);
+    }
+  };
+
+  const getModalContent = () => {
+    if (!actionModal.data) return null;
+
+    switch (actionModal.data.type) {
+      case "save":
+        return (
+          <Typography level="p1">
+            Are you sure you want to save the changes to your{" "}
+            {userData?.role === RoleEnum.MERCHANT
+              ? "business details"
+              : "address"}
+            ?
+          </Typography>
+        );
+      case "cancel":
+        return (
+          <Typography level="p1">
+            Are you sure you want to cancel your profile update request?
+          </Typography>
+        );
+      default:
+        return null;
+    }
+  };
+
+  const getModalTitle = () => {
+    if (!actionModal.data) return "";
+
+    switch (actionModal.data.type) {
+      case "save":
+        return "Save Changes Confirmation";
+      case "cancel":
+        return "Cancel Request Confirmation!";
+      default:
+        return "";
+    }
+  };
+
+  const getModalApproveText = () => {
+    if (!actionModal.data) return "";
+
+    switch (actionModal.data.type) {
+      case "save":
+        return "Save Changes";
+      case "cancel":
+        return "Cancel Request";
+      default:
+        return "";
+    }
+  };
+
+  const handleModalApprove = () => {
+    if (!actionModal.data) return;
+
+    switch (actionModal.data.type) {
+      case "save":
+        handleSubmit(onSubmit)();
+        break;
+      case "cancel":
+        cancelPendingRequest();
+        break;
     }
   };
 
@@ -274,7 +351,7 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
             {hasPendingRequests && (
               <button
                 className={styles.cancelButton}
-                onClick={() => cancelModal.open()}
+                onClick={handleCancelClick}
                 type="button"
               >
                 Cancel Request
@@ -282,9 +359,9 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
             )}
             <Button
               size="small"
-              onClick={handleSubmit(onSubmit)}
+              onClick={handleSaveClick}
               loading={isSubmitting}
-              className={styles.button}
+              className={twMerge(styles.button, styles.saveButton)}
               disabled={hasPendingRequests}
             >
               Save Changes
@@ -298,17 +375,13 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
       )}
 
       <ConfirmationModal
-        title="Cancel Request Confirmation!"
-        centerContent={
-          <Typography level="p1">
-            Are you sure you want to cancel your profile update request?
-          </Typography>
-        }
-        isOpen={cancelModal.isOpen}
-        isLoading={isCancelling}
-        onCancel={cancelModal.close}
-        onApprove={cancelPendingRequest}
-        approveButtonText="Cancel Request"
+        title={getModalTitle()}
+        centerContent={getModalContent()}
+        isOpen={actionModal.isOpen}
+        isLoading={isSubmitting || isCancelling}
+        onCancel={actionModal.close}
+        onApprove={handleModalApprove}
+        approveButtonText={getModalApproveText()}
       />
     </div>
   );
