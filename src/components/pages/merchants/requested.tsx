@@ -16,6 +16,7 @@ import { transformRequestsToTableData, handleError } from "@/utils";
 import { REQUESTS_TABLE_COLUMNS, SORT_BY_OPTIONS } from "@/constants";
 import { ControlHeader, ConfirmationModal } from "@/components/shared";
 import { getAllRequests, acceptRequest, rejectRequest } from "@/requests";
+import toast from "react-hot-toast";
 
 const styles = {
   pageContainer: "h-full flex flex-col",
@@ -90,6 +91,7 @@ const RequestedMerchants = () => {
       setIsActionLoading(true);
       if (actionModal.data.type === "approve") {
         await acceptRequest(actionModal.data.request.id);
+        toast.success("Request approved successfully");
         await refresh();
       }
     } catch (error) {
@@ -108,6 +110,7 @@ const RequestedMerchants = () => {
       await rejectRequest(actionModal.data.request.id, {
         reason: data.reason,
       });
+      toast.success("Request rejected successfully");
       await refresh();
     } catch (error) {
       handleError(error);
