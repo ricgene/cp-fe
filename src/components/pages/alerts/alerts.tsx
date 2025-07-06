@@ -11,6 +11,7 @@ import { Table, Pagination, Typography } from "@/components/ui";
 import { handleError, transformAlertsToTableData } from "@/utils";
 import { ALERTS_TABLE_COLUMNS, SORT_BY_OPTIONS } from "@/constants";
 import { ControlHeader, ConfirmationModal } from "@/components/shared";
+import toast from "react-hot-toast";
 
 const styles = {
   pageContainer: "h-full flex flex-col",
@@ -72,29 +73,13 @@ const Alerts = () => {
     try {
       setIsActionLoading(true);
       await deleteAlert(actionModal.data.alert.id);
+      toast.success("Alert deleted successfully");
       await refresh();
     } catch (error) {
       handleError(error);
     } finally {
       setIsActionLoading(false);
       actionModal.close();
-    }
-  };
-
-  const getModalContent = () => {
-    if (!actionModal.data?.alert) return null;
-
-    switch (actionModal.data.type) {
-      case "delete":
-        return (
-          <Typography level="p1">
-            Are you sure you want to delete{" "}
-            <span className="font-bold">{actionModal.data.alert.title}</span>?
-            This action cannot be undone.
-          </Typography>
-        );
-      default:
-        return null;
     }
   };
 
@@ -158,7 +143,13 @@ const Alerts = () => {
         isLoading={isActionLoading}
         onCancel={actionModal.close}
         onApprove={handleConfirmAction}
-        centerContent={getModalContent()}
+        centerContent={
+          <Typography level="p1">
+            Are you sure you want to delete{" "}
+            <span className="font-bold">{actionModal.data?.alert.title}</span>?
+            This action cannot be undone.
+          </Typography>
+        }
       />
     </>
   );
