@@ -10,6 +10,7 @@ import { Table, Pagination, Typography } from "@/components/ui";
 import { handleError, transformEventsToTableData } from "@/utils";
 import { EVENTS_TABLE_COLUMNS, SORT_BY_OPTIONS } from "@/constants";
 import { ControlHeader, ConfirmationModal } from "@/components/shared";
+import toast from "react-hot-toast";
 
 const styles = {
   pageContainer: "h-full flex flex-col",
@@ -71,40 +72,13 @@ const Events = () => {
     try {
       setIsActionLoading(true);
       await deleteEvent(actionModal.data.event.id);
+      toast.success("Event deleted successfully");
       await refresh();
     } catch (error) {
       handleError(error);
     } finally {
       setIsActionLoading(false);
       actionModal.close();
-    }
-  };
-
-  const getModalContent = () => {
-    if (!actionModal.data?.event) return null;
-
-    switch (actionModal.data.type) {
-      case "delete":
-        return (
-          <Typography level="p1">
-            Are you sure you want to delete{" "}
-            <span className="font-bold">{actionModal.data.event.name}</span>?
-            This action cannot be undone.
-          </Typography>
-        );
-      default:
-        return null;
-    }
-  };
-
-  const getModalTitle = () => {
-    if (!actionModal.data) return "";
-
-    switch (actionModal.data.type) {
-      case "delete":
-        return "Delete Event";
-      default:
-        return "";
     }
   };
 
@@ -163,12 +137,18 @@ const Events = () => {
       />
 
       <ConfirmationModal
-        title={getModalTitle()}
+        title="Delete Event"
         isOpen={actionModal.isOpen && actionModal.data?.type === "delete"}
         isLoading={isActionLoading}
         onCancel={actionModal.close}
         onApprove={handleConfirmAction}
-        centerContent={getModalContent()}
+        centerContent={
+          <Typography level="p1">
+            Are you sure you want to delete{" "}
+            <span className="font-bold">{actionModal?.data?.event.name}</span>?
+            This action cannot be undone.
+          </Typography>
+        }
       />
     </>
   );
