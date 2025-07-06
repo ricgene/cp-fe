@@ -25,6 +25,7 @@ const Waitlist = () => {
           data: response.data.data,
           meta: response.data.meta,
         })),
+      initialLimit: 10,
     });
 
   const tableData = transformWaitlistToTableData(filteredAndSorted);
