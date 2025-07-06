@@ -5,11 +5,6 @@ import { usePaginatedList, useModal } from "@/hooks";
 import { IMerchantRequest, ActionType } from "@/types";
 import { RequestStatusEnum, ActionEnum } from "@/enums";
 import {
-  getAllRequests,
-  acceptRequest,
-  rejectRequest,
-} from "@/requests/merchant.requests";
-import {
   Pagination,
   Table,
   Typography,
@@ -20,6 +15,7 @@ import { REQUEST_ACTIONS } from "@/constants/merchants.constants";
 import { transformRequestsToTableData, handleError } from "@/utils";
 import { REQUESTS_TABLE_COLUMNS, SORT_BY_OPTIONS } from "@/constants";
 import { ControlHeader, ConfirmationModal } from "@/components/shared";
+import { getAllRequests, acceptRequest, rejectRequest } from "@/requests";
 
 const styles = {
   pageContainer: "h-full flex flex-col",
@@ -178,7 +174,7 @@ const RequestedMerchants = () => {
     <React.Fragment>
       <div className={styles.pageContainer}>
         <ControlHeader
-          title="Requested Merchants"
+          title="Merchant's Request"
           description="Approve or Reject Merchant Requests"
           searchBarProps={{
             onChangeText: (value) => setSearchQuery(value),

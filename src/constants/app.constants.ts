@@ -154,7 +154,7 @@ export const ROUTES: Record<
   },
   REQUESTED_MERCHANTS: {
     path: PathsEnum.REQUESTED_MERCHANTS,
-    title: "Requested Merchants",
+    title: "Merchant's Request",
     showSidebar: true,
     isPublic: false,
     allowedRoles: [RoleEnum.ADMIN],
