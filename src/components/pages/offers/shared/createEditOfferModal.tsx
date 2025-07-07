@@ -73,6 +73,8 @@ const CreateEditOfferModal = ({ isOpen, onClose, onSuccess, offer }: Props) => {
   });
   const image = watch("image");
   const isPerk = watch("isPerk");
+  const endDate = watch("endDate");
+  const startDate = watch("startDate");
 
   // Dropdown options
   const offerTypeOptions = tags?.OFFER?.map(createKeyLabelPair);
@@ -316,7 +318,11 @@ const CreateEditOfferModal = ({ isOpen, onClose, onSuccess, offer }: Props) => {
           error={errors.startDate?.message}
           {...register("startDate", {
             onChange: () => {
-              trigger(["startDate", "endDate"]);
+              if (endDate) {
+                trigger(["startDate", "endDate"]);
+              } else {
+                trigger("startDate");
+              }
             },
           })}
         />
@@ -329,7 +335,11 @@ const CreateEditOfferModal = ({ isOpen, onClose, onSuccess, offer }: Props) => {
           error={errors.endDate?.message}
           {...register("endDate", {
             onChange: () => {
-              trigger(["startDate", "endDate"]);
+              if (startDate) {
+                trigger(["startDate", "endDate"]);
+              } else {
+                trigger("endDate");
+              }
             },
           })}
         />
