@@ -28,6 +28,7 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
   const {
     reset,
     watch,
+    trigger,
     register,
     setValue,
     handleSubmit,
@@ -140,6 +141,7 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
               setValue("longitude", place.longitude);
               setValue("state", place.state);
               setValue("city", place.city);
+              trigger(["address", "latitude", "longitude"]);
             }}
           />
         </div>
