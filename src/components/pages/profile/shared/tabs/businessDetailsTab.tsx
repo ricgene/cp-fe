@@ -71,6 +71,7 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
     },
   });
 
+  const isMerchant = userData?.role === RoleEnum.MERCHANT;
   const actionModal = useModal<{ type: ModalType }>();
   const [isCancelling, setIsCancelling] = useState(false);
   const [hasPendingRequests, setHasPendingRequests] = useState(false);
@@ -121,7 +122,9 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
             ? "Business details updated successfully"
             : "Address updated successfully")
       );
-      setHasPendingRequests(true);
+      if (isMerchant) {
+        setHasPendingRequests(true);
+      }
       actionModal.close();
     } catch (error) {
       handleError(error);
@@ -348,7 +351,7 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
           </div>
 
           <div className={styles.buttonWrapper}>
-            {hasPendingRequests && (
+            {isMerchant && hasPendingRequests && (
               <button
                 className={styles.cancelButton}
                 onClick={handleCancelClick}
