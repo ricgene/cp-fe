@@ -32,7 +32,7 @@ const TabSection = () => {
     {
       title:
         userData?.role === RoleEnum.ADMIN
-          ? "Address Detalis"
+          ? "Address Details"
           : "Business Details",
       component: (
         <BusinessDetailsTab userData={userData} setIsLoading={setIsLoading} />
