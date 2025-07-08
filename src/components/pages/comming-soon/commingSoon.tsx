@@ -9,7 +9,7 @@ import { handleError } from "@/utils";
 import { addToWaitlist } from "@/requests";
 import { Button, Typography } from "@/components/ui";
 import Section from "@/components/pages/landing/shared/section";
-import { waitlistSchema, WaitlistFormData } from "@/schemas";
+import { emailSchema, EmailFormData } from "@/schemas";
 
 const waitlistUsers = [
   "/assets/comming-soon/user-1.png",
@@ -65,17 +65,17 @@ const CommingSoon = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<WaitlistFormData>({
+  } = useForm<EmailFormData>({
     mode: "onChange",
     reValidateMode: "onChange",
-    resolver: zodResolver(waitlistSchema),
+    resolver: zodResolver(emailSchema),
     defaultValues: {
       email: "",
     },
   });
   const [isAddedToWaitlist, setIsAddedToWaitlist] = useState(false);
 
-  const onSubmit = async (data: WaitlistFormData) => {
+  const onSubmit = async (data: EmailFormData) => {
     try {
       await addToWaitlist(data);
       setIsAddedToWaitlist(true);
