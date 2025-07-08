@@ -19,7 +19,11 @@ const styles = {
   cookiesIcon: "w-10 h-10",
 };
 
-const CookieBanner = () => {
+interface Props {
+  onManaged?: () => void;
+}
+
+const CookieBanner = ({ onManaged }: Props) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isManaged, setIsManaged] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
@@ -42,6 +46,7 @@ const CookieBanner = () => {
     setTimeout(() => {
       setIsMounted(false);
       setIsManaged(true);
+      if (onManaged) onManaged();
     }, 700);
   };
 

@@ -1394,4 +1394,38 @@ export const ICONS_LIST = {
       />
     </svg>
   ),
+  mail1: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 66 66"
+      fill="none"
+      className={className}
+    >
+      <path
+        fill="url(#a)"
+        fillRule="evenodd"
+        d="M7.878 11.38c2.915-2.708 6.93-3.818 11.372-3.818h27.5c4.441 0 8.457 1.11 11.372 3.817 2.943 2.733 4.44 6.79 4.44 11.996v19.25c0 5.206-1.497 9.263-4.44 11.996-2.915 2.707-6.93 3.816-11.372 3.816h-27.5c-4.441 0-8.457-1.11-11.372-3.816-2.943-2.733-4.44-6.79-4.44-11.996v-19.25c0-5.206 1.497-9.263 4.44-11.996Z"
+        clipRule="evenodd"
+      />
+      <path
+        fill="#fff"
+        fillRule="evenodd"
+        d="M53.25 20.103c.696.902.53 2.197-.371 2.893L37.624 34.784a7.563 7.563 0 0 1-9.248 0L13.122 22.996a2.062 2.062 0 0 1 2.522-3.264L30.898 31.52a3.437 3.437 0 0 0 4.204 0l15.254-11.788a2.062 2.062 0 0 1 2.893.371Z"
+        clipRule="evenodd"
+      />
+      <defs>
+        <linearGradient
+          id="a"
+          x1={11.582}
+          x2={56.606}
+          y1={10.922}
+          y2={55.787}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#0A974D" />
+          <stop offset={1} stopColor="#006260" />
+        </linearGradient>
+      </defs>
+    </svg>
+  ),
 };

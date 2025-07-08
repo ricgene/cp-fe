@@ -11,4 +11,5 @@ export * from "./session.requests";
 export * from "./recovery.requests";
 export * from "./merchant.requests";
 export * from "./waitlist.requests";
+export * from "./newsletter.requests";
 export * from "./points-transactions.requests";
