@@ -11,16 +11,16 @@
 import CommingSoon from "@/components/pages/comming-soon/commingSoon";
 
 const styles = {
-	container: "bg-white",
+  container: "bg-white",
 };
 
 export default function LandingPage() {
-	return (
-		<div className={styles.container}>
-			<CommingSoon />
+  return (
+    <div className={styles.container}>
+      <CommingSoon />
 
-			{/* Landing Page (Commented for now) */}
-			{/* <HeroSection />
+      {/* Landing Page (Commented for now) */}
+      {/* <HeroSection />
       <Broker1 />
       <WhyCP />
       <TrackEngagement />
@@ -30,6 +30,6 @@ export default function LandingPage() {
       <FAQ />
       <Broker3 />
       <Footer /> */}
-		</div>
-	);
+    </div>
+  );
 }
