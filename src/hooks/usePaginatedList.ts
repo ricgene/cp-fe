@@ -41,7 +41,7 @@ export const usePaginatedList = <T>({
       const response = await fetcher({
         page,
         limit,
-        search: searchQuery || undefined,
+        search: searchQuery.trim() || undefined,
         sortBy: sortBy || undefined,
       });
       setData(response.data);
