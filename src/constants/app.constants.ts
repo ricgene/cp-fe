@@ -180,6 +180,13 @@ export const ROUTES: Record<
     isPublic: false,
     allowedRoles: [RoleEnum.ADMIN],
   },
+  WAITLIST: {
+    path: PathsEnum.WAITLIST,
+    title: "Waitlist",
+    showSidebar: true,
+    isPublic: false,
+    allowedRoles: [RoleEnum.ADMIN],
+  },
   // policies
   PRIVACY_POLICY: {
     path: PathsEnum.PRIVACY_POLICY,
@@ -195,12 +202,12 @@ export const ROUTES: Record<
     isPublic: true,
     allowedRoles: [],
   },
-  WAITLIST: {
-    path: PathsEnum.WAITLIST,
-    title: "Waitlist",
-    showSidebar: true,
-    isPublic: false,
-    allowedRoles: [RoleEnum.ADMIN],
+  COOKIE_POLICY: {
+    path: PathsEnum.COOKIE_POLICY,
+    title: "Cookie Policy",
+    showSidebar: false,
+    isPublic: true,
+    allowedRoles: [],
   },
 };
 
