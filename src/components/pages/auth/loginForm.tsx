@@ -64,14 +64,14 @@ const LoginForm = () => {
             <div className={styles.inputGrid}>
               <LabeledInput
                 label="Email"
-                placeholder="email"
+                placeholder="Enter your Email"
                 {...register("email", { required: "Email is required" })}
                 error={errors.email?.message}
               />
 
               <LabeledInput
                 label="Password"
-                placeholder="password"
+                placeholder="Enter your Password"
                 type="password"
                 {...register("password", { required: "Password is required" })}
                 error={errors.password?.message}

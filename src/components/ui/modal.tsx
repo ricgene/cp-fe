@@ -37,8 +37,8 @@ const styles = {
   contentWrapper: "h-full min-h-[500px] flex flex-col",
   description: "mt-2",
   content: "my-6",
-  footer: "flex items-center gap-2 pt-5 mt-auto",
-  cancelButton: "ml-auto",
+  footer: "flex items-center max-sm:flex-col gap-2 pt-5 mt-auto",
+  cancelButton: "sm:ml-auto",
   overlay:
     "fixed inset-0 bg-black/50 transition-opacity duration-300 opacity-0",
   itemVisible: "!opacity-100",

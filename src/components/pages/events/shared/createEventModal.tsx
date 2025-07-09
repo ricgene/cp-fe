@@ -20,8 +20,8 @@ interface Props {
 }
 
 const styles = {
-  inputGrid: "grid grid-cols-2 gap-5 mt-6",
-  inputSpan2: "col-span-2",
+  inputGrid: "grid grid-cols-1 sm:grid-cols-2 gap-5 mt-6",
+  inputSpan2: "sm:col-span-2",
 };
 
 const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
