@@ -237,10 +237,21 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
 
   // Fetch pending profile update requests
   useEffect(() => {
-    console.log(userData?.role);
     if (userData?.role === RoleEnum.MERCHANT) {
       fetchPendingRequests();
     }
+  }, [userData]);
+
+  // Set admin address fields
+  useEffect(() => {
+    if (userData?.role === RoleEnum.ADMIN) {
+      setValue("city", userData?.city || "");
+      setValue("state", userData?.state || "");
+      setValue("address", userData?.address || "");
+      setValue("latitude", userData?.latitude || 0);
+      setValue("longitude", userData?.longitude || 0);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
 
   return (
