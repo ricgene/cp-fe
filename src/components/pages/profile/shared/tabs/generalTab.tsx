@@ -33,9 +33,12 @@ const GeneralTab = ({ userData, setIsLoading }: Props) => {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<GeneralFormData>({
     resolver: zodResolver(generalSchema),
+    mode: "onChange",
+    reValidateMode: "onChange",
     defaultValues: {
       firstName: userData?.firstName,
       lastName: userData?.lastName,
@@ -44,6 +47,33 @@ const GeneralTab = ({ userData, setIsLoading }: Props) => {
       callingCode: userData?.callingCode,
     },
   });
+
+  const selectedFirstName = watch("firstName");
+  const selectedLastName = watch("lastName");
+  const selectedPhone = watch("phone");
+  const selectedCountryCode = watch("countryCode");
+  const selectedCallingCode = watch("callingCode");
+
+  // Check if all required fields are filled and no errors exist
+  const isFormValid = () => {
+    const requiredFields = {
+      firstName: selectedFirstName,
+      lastName: selectedLastName,
+      phone: selectedPhone,
+      countryCode: selectedCountryCode,
+      callingCode: selectedCallingCode,
+    };
+
+    // Check if all required fields are filled
+    const allFieldsFilled = Object.values(requiredFields).every(
+      (value) => value && value !== ""
+    );
+
+    // Check if there are any form errors
+    const hasErrors = Object.keys(errors).length > 0;
+
+    return allFieldsFilled && !hasErrors;
+  };
 
   const onSubmit = async (data: GeneralFormData) => {
     try {
@@ -125,6 +155,7 @@ const GeneralTab = ({ userData, setIsLoading }: Props) => {
           onClick={handleSaveClick}
           loading={isSubmitting}
           className={styles.button}
+          disabled={!isFormValid()}
         >
           Save Changes
         </Button>

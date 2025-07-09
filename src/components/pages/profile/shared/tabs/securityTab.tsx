@@ -25,12 +25,36 @@ const SecurityTab = ({ setIsLoading }: Props) => {
     reset,
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<SecurityFormData>({
     resolver: zodResolver(securitySchema),
     mode: "onChange",
     reValidateMode: "onChange",
   });
+
+  const selectedOldPassword = watch("oldPassword");
+  const selectedPassword = watch("password");
+  const selectedConfirmPassword = watch("confirmPassword");
+
+  // Check if all required fields are filled and no errors exist
+  const isFormValid = () => {
+    const requiredFields = {
+      oldPassword: selectedOldPassword,
+      password: selectedPassword,
+      confirmPassword: selectedConfirmPassword,
+    };
+
+    // Check if all required fields are filled
+    const allFieldsFilled = Object.values(requiredFields).every(
+      (value) => value && value !== ""
+    );
+
+    // Check if there are any form errors
+    const hasErrors = Object.keys(errors).length > 0;
+
+    return allFieldsFilled && !hasErrors;
+  };
 
   const onSubmit = async (data: SecurityFormData) => {
     try {
@@ -90,7 +114,12 @@ const SecurityTab = ({ setIsLoading }: Props) => {
       </div>
 
       <div className={styles.buttonWrapper}>
-        <Button size="small" onClick={handleSaveClick} loading={isSubmitting}>
+        <Button
+          size="small"
+          onClick={handleSaveClick}
+          loading={isSubmitting}
+          disabled={!isFormValid()}
+        >
           Save Changes
         </Button>
       </div>

@@ -69,6 +69,8 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
       latitude: userData?.latitude ?? 0,
       longitude: userData?.longitude ?? 0,
     },
+    mode: "onChange",
+    reValidateMode: "onChange",
   });
 
   const isMerchant = userData?.role === RoleEnum.MERCHANT;
@@ -82,6 +84,37 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
   const selectedCity = watch("city");
   const selectedState = watch("state");
   const selectedAddress = watch("address");
+  const selectedBusinessName = watch("businessName");
+  const selectedBusinessType = watch("businessType");
+  const selectedLatitude = watch("latitude");
+  const selectedLongitude = watch("longitude");
+
+  // Check if all required fields are filled and no errors exist
+  const isFormValid = () => {
+    const requiredFields: Record<string, string | number> = {
+      state: selectedState,
+      city: selectedCity,
+      address: selectedAddress,
+      latitude: selectedLatitude,
+      longitude: selectedLongitude,
+    };
+
+    // Add business fields for merchants
+    if (isMerchant) {
+      requiredFields.businessName = selectedBusinessName;
+      requiredFields.businessType = selectedBusinessType;
+    }
+
+    // Check if all required fields are filled
+    const allFieldsFilled = Object.values(requiredFields).every(
+      (value) => value && value !== "" && value !== 0
+    );
+
+    // Check if there are any form errors
+    const hasErrors = Object.keys(errors).length > 0;
+
+    return allFieldsFilled && !hasErrors;
+  };
 
   // for business type
   const businessTypeOptions = tags?.BUSINESS?.map(createKeyLabelPair);
@@ -309,6 +342,10 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
             <Select
               label="City"
               error={errors.city?.message}
+              onChange={(value) => {
+                resetAddressFields();
+                setValue("city", value);
+              }}
               control={control}
               name="city"
               options={cityOptions}
@@ -376,7 +413,7 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
               onClick={handleSaveClick}
               loading={isSubmitting}
               className={twMerge(styles.button, styles.saveButton)}
-              disabled={hasPendingRequests}
+              disabled={hasPendingRequests || !isFormValid()}
             >
               Save Changes
             </Button>

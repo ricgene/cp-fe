@@ -38,7 +38,7 @@ const styles = {
   description: "mt-2",
   content: "my-6",
   footer: "flex items-center max-sm:flex-col gap-2 pt-5 mt-auto",
-  cancelButton: "sm:ml-auto",
+  cancelButton: "sm:ml-auto max-sm:mb-5",
   overlay:
     "fixed inset-0 bg-black/50 transition-opacity duration-300 opacity-0",
   itemVisible: "!opacity-100",
