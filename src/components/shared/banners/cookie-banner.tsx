@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import Icon from "@/Icons";
 import { Button, Typography } from "@/components/ui";
+import Link from "next/link";
+import { PathsEnum } from "@/enums";
 
 const styles = {
   container:
@@ -67,7 +69,13 @@ const CookieBanner = ({ onManaged }: Props) => {
         <Typography level="p1" className={styles.text}>
           We use cookies to enhance your browsing experience, serve personalized
           content, and analyze our traffic. By clicking &quot;Accept All&quot;,
-          you consent to our use of cookies.
+          you consent to our use of cookies.{" "}
+          <Link
+            href={PathsEnum.COOKIE_POLICY}
+            className="text-primary underline"
+          >
+            Learn more
+          </Link>
         </Typography>
       </div>
 

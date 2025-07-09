@@ -2,12 +2,13 @@ import React from "react";
 import Link from "next/link";
 import Icon from "@/Icons";
 import { Typography } from "@/components/ui";
+import { PathsEnum } from "@/enums";
 
 const Footer = () => {
   const links = [
-    { href: "/", text: "Terms of Use" },
-    { href: "/", text: "Privacy Policy" },
-    { href: "/", text: "Cookie Policy" },
+    { href: PathsEnum.TERMS_AND_CONDITIONS, text: "Terms of Use" },
+    { href: PathsEnum.PRIVACY_POLICY, text: "Privacy Policy" },
+    { href: PathsEnum.COOKIE_POLICY, text: "Cookie Policy" },
   ];
 
   const styles = {

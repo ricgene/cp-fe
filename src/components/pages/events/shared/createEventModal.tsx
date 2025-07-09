@@ -40,6 +40,8 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
 
   const image = watch("image");
   const selectedAddress = watch("address");
+  const endDate = watch("endDate");
+  const startDate = watch("startDate");
 
   const { tags } = useStaticData();
   const eventTypeOptions = tags?.EVENT?.map(createKeyLabelPair);
@@ -111,7 +113,15 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
           variant="secondary"
           label="Start Date & Time"
           error={errors.startDate?.message?.toString()}
-          {...register("startDate")}
+          {...register("startDate", {
+            onChange: () => {
+              if (endDate) {
+                trigger(["startDate", "endDate"]);
+              } else {
+                trigger("startDate");
+              }
+            },
+          })}
         />
 
         <LabeledInput
@@ -119,7 +129,15 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
           variant="secondary"
           label="End Date & Time"
           error={errors.endDate?.message?.toString()}
-          {...register("endDate")}
+          {...register("endDate", {
+            onChange: () => {
+              if (startDate) {
+                trigger(["startDate", "endDate"]);
+              } else {
+                trigger("endDate");
+              }
+            },
+          })}
         />
 
         <div className={styles.inputSpan2}>
