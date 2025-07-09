@@ -37,13 +37,13 @@ interface Props {
 }
 
 const styles = {
-  inputGrid: "grid grid-cols-2 gap-5 mt-6",
-  inputSpan2: "col-span-2",
+  inputGrid: "grid grid-cols-1 sm:grid-cols-2 gap-5 mt-6",
+  inputSpan2: "sm:col-span-2",
   imageContainer: "relative w-1/2 aspect-video rounded-md overflow-hidden",
   image: "object-cover",
   changeImageText:
     "text-primary underline cursor-pointer hover:text-primary/80",
-  uploadImageContainer: "col-span-2",
+  uploadImageContainer: "sm:col-span-2",
 };
 
 const CreateEditOfferModal = ({ isOpen, onClose, onSuccess, offer }: Props) => {
