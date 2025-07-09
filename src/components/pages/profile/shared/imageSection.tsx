@@ -12,7 +12,7 @@ import { Button, Typography } from "@/components/ui";
 import { ImageUpdateFormData, imageUpdateSchema } from "@/schemas";
 
 const styles = {
-  container: "flex items-center gap-8",
+  container: "flex items-center flex-col sm:flex-row gap-8",
   imageWrapper: "relative",
   imageContainer:
     "relative h-[100px] aspect-square rounded-full overflow-hidden bg-gray-100",
@@ -22,7 +22,7 @@ const styles = {
   hiddenInput: "hidden",
   name: "mb-1 font-semibold text-3xl text-heading",
   role: "text-paragraph capitalize",
-  shareButtonWrapper: "ml-auto",
+  shareButtonWrapper: "sm:ml-auto",
   shareButton: "rounded-full p-0 h-10 w-10",
   shareIcon: "h-4 w-4",
 };
