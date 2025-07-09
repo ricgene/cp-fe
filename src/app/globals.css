@@ -116,12 +116,12 @@ body {
 
 /* Table Scrollbar */
 .table-container::-webkit-scrollbar {
-  height: 2px !important; 
+  height: 5px !important; 
   width: 0px !important;
   background: transparent !important;
 }
 
 .table-container::-webkit-scrollbar-thumb {
-  background: var(--color-stroke);
-  border-radius: 10px;
+  background: rgb(236, 236, 236);
+  border-radius: 50px;
 }
