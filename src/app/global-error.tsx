@@ -7,7 +7,7 @@ import { Button } from "@/components/ui";
 
 const styles = {
   container:
-    "h-screen p-8 md:p-16 lg:p-20 w-full flex flex-col items-center justify-center gap-6 md:gap-8",
+    "h-screen bg-amber-100 p-8 md:p-16 lg:p-20 w-full flex flex-col items-center justify-center gap-6 md:gap-8",
   imageWrapper: "relative aspect-[459/304] w-full max-w-[450px] mb-5 md:mb-10",
   button: "rounded-full",
 };
