@@ -4,6 +4,7 @@ import {
   IEvent,
   IMerchantRequest,
   IOffer,
+  ISubscriptionsEntry,
   IUser,
   IWaitlistEntry,
 } from "@/types";
@@ -138,5 +139,18 @@ export const transformWaitlistToTableData = (waitlist: IWaitlistEntry[]) => {
       dateTimeOptions
     ),
     isEmailSent: request.isEmailSent ? "Yes" : "No",
+  }));
+};
+
+export const transformNewsletterToTableData = (
+  waitlist: ISubscriptionsEntry[]
+) => {
+  return waitlist.map((request) => ({
+    id: request.id,
+    email: request.email,
+    createdAt: new Date(request.createdAt).toLocaleDateString(
+      "en-US",
+      dateTimeOptions
+    ),
   }));
 };

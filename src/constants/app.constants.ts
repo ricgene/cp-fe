@@ -187,6 +187,13 @@ export const ROUTES: Record<
     isPublic: false,
     allowedRoles: [RoleEnum.ADMIN],
   },
+  NEWSLETTER: {
+    path: PathsEnum.NEWSLETTER,
+    title: "Newsletter Subscriptions",
+    showSidebar: true,
+    isPublic: false,
+    allowedRoles: [RoleEnum.ADMIN],
+  },
   // policies
   PRIVACY_POLICY: {
     path: PathsEnum.PRIVACY_POLICY,
@@ -301,6 +308,11 @@ export const ADMIN_MENU_ITEMS: IMenuItem[] = [
     icon: "waitlist",
     label: ROUTES.WAITLIST.title,
     href: ROUTES.WAITLIST.path,
+  },
+  {
+    icon: "newsletter",
+    label: ROUTES.NEWSLETTER.title,
+    href: ROUTES.NEWSLETTER.path,
   },
 ];
 

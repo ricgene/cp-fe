@@ -7,4 +7,5 @@ export * from "./event.types";
 export * from "./merchant.types";
 export * from "./waitlist.types";
 export * from "./dashboard.types";
+export * from "./newsletter.types";
 export * from "./point-transaction.types";
