@@ -6,7 +6,7 @@ import { usePaginatedList } from "@/hooks";
 import { SORT_BY_OPTIONS } from "@/constants";
 import { ControlHeader } from "@/components/shared";
 import { Table, Pagination } from "@/components/ui";
-import { getWaitlistAdmin } from "@/requests/waitlist.requests";
+import { getWaitlist } from "@/requests/waitlist.requests";
 import { transformWaitlistToTableData } from "@/utils/table.utils";
 import { WAITLIST_TABLE_COLUMNS } from "@/constants/table.constants";
 
@@ -26,7 +26,7 @@ const Waitlist = () => {
     setSearchQuery,
   } = usePaginatedList<IWaitlistEntry>({
     fetcher: ({ page, limit, search, sortBy }) =>
-      getWaitlistAdmin({
+      getWaitlist({
         page,
         limit,
         search,

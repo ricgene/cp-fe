@@ -15,5 +15,5 @@ const getWaitlistAdminUrl = "/waitlist";
 export const addToWaitlist = (data: AddToWaitlistRequest) =>
   api.post(addToWaitlistUrl, data);
 
-export const getWaitlistAdmin = (params: IPaginationParams) =>
+export const getWaitlist = (params: IPaginationParams) =>
   api.get<IWaitlistPaginatedResponse>(getWaitlistAdminUrl, { params });
