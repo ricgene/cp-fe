@@ -61,6 +61,7 @@ export const ALERTS_TABLE_COLUMNS: {
   { key: "title", label: "Alert Title" },
   { key: "type", label: "Alert Type" },
   { key: "precautions", label: "Precautions" },
+  { key: "audience", label: "Audience" },
   { key: "createdAt", label: "Created At" },
 ];
 
