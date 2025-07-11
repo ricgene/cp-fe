@@ -66,6 +66,14 @@ export const ROUTES: Record<
     isPublic: true,
     allowedRoles: [],
   },
+  MERCHANT_MARKETING: {
+    path: PathsEnum.MERCHANT_MARKETING,
+    title: "Merchant Marketing",
+    showSidebar: false,
+    borderedContent: false,
+    isPublic: true,
+    allowedRoles: [],
+  },
   DASHBOARD: {
     path: PathsEnum.DASHBOARD,
     title: "Dashboard",

@@ -1444,4 +1444,39 @@ export const ICONS_LIST = {
       />
     </svg>
   ),
+  demo: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="none"
+      className={className}
+    >
+      <path
+        fill="#fff"
+        d="M5 12.225v-4.45C5 5.008 6.96 3.883 9.35 5.258l1.067.617c.259.15.417.425.417.725v6.8c0 .3-.158.575-.417.725l-1.066.617C6.959 16.117 5 14.992 5 12.225Z"
+        opacity={0.8}
+      />
+      <path
+        fill="#fff"
+        d="M11.666 12.675V7.317c0-.325.35-.525.625-.359l.917.534c2.392 1.375 2.392 3.641 0 5.016l-.917.534a.419.419 0 0 1-.625-.367Z"
+        opacity={0.5}
+      />
+    </svg>
+  ),
+  play: ({ className }: Props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 14 15"
+      fill="none"
+      className={className}
+    >
+      <path
+        stroke="#fff"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M2.916 3.41c0-.566 0-.85.118-1.005a.583.583 0 0 1 .43-.23c.196-.012.432.145.903.46l6.134 4.089c.39.26.584.389.652.553.06.143.06.303 0 .447-.068.163-.262.293-.652.553l-6.134 4.09c-.471.313-.707.47-.902.459a.584.584 0 0 1-.43-.23c-.119-.157-.119-.44-.119-1.007V3.411Z"
+      />
+    </svg>
+  ),
 };

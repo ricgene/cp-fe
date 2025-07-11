@@ -1,6 +1,7 @@
 export enum PathsEnum {
   EMPTY = "",
   LANDING = "/",
+  MERCHANT_MARKETING = "/merchant-marketing",
   //
   LOGIN = "/login",
   REGISTER = "/register",
