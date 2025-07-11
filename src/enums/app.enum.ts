@@ -31,6 +31,7 @@ export enum PathsEnum {
   POINTS_ALLOCATE = "/points/allocate",
   //
   WAITLIST = "/waitlist",
+  NEWSLETTER = "/newsletter-subscriptions",
   //
   PRIVACY_POLICY = "/privacy-policy",
   TERMS_AND_CONDITIONS = "/terms-and-conditions",

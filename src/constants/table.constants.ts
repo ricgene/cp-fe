@@ -106,3 +106,8 @@ export const WAITLIST_TABLE_COLUMNS = [
   { key: "createdAt", label: "Registered At" },
   { key: "isEmailSent", label: "Invitation Sent" },
 ];
+
+export const NEWSLETTER_TABLE_COLUMNS = [
+  { key: "email", label: "User Email" },
+  { key: "createdAt", label: "Registered At" },
+];

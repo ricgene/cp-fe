@@ -1,20 +1,20 @@
 "use client";
 
 import React from "react";
-import { IWaitlistEntry } from "@/types";
+import { ISubscriptionsEntry } from "@/types";
 import { usePaginatedList } from "@/hooks";
 import { SORT_BY_OPTIONS } from "@/constants";
 import { ControlHeader } from "@/components/shared";
 import { Table, Pagination } from "@/components/ui";
-import { getWaitlist } from "@/requests/waitlist.requests";
-import { transformWaitlistToTableData } from "@/utils/table.utils";
-import { WAITLIST_TABLE_COLUMNS } from "@/constants/table.constants";
+import { getSubscriptionsList } from "@/requests";
+import { transformNewsletterToTableData } from "@/utils/table.utils";
+import { NEWSLETTER_TABLE_COLUMNS } from "@/constants/table.constants";
 
 const styles = {
   pageContainer: "h-full flex flex-col",
 };
 
-const Waitlist = () => {
+const NewsletterSubscriptions = () => {
   const {
     meta,
     page,
@@ -24,9 +24,9 @@ const Waitlist = () => {
     setPage,
     setSortBy,
     setSearchQuery,
-  } = usePaginatedList<IWaitlistEntry>({
+  } = usePaginatedList<ISubscriptionsEntry>({
     fetcher: ({ page, limit, search, sortBy }) =>
-      getWaitlist({
+      getSubscriptionsList({
         page,
         limit,
         search,
@@ -38,14 +38,14 @@ const Waitlist = () => {
     initialLimit: 10,
   });
 
-  const tableData = transformWaitlistToTableData(filteredAndSorted);
+  const tableData = transformNewsletterToTableData(filteredAndSorted);
 
   return (
     <React.Fragment>
       <div className={styles.pageContainer}>
         <ControlHeader
-          title="Waitlist"
-          description="List of all emails in the waitlist"
+          title="Newsletter Subscriptions"
+          description="List of all emails"
           searchBarProps={{
             onChangeText: (value) => setSearchQuery(value),
             placeholder: "Search by email...",
@@ -62,7 +62,7 @@ const Waitlist = () => {
         <Table
           data={tableData}
           loading={isLoading}
-          columns={WAITLIST_TABLE_COLUMNS}
+          columns={NEWSLETTER_TABLE_COLUMNS}
           isEmpty={!isLoading && filteredAndSorted.length === 0}
         />
 
@@ -77,4 +77,4 @@ const Waitlist = () => {
   );
 };
 
-export default Waitlist;
+export default NewsletterSubscriptions;

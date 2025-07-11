@@ -90,8 +90,11 @@ const CreateEditOfferModal = ({ isOpen, onClose, onSuccess, offer }: Props) => {
       setValue("description", offer.description);
       setValue("productName", offer.productName);
       setValue("discountRate", offer.discountRate);
-      setValue("startDate", offer.startDate.split("T")[0]);
-      setValue("endDate", offer.endDate.split("T")[0]);
+      setValue(
+        "startDate",
+        new Date(offer!.startDate).toLocaleDateString("en-CA")
+      ); // en-CA uses the required format yyyy-mm-dd
+      setValue("endDate", new Date(offer!.endDate).toLocaleDateString("en-CA"));
       setValue("productCategory", offer.productCategory);
       setValue("pointsPerPurchase", offer.pointsPerPurchase);
     }
