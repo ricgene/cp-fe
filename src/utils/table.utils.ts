@@ -88,6 +88,12 @@ export const transformAlertsToTableData = (alerts: IAlert[]) => {
     type: alert.type?.toLowerCase(),
     title: alert.title,
     precautions: alert.precautions,
+    audience:
+      alert.audience === "ALL"
+        ? "All Users"
+        : alert.audience === "STATE"
+        ? alert.state
+        : alert.city,
     createdAt: new Date(alert.createdAt).toLocaleDateString(
       "en-US",
       dateTimeOptions

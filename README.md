@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img src="https://www.cityperks.ai/assets/shared/logo-with-green-text.png" width="250" alt="CityPerks Logo" />
+</p>
 
-## Getting Started
+<h3 align="center">CityPerks Frontend</h3>
 
-First, run the development server:
+<p align="center">
+  Modern, type-safe Next.js frontend powering the CityPerks platform — fully dockerized and deployed via AWS Amplify and Cloudflare.
+</p>
+
+---
+
+## 📦 Tech Stack
+
+- ⚙️ Next.js 15 (App Router, Turbopack)
+- ⚛️ React 19
+- 💅 TailwindCSS 4
+- 🔐 Cookie-based auth (middleware-protected)
+- 📊 ApexCharts + Luxon
+- 🧠 Jotai (state management)
+- 🧪 React Hook Form + Zod
+- 🔄 Axios, QR, Debounce utilities
+- 🐳 Dockerized (dev + prod)
+
+---
+
+## 🚀 Local Development
+
+### Prerequisites
+
+- Node.js `>=18`
+- Docker + Docker Compose
+
+### Run Without Docker
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit: [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🐳 Docker Usage
 
-## Learn More
+### Manual Build & Run
 
-To learn more about Next.js, take a look at the following resources:
+#### Development
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+docker build -f Dockerfile.dev -t cityperks-fe-dev .
+docker run -p 3000:3000 -v ${PWD}:/app cityperks-fe-dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### Production
 
-## Deploy on Vercel
+```bash
+docker build -f Dockerfile.prod -t cityperks-fe-prod .
+docker run -p 3000:3000 cityperks-fe-prod
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Using Docker Compose
+
+#### Development
+
+```bash
+docker compose --profile dev up --build
+```
+
+#### Production
+
+```bash
+docker compose --profile prod up --build
+```
+
+---
+
+## 🌐 Environment Variables
+
+Create a `.env` file based on `.env.example`.
+
+---
+
+## ⚙️ NPM Scripts
+
+| Script  | Purpose                    |
+| ------- | -------------------------- |
+| `dev`   | Run dev server (Turbopack) |
+| `build` | Build for production       |
+| `start` | Start production server    |
+| `lint`  | Lint code with ESLint      |
+
+---
+
+## 🚀 Deployment
+
+- Hosted on AWS Amplify (CI/CD)
+- Cloudflare for DNS, SSL, DDoS protection
+- Docker-ready for ECS or VPS if needed
+
+Local production test:
+
+```bash
+docker build -f Dockerfile.prod -t cityperks .
+docker run -d -p 3000:3000 cityperks
+```
+
+---
+
+## 📄 License
+
+UNLICENSED — Private project
+
+---
+
+## 💡 Notes
+
+- Uses Next.js App Router (no `pages/`)
+- Built with Turbopack for dev performance
+- Fully dockerized with hot-reload and static production build
+- Cookie-based auth secured via Next.js middleware

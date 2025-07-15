@@ -8,6 +8,9 @@ export interface IAlert {
   id: number;
   title: string;
   type: AlertType;
+  state: string;
+  city: string;
+  audience: string;
   createdAt: string;
   precautions: string;
 }

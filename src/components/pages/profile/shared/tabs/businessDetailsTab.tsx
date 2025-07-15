@@ -110,10 +110,7 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
       (value) => value && value !== "" && value !== 0
     );
 
-    // Check if there are any form errors
-    const hasErrors = Object.keys(errors).length > 0;
-
-    return allFieldsFilled && !hasErrors;
+    return allFieldsFilled;
   };
 
   // for business type
