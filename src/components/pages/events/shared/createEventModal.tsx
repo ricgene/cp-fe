@@ -148,8 +148,11 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
             wrapperClassName={styles.inputSpan2}
             error={
               errors.address?.message ||
-              ((errors.latitude?.message || errors.longitude?.message) &&
-                "Invalid address")
+              ((errors.latitude?.message ||
+                errors.longitude?.message ||
+                errors.city?.message ||
+                errors.state?.message) &&
+                "This address is not supported for this request.")
             }
             value={selectedAddress}
             onChange={(value) => setValue("address", value)}
