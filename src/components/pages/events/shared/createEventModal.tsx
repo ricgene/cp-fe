@@ -84,6 +84,7 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
       isOpen={isOpen}
       onClose={handleClose}
       title="Create New Event"
+      description="Add details about event"
       showSecondaryButton={false}
       onPrimaryClick={handleSubmit(onSubmit)}
       isPrimaryLoading={isSubmitting}
