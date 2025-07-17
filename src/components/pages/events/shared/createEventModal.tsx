@@ -31,11 +31,14 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
     trigger,
     register,
     setValue,
+    setError,
     handleSubmit,
     control,
     formState: { errors, isSubmitting },
   } = useForm<EventCreateFormData>({
     resolver: zodResolver(eventCreateSchema),
+    mode: "onChange",
+    reValidateMode: "onChange",
   });
 
   const image = watch("image");
@@ -156,8 +159,17 @@ const CreateEventModal = ({ isOpen, onClose, onSuccess }: Props) => {
                 "This address is not supported for this request.")
             }
             value={selectedAddress}
-            onChange={(value) => setValue("address", value)}
+            onChange={(value) => {
+              setValue("address", value);
+            }}
             onPlaceSelect={(place) => {
+              // remove errors firt
+              setError("address", { message: "" });
+              setError("latitude", { message: "" });
+              setError("longitude", { message: "" });
+              setError("city", { message: "" });
+              setError("state", { message: "" });
+
               setValue("address", place.address);
               setValue("latitude", place.latitude);
               setValue("longitude", place.longitude);
