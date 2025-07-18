@@ -85,13 +85,15 @@ const CreateAlertModal = ({ isOpen, onClose, onSuccess }: Props) => {
       contentWrapperClassName={styles.contentWrapper}
     >
       <div className={styles.inputGrid}>
-        <LabeledInput
-          label="Alert"
-          variant="secondary"
-          placeholder="Tag Line"
-          error={errors.title?.message?.toString()}
-          {...register("title")}
-        />
+        <div className={styles.inputSpan2}>
+          <LabeledInput
+            label="Alert"
+            variant="secondary"
+            placeholder="Tag Line"
+            error={errors.title?.message?.toString()}
+            {...register("title")}
+          />
+        </div>
         <Select
           name="type"
           label="Alert Type"
@@ -101,17 +103,15 @@ const CreateAlertModal = ({ isOpen, onClose, onSuccess }: Props) => {
           options={ALERT_TYPE_OPTIONS}
           error={errors.type?.message}
         />
-        <div className={styles.inputSpan2}>
-          <Select
-            name="audience"
-            label="Audience"
-            variant="secondary"
-            placeholder="Select Audience"
-            control={control}
-            options={ALERT_AUDIENCE_OPTIONS}
-            error={errors.audience?.message}
-          />
-        </div>
+        <Select
+          name="audience"
+          label="Audience"
+          variant="secondary"
+          placeholder="Select Audience"
+          control={control}
+          options={ALERT_AUDIENCE_OPTIONS}
+          error={errors.audience?.message}
+        />
         {selectedAudience === "STATE" && (
           <div className={styles.inputSpan2}>
             <Select
