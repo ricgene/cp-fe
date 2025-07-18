@@ -264,12 +264,12 @@ export const ADMIN_MENU_ITEMS: IMenuItem[] = [
     href: PathsEnum.EMPTY,
     items: [
       {
-        label: ROUTES.REGISTERED_MERCHANTS.title,
-        href: ROUTES.REGISTERED_MERCHANTS.path,
-      },
-      {
         label: ROUTES.REQUESTED_MERCHANTS.title,
         href: ROUTES.REQUESTED_MERCHANTS.path,
+      },
+      {
+        label: ROUTES.REGISTERED_MERCHANTS.title,
+        href: ROUTES.REGISTERED_MERCHANTS.path,
       },
       {
         label: ROUTES.REVOKED_MERCHANTS.title,

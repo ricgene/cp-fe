@@ -178,7 +178,7 @@ const RequestedMerchants = () => {
       <div className={styles.pageContainer}>
         <ControlHeader
           title="Merchant's Request"
-          description="Approve or Reject Merchant Requests"
+          description="Approve/Reject Merchant Requests"
           searchBarProps={{
             onChangeText: (value) => setSearchQuery(value),
           }}

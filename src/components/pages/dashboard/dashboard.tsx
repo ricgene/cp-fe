@@ -123,7 +123,7 @@ const Dashboard = ({ forAdmin }: Props) => {
               series={pointsSpentSeries}
               chartType={ChartTypeEnum.BAR}
               title="Points Spent by Users"
-              subtitle="Points spent by user on your offers"
+              subtitle="Points spent by user on your Perk"
               selectedTimeRange={selectedTimeRange.pointsSpent}
               onTimeRangeChange={(value) => {
                 setSelectedTimeRange({

@@ -94,9 +94,9 @@ const CreateAlertModal = ({ isOpen, onClose, onSuccess }: Props) => {
         />
         <Select
           name="type"
-          label="Emergency Type"
+          label="Alert Type"
           variant="secondary"
-          placeholder="Select Emergency Type"
+          placeholder="Select Alert Type"
           control={control}
           options={ALERT_TYPE_OPTIONS}
           error={errors.type?.message}
