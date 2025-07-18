@@ -106,8 +106,8 @@ export const transformRequestsToTableData = (requests: IMerchantRequest[]) => {
     id: request.id,
     type:
       request.type === RequestTypeEnum.MERCHANT_UPDATE_REQUEST
-        ? "Update Request"
-        : "Registration Request",
+        ? "Profile Update"
+        : "Registration",
     name: request.name,
     email: request.email,
     phone: `${request.callingCode}${request.phone}`,

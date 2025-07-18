@@ -70,7 +70,7 @@ export const REQUESTS_TABLE_COLUMNS: {
   key: keyof IMerchantRequest;
   label: string;
 }[] = [
-  { key: "name", label: "Name of Merchant" },
+  { key: "name", label: "Name" },
   { key: "email", label: "Email" },
   { key: "phone", label: "Phone No." },
   { key: "businessName", label: "Business Name" },

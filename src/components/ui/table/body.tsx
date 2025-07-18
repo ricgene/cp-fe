@@ -7,6 +7,7 @@ import { twMerge } from "tailwind-merge";
 import { Checkbox } from "@/components/ui";
 import { truncateText } from "@/utils/misc.utils";
 import { IKeyLabelPair, ITableData } from "@/types";
+import Icon from "@/Icons";
 
 // Styles
 const styles = {
@@ -15,7 +16,7 @@ const styles = {
   headerRow: "bg-element",
   headerCell: "font-medium py-4 px-4 min-w-[90px] text-nowrap",
   headerCellSmall: "!min-w-fit w-[100px]",
-  actionCell: "!min-w-[120px] text-center",
+  actionCell: "!min-w-[120px] pl-6",
 
   // body
   tbody: "text-paragraph",
@@ -23,8 +24,10 @@ const styles = {
   bodyCellSelect: "h-11 px-4 text-nowrap flex pl-8",
   emailCell: "!lowercase",
   emptyBodyCell: "p-4 lg:text-center",
-  actionButton: "p-1 cursor-pointer hover:opacity-30",
-  activeActionButton: "text-primary",
+  actionButton:
+    "py-1 cursor-pointer hover:opacity-30 flex items-center gap-2 stroke-paragraph",
+  activeActionButton: "text-primary stroke-primary",
+  actionChevron: "h-4 w-4 stroke-inherit",
   imageContainer:
     "mx-auto h-7 aspect-video relative bg-gray-100 rounded overflow-hidden",
   truncatedCell: "cursor-default",
@@ -200,7 +203,7 @@ const TableHeader = ({
       })}
       {showActions && !isEmpty && (
         <th className={twMerge(styles.headerCell, styles.actionCell)}>
-          Actions
+          Action
         </th>
       )}
     </tr>
@@ -297,7 +300,8 @@ const TableRow = ({
           )}
           onClick={(e) => onActionClick(Number(row.id), e)}
         >
-          Actions
+          Select
+          <Icon name="chevronDown" className={styles.actionChevron} />
         </button>
       </td>
     )}

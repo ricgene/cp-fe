@@ -4,7 +4,7 @@ import { ApexOptions } from "apexcharts";
 // CONSTANTS
 export const SORT_BY_OPTIONS: { value: SortByEnum; label: string }[] = [
   { value: SortByEnum.asc, label: "Oldest" },
-  { value: SortByEnum.desc, label: "Newest" },
+  { value: SortByEnum.desc, label: "Latest" },
 ];
 
 export const COMMON_CHART_OPTIONS: Partial<ApexOptions> = {
