@@ -25,6 +25,7 @@ interface ChartCardProps {
   title: string;
   loading: boolean;
   subtitle: string;
+  tooltipText: string[];
   multiSeries?: boolean;
   series: IChartSeries[];
   chartType: DashboardChartType;
@@ -39,6 +40,7 @@ const ChartCard = ({
   loading,
   subtitle,
   chartType,
+  tooltipText,
   selectedTimeRange,
   multiSeries = false,
   timeRangeOptions = DASHBOARD_CHART_TIME_RANGE_OPTIONS,
@@ -80,12 +82,17 @@ const ChartCard = ({
         ) : (
           <>
             {chartType === ChartTypeEnum.LINE ? (
-              <LineChart categories={labels} series={series} />
+              <LineChart
+                categories={labels}
+                series={series}
+                tooltipText={tooltipText}
+              />
             ) : (
               <BarChart
                 categories={labels}
                 series={series}
                 multiSeries={multiSeries}
+                tooltipText={tooltipText}
               />
             )}
           </>
