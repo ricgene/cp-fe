@@ -33,9 +33,15 @@ interface Props {
     name: string;
     data: number[];
   }[];
+  tooltipText: string[];
 }
 
-const BarChart = ({ categories, series, multiSeries }: Props) => {
+const BarChart = ({
+  categories,
+  series,
+  multiSeries,
+  tooltipText = ["Points"],
+}: Props) => {
   const stepSize = getStepSize(series);
 
   const options: ApexOptions = {
@@ -80,7 +86,9 @@ const BarChart = ({ categories, series, multiSeries }: Props) => {
         if (value === null) return "";
         return `<div class="text-white ${
           seriesIndex === 1 ? "bg-[#E5D200]" : "bg-primary"
-        } rounded p-1 text-xs">${value.toLocaleString()} Points</div>`;
+        } rounded p-1 text-xs">${value.toLocaleString()} ${
+          tooltipText[seriesIndex]
+        }</div>`;
       },
     },
     yaxis: {

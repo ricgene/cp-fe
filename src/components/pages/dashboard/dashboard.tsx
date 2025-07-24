@@ -85,6 +85,7 @@ const Dashboard = ({ forAdmin }: Props) => {
               series={platformAnalyticsSeries}
               title="Platform analytics"
               subtitle="User growth, Offer performances"
+              tooltipText={["New users", "New offers"]}
               chartType={ChartTypeEnum.BAR}
               selectedTimeRange={selectedTimeRange.platformAnalytics}
               onTimeRangeChange={(value) => {
@@ -109,6 +110,7 @@ const Dashboard = ({ forAdmin }: Props) => {
               series={engagementSeries}
               title="Customer Engagement"
               subtitle="Redemption rates (%)"
+              tooltipText={["Redemptions"]}
               chartType={ChartTypeEnum.LINE}
               selectedTimeRange={selectedTimeRange.engagement}
               onTimeRangeChange={(value) => {
@@ -124,6 +126,7 @@ const Dashboard = ({ forAdmin }: Props) => {
               chartType={ChartTypeEnum.BAR}
               title="Points Spent by Users"
               subtitle="Points spent by user on your Perk"
+              tooltipText={["Points"]}
               selectedTimeRange={selectedTimeRange.pointsSpent}
               onTimeRangeChange={(value) => {
                 setSelectedTimeRange({

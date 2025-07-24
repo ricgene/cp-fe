@@ -14,6 +14,7 @@ import {
   SORT_BY_OPTIONS,
 } from "@/constants";
 import CreateEditOfferModal from "@/components/pages/offers/shared/createEditOfferModal";
+import toast from "react-hot-toast";
 
 const styles = {
   pageContainer: "h-full flex flex-col",
@@ -88,9 +89,11 @@ const DraftOffers = () => {
             actionModal.data.offer.id,
             OfferStatusEnum.ARCHIVED
           );
+          toast.success("Offer archived successfully");
           break;
         case "publish":
           await publishOffer(actionModal.data.offer.id);
+          toast.success("Offer published successfully");
           break;
       }
 

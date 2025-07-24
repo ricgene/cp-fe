@@ -85,7 +85,7 @@ const styles = {
 
 const Sidebar = ({ pathname }: Props) => {
   const router = useRouter();
-  const { userData } = useUserData();
+  const { setUserData, userData } = useUserData();
   const logoutModal = useModal<{ type: "logout" }>(); // for logout
   const { isOpen, closeSidebar } = useMobileSidebar();
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -125,6 +125,7 @@ const Sidebar = ({ pathname }: Props) => {
       const response = await logout();
       router.push(ROUTES.LOGIN.path);
       toast.success(response.data.mesage || "Logged out successfully");
+      setUserData(null);
     } catch (error) {
       handleError(error);
       setIsLoggingOut(false);

@@ -26,9 +26,10 @@ const ReactApexChart = dynamic(() => import("react-apexcharts"), {
 interface Props {
   categories: string[];
   series: IChartSeries[];
+  tooltipText: string[];
 }
 
-const LineChart = ({ categories, series }: Props) => {
+const LineChart = ({ categories, series, tooltipText = ["Points"] }: Props) => {
   const stepSize = getStepSize(series);
 
   const options: ApexOptions = {
@@ -78,7 +79,9 @@ const LineChart = ({ categories, series }: Props) => {
       custom: function ({ series, seriesIndex, dataPointIndex }) {
         const value = series[seriesIndex][dataPointIndex];
         if (value === null || seriesIndex === 1) return "";
-        return `<div class="text-white bg-primary rounded p-1 text-xs">${value.toLocaleString()} Redemptions</div>`;
+        return `<div class="text-white bg-primary rounded p-1 text-xs">${value.toLocaleString()} ${
+          tooltipText[seriesIndex]
+        }</div>`;
       },
     },
     colors: ["#008F45"],
