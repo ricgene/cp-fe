@@ -15,8 +15,8 @@ export const LANDING_HEADER_CONTENT = {
     ],
   },
   button: {
-    text: "Get Started",
-    link: ROUTES.LOGIN.path,
+    text: "Book a Demo",
+    link: ROUTES.CALENDLY.path,
   },
 } as const;
 
