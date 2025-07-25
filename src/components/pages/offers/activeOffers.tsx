@@ -15,6 +15,7 @@ import {
 } from "@/constants";
 import QRCodeModal from "@/components/pages/offers/shared/qrCodeModal";
 import CreateEditOfferModal from "@/components/pages/offers/shared/createEditOfferModal";
+import { toast } from "react-hot-toast";
 
 interface Props {
   forAdmin?: boolean;
@@ -87,6 +88,7 @@ const ActiveOffers = ({ forAdmin = false }: Props) => {
         actionModal.data.offer.id,
         OfferStatusEnum.ARCHIVED
       );
+      toast.success("Offer archived successfully");
       await refresh();
     } catch (error) {
       handleError(error);
