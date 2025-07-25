@@ -246,7 +246,7 @@ const BusinessDetailsTab = ({ userData, setIsLoading }: Props) => {
       case "save":
         return "Save Changes";
       case "cancel":
-        return "Proceed";
+        return "Confirm";
       default:
         return "";
     }
