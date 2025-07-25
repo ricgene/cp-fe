@@ -13,6 +13,7 @@ import {
   OFFER_TABLE_COLUMNS,
   SORT_BY_OPTIONS,
 } from "@/constants";
+import toast from "react-hot-toast";
 
 const styles = {
   pageContainer: "h-full flex flex-col",
@@ -64,6 +65,7 @@ const ExpiredOffers = () => {
     try {
       setIsActionLoading(true);
       await deleteOffer(deleteModal.data.id);
+      toast.success("Offer deleted successfully");
       await refresh();
     } catch (error) {
       handleError(error);

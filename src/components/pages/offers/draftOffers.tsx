@@ -92,8 +92,10 @@ const DraftOffers = () => {
           toast.success("Offer archived successfully");
           break;
         case "publish":
-          await publishOffer(actionModal.data.offer.id);
-          toast.success("Offer published successfully");
+          const response = await publishOffer(actionModal.data.offer.id);
+          toast.success(
+            response.data.message || "Offer published successfully"
+          );
           break;
       }
 
