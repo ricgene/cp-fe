@@ -49,32 +49,34 @@ const ResetPasswordForm = () => {
       description="Set a new password to proceed"
       formClassName={styles.form}
     >
-      <div className={styles.inputGrid}>
-        <LabeledInput
-          label="Enter new password"
-          placeholder="Enter new password"
-          {...register("password", { required: "Password is required" })}
-          error={errors.password?.message}
-        />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.inputGrid}>
+          <LabeledInput
+            label="Enter new password"
+            placeholder="Enter new password"
+            {...register("password", { required: "Password is required" })}
+            error={errors.password?.message}
+          />
 
-        <LabeledInput
-          label="Confirm your new password"
-          placeholder="Confirm your new password"
-          {...register("confirmPassword", {
-            required: "Confirm password is required",
-          })}
-          error={errors.confirmPassword?.message}
-        />
-      </div>
+          <LabeledInput
+            label="Confirm your new password"
+            placeholder="Confirm your new password"
+            {...register("confirmPassword", {
+              required: "Confirm password is required",
+            })}
+            error={errors.confirmPassword?.message}
+          />
+        </div>
 
-      <Button
-        variant="primary"
-        loading={isSubmitting}
-        className={styles.button}
-        onClick={handleSubmit(onSubmit)}
-      >
-        Save Password
-      </Button>
+        <Button
+          type="submit"
+          variant="primary"
+          loading={isSubmitting}
+          className={styles.button}
+        >
+          Save Password
+        </Button>
+      </form>
     </AuthWrapper>
   );
 };
