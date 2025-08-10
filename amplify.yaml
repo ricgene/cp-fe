@@ -6,11 +6,13 @@ frontend:
         - npm ci
     build:
       commands:
+        - export NEXT_PUBLIC_API_URL=https://bnengkzaqe.us-east-1.awsapprunner.com
         - npm run build
   artifacts:
-    baseDirectory: build
+    baseDirectory: .next
     files:
       - '**/*'
   cache:
     paths:
       - node_modules/**/*
+      - .next/cache/**/*

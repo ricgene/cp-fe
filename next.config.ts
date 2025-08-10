@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   rewrites: async () => [
     {
       source: "/api/:path*",
-      destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
+      destination: `${process.env.NEXT_PUBLIC_API_URL || 'https://bnengkzaqe.us-east-1.awsapprunner.com'}/:path*`,
     },
   ],
   images: {
