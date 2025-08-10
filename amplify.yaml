@@ -9,7 +9,7 @@ frontend:
         - export NEXT_PUBLIC_API_URL=https://bnengkzaqe.us-east-1.awsapprunner.com
         - npm run build
   artifacts:
-    baseDirectory: .next
+    baseDirectory: out
     files:
       - '**/*'
   cache:

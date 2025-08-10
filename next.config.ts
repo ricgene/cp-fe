@@ -1,29 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  rewrites: async () => [
-    {
-      source: "/api/:path*",
-      destination: `${process.env.NEXT_PUBLIC_API_URL || 'https://bnengkzaqe.us-east-1.awsapprunner.com'}/:path*`,
-    },
-  ],
+  output: 'export',          // Enable static export for Amplify
+  trailingSlash: true,       // Required for static export
   images: {
+    unoptimized: true,       // Required for static export
     remotePatterns: [{ hostname: "*" }],
   },
   reactStrictMode: false,
-  headers: async () => {
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "no-store",
-          },
-        ],
-      },
-    ];
-  },
+  // Note: rewrites and headers don't work with static export
+  // API calls will need to use full URLs instead of rewrites
 };
 
 export default nextConfig;
